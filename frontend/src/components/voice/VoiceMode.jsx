@@ -1,31 +1,58 @@
 // VoiceMode.jsx
-// Full-screen immersive voice/video takeover. Toggles between:
-//   - voice-only: big centered blob
-//   - video-call: user self-view + smaller blob
+// Full-screen immersive voice/video takeover — a quiet room for practising a
+// hard conversation with the coach. The coach's orb is the presence in the
+// room; your self-view (when video is on) is secondary.
 //
-// Wires the blob to REAL audio via audioEngine.js and drives its state from the
-// existing WS events. Adapted to this project's actual pipeline:
-//   - mic stream comes from the shared, ref-counted micStream service (no 2nd
-//     getUserMedia); this component holds a ref for its whole lifetime.
-//   - TTS plays through the SINGLETON output player, which ConversationPage
-//     feeds from `audio_frame`. VoiceMode only OBSERVES it for the orb — it does
-//     not enqueue, so there is exactly one audio path.
-//   - backend state arrives as { value: 'processing'|'speaking'|'listening' }.
+// Audio wiring is unchanged and deliberately single-path:
+//   - mic comes from the shared, ref-counted micStream service (no 2nd
+//     getUserMedia); this component holds ONE ref for its whole lifetime.
+//   - TTS plays through the SINGLETON output player, fed by ConversationPage
+//     from `audio_frame`. VoiceMode only OBSERVES it (onStart/onEnd + getLevel)
+//     for the orb — it never enqueues, so there is exactly one audio path.
+//   - the orb reacts to REAL amplitude: mic level while you record, TTS level
+//     while the coach speaks, both from audioEngine's analysers.
+//   - video is added LAZILY to the same stream (enableVideoTrack) only when you
+//     toggle it on, so voice-only use never prompts for the camera.
+//
+// This file is a UI redesign only — same WS client and protocol.
 
-import { useEffect, useRef, useState, useCallback } from 'react';
-import VoiceOrb, { PALETTES } from './VoiceOrb';
+import { useEffect, useRef, useState, useCallback, useMemo } from 'react';
+import VoiceOrb from './VoiceOrb';
 import { createInputAnalyser, getOutputPlayer, getAudioContext } from '../../services/audioEngine';
 import { acquireMicStream, releaseMicStream, enableVideoTrack, disableVideoTrack } from '../../services/micStream';
+import { WS_STATES } from '../../services/wsClient';
+
+// ---- state model ----------------------------------------------------------
+// A single `phase` drives the whole UI. Each phase has a distinct colour token,
+// orb behaviour (in VoiceOrb), a text LABEL and a DESCRIPTION — so conversation
+// state is never conveyed by colour alone.
+const META = {
+  connecting:      { orb: 'connecting',   color: 'var(--whisper)',  label: 'CONNECTING',   desc: 'Setting up your session…' },
+  reconnecting:    { orb: 'reconnecting', color: 'var(--whisper)',  label: 'RECONNECTING', desc: 'Connection dropped — trying to restore it…' },
+  listening:       { orb: 'listening',    color: 'var(--bone-dim)', label: 'YOUR TURN',    desc: 'Hold the mic or press Space to talk' },
+  recording:       { orb: 'recording',    color: 'var(--sage)',     label: 'LISTENING',    desc: 'Release to send' },
+  thinking:        { orb: 'thinking',     color: 'var(--bone-dim)', label: 'THINKING',     desc: 'The coach is composing a reply' },
+  speaking:        { orb: 'speaking',     color: 'var(--gold)',     label: 'SPEAKING',     desc: 'The coach is speaking' },
+  'mic-denied':    { orb: 'error',        color: 'var(--rose)',     label: 'MIC BLOCKED',  desc: 'Microphone access is blocked. Allow it in your browser, then retry.' },
+  'mic-nodevice':  { orb: 'error',        color: 'var(--rose)',     label: 'NO MICROPHONE',desc: 'No microphone was found on this device.' },
+  'mic-error':     { orb: 'error',        color: 'var(--rose)',     label: 'MIC ERROR',    desc: 'Could not access the microphone.' },
+  'no-connection': { orb: 'error',        color: 'var(--rose)',     label: 'DISCONNECTED', desc: 'Connection lost. Reconnect to continue the conversation.' },
+};
 
 export default function VoiceMode({
   conversationId,     // reserved (turn pipeline still lives in ConversationPage)
   wsClient,           // the shared WebSocket client (getWebSocketClient())
   onEnd,              // close the full-screen mode
 }) {
-  const [orbState, setOrbState] = useState('connecting'); // connecting|listening|thinking|speaking
   const [videoMode, setVideoMode] = useState(false);
   const [micOn, setMicOn] = useState(true);
-  const [listening, setListening] = useState(false); // push-to-talk state
+  const [talking, setTalking] = useState(false);   // push-to-talk held
+
+  const [micStatus, setMicStatus] = useState('acquiring'); // acquiring|ready|denied|nodevice|error
+  const [connStatus, setConnStatus] = useState('connecting'); // connecting|open|reconnecting|lost
+  const [reconnectAttempt, setReconnectAttempt] = useState(0);
+  const [turnState, setTurnState] = useState(null); // null|processing|speaking|listening
+  const [coachSpeaking, setCoachSpeaking] = useState(false);
 
   const videoRef = useRef(null);
   const streamRef = useRef(null);
@@ -35,272 +62,399 @@ export default function VoiceMode({
   const startTimeRef = useRef(null);
   const micOnRef = useRef(true);
   const coachSpeakingRef = useRef(false);
-  
-  useEffect(() => { micOnRef.current = micOn; }, [micOn]);
+  const heldMicRef = useRef(false);
+  const disposedRef = useRef(false);
+  const talkingRef = useRef(false);
 
-  // ---- Acquire the shared mic stream + observe the singleton TTS player -----
+  useEffect(() => { micOnRef.current = micOn; }, [micOn]);
+  useEffect(() => { talkingRef.current = talking; }, [talking]);
+
+  // ---- derive the single phase ---------------------------------------------
+  const phase = useMemo(() => {
+    if (micStatus === 'denied') return 'mic-denied';
+    if (micStatus === 'nodevice') return 'mic-nodevice';
+    if (micStatus === 'error') return 'mic-error';
+    if (connStatus === 'lost') return 'no-connection';
+    if (connStatus === 'reconnecting') return 'reconnecting';
+    if (connStatus === 'connecting' || micStatus === 'acquiring') return 'connecting';
+    if (coachSpeaking || turnState === 'speaking') return 'speaking';
+    if (turnState === 'processing') return 'thinking';
+    if (talking) return 'recording';
+    return 'listening';
+  }, [micStatus, connStatus, turnState, coachSpeaking, talking]);
+
+  const meta = META[phase] || META.listening;
+  const orbState = meta.orb;
+  const canTalk = micStatus === 'ready' && connStatus === 'open';
+  const canTalkRef = useRef(false);
+  useEffect(() => { canTalkRef.current = canTalk; }, [canTalk]);
+
+  // ---- mic acquisition (retryable) -----------------------------------------
+  const acquireMic = useCallback(async () => {
+    setMicStatus('acquiring');
+    try {
+      const s = await acquireMicStream();
+      if (disposedRef.current) { releaseMicStream(); return; }
+      heldMicRef.current = true;
+      streamRef.current = s;
+      inputAnalyserRef.current?.disconnect();
+      inputAnalyserRef.current = createInputAnalyser(s);
+      if (videoRef.current && s.getVideoTracks().length) videoRef.current.srcObject = s;
+      setMicStatus('ready');
+    } catch (e) {
+      const name = e?.name;
+      const status =
+        name === 'NotAllowedError' || name === 'SecurityError' ? 'denied'
+        : name === 'NotFoundError' || name === 'DevicesNotFoundError' ? 'nodevice'
+        : 'error';
+      console.error('[VoiceMode] mic acquire failed', e);
+      setMicStatus(status);
+    }
+  }, []);
+
+  // ---- acquire mic + observe the singleton TTS player ----------------------
   useEffect(() => {
     getAudioContext(); // resume on the click that opened this (user gesture)
+    disposedRef.current = false;
+    acquireMic();
 
-    let disposed = false;
-    const streamPromise = acquireMicStream();
-    streamPromise
-      .then((s) => {
-        if (disposed) return;
-        streamRef.current = s;
-        inputAnalyserRef.current = createInputAnalyser(s);
-        if (videoRef.current && s.getVideoTracks().length) {
-          videoRef.current.srcObject = s;
-        }
-        setOrbState('listening');
-      })
-      .catch((e) => {
-        console.error('[VoiceMode] mic acquire failed', e);
-        setOrbState('listening'); // still show the mode; orb just idles
-      });
-
-    // Coach speech drives the orb via the real output analyser.
     const player = getOutputPlayer();
-    const offStart = player.onStart(() => {
-      coachSpeakingRef.current = true;
-      setOrbState('speaking');
-    });
-    const offEnd = player.onEnd(() => {
-      coachSpeakingRef.current = false;
-      setOrbState('listening');
-    });
+    const offStart = player.onStart(() => { coachSpeakingRef.current = true; setCoachSpeaking(true); });
+    const offEnd = player.onEnd(() => { coachSpeakingRef.current = false; setCoachSpeaking(false); });
 
     return () => {
-      disposed = true;
+      disposedRef.current = true;
       offStart();
       offEnd();
       inputAnalyserRef.current?.disconnect();
       inputAnalyserRef.current = null;
-      // Release only if the acquire succeeded (matches its refcount bump).
-      streamPromise.then(() => releaseMicStream()).catch(() => {});
+      if (heldMicRef.current) { releaseMicStream(); heldMicRef.current = false; }
     };
-  }, []);
+  }, [acquireMic]);
 
-  // ---- The orb reads DIFFERENT analysers depending on state ----------------
-  // listening -> input (mic) ; speaking -> output (TTS) ; else -> idle
-  const getLevel = useCallback(() => {
-    if (orbState === 'speaking') return getOutputPlayer().getLevel();
-    if (orbState === 'listening' && micOnRef.current) return inputAnalyserRef.current?.getLevel() ?? 0;
-    return 0;
-  }, [orbState]);
-
-  // ---- Wire WS state -> orb state ------------------------------------------
+  // ---- wire WS connection + turn state -------------------------------------
   useEffect(() => {
     if (!wsClient) return;
+    setConnStatus(wsClient.getState() === WS_STATES.OPEN ? 'open' : 'connecting');
 
     const onState = (payload) => {
-      // backend: { value: 'processing'|'speaking'|'listening' }.
-      // connection lifecycle emits a bare string ('OPEN'/'CLOSED') — ignore it.
-      const v = typeof payload === 'string' ? null : payload?.value;
-      if (v === 'processing') setOrbState('thinking');
-      else if (v === 'speaking') {
-        coachSpeakingRef.current = true;
-        setOrbState('speaking');
-      } else if (v === 'listening') {
-        coachSpeakingRef.current = false;
-        setOrbState('listening');
+      // Connection lifecycle arrives as a bare string; backend turn state as { value }.
+      if (typeof payload === 'string') {
+        if (payload === WS_STATES.OPEN) {
+          setConnStatus('open');
+          setReconnectAttempt(0);
+        } else if (payload === WS_STATES.CLOSED) {
+          // wsClient auto-reconnects up to maxReconnectAttempts; reconnectAttempts
+          // is still the pre-increment value at emit time.
+          const a = wsClient.reconnectAttempts ?? 0;
+          const m = wsClient.maxReconnectAttempts ?? 0;
+          if (a < m) { setConnStatus('reconnecting'); setReconnectAttempt(a + 1); }
+          else { setConnStatus('lost'); }
+        }
+        return;
       }
+      const v = payload?.value;
+      if (v === 'processing' || v === 'speaking' || v === 'listening') setTurnState(v);
     };
 
     wsClient.on('state', onState);
     return () => wsClient.off('state', onState);
   }, [wsClient]);
 
-  // ---- Controls -------------------------------------------------------------
-  const toggleMic = () => {
-    setMicOn((on) => {
-      const next = !on;
-      streamRef.current?.getAudioTracks().forEach((tr) => { tr.enabled = next; });
-      return next;
-    });
-  };
+  // ---- the orb reads DIFFERENT analysers depending on state ----------------
+  const getLevel = useCallback(() => {
+    if (orbState === 'speaking') return getOutputPlayer().getLevel();
+    if (orbState === 'recording' && micOnRef.current) return inputAnalyserRef.current?.getLevel() ?? 0;
+    return 0;
+  }, [orbState]);
 
-  const toggleVideo = async () => {
-    const next = !videoMode;
-    if (next) {
-      const s = await enableVideoTrack(); // lazily adds camera to the SAME stream
-      if (s && videoRef.current) videoRef.current.srcObject = s;
-      // >>> WIRE (later): start sending webcam frames for body-language analysis
-    } else {
-      disableVideoTrack();
-    }
-    setVideoMode(next);
-  };
-
-  // Start recording audio for streaming
+  // ---- recorder (unchanged protocol) ---------------------------------------
   const startRecording = useCallback(() => {
     const stream = streamRef.current;
     const client = wsClient;
     if (!stream || recorderRef.current) return;
-
     try {
       const audioStream = new MediaStream(stream.getAudioTracks());
-      const recorder = new MediaRecorder(audioStream, { mimeType: "audio/webm" });
+      const recorder = new MediaRecorder(audioStream, { mimeType: 'audio/webm' });
       chunksRef.current = [];
       startTimeRef.current = Date.now();
-
       recorder.ondataavailable = (e) => {
         if (e.data.size > 0) {
           chunksRef.current.push(e.data);
-          // Send chunk to WebSocket for live transcription
           if (client && !coachSpeakingRef.current) {
-            // Convert blob to arrayBuffer for sending
-            e.data.arrayBuffer().then(buffer => {
-              client.sendAudioChunk(buffer);
-            });
+            e.data.arrayBuffer().then((buffer) => client.sendAudioChunk(buffer));
           }
         }
       };
-
-      recorder.start(250); // 250ms timeslice for streaming
+      recorder.start(250);
       recorderRef.current = recorder;
     } catch (e) {
       console.error('[VoiceMode] recorder start error:', e);
     }
   }, [wsClient]);
 
-  // Stop recording
   const stopRecording = useCallback(() => {
     const recorder = recorderRef.current;
-    if (recorder && recorder.state !== 'inactive') {
-      recorder.stop();
-      recorderRef.current = null;
-    }
+    if (recorder && recorder.state !== 'inactive') recorder.stop();
+    recorderRef.current = null;
   }, []);
 
-  // Push-to-talk: hold to record, release to send
-  const startTalking = () => {
-    if (!wsClient) return;
-    
+  // ---- push-to-talk ---------------------------------------------------------
+  const startTalking = useCallback(() => {
+    if (!wsClient || !canTalkRef.current || talkingRef.current) return;
     wsClient.sendControlMessage('start_turn');
     startRecording();
-    setListening(true);
-  };
+    setTalking(true);
+  }, [wsClient, startRecording]);
 
-  const stopTalking = () => {
-    if (!wsClient) return;
-    
+  const stopTalking = useCallback(() => {
+    if (!wsClient || !talkingRef.current) return;
     stopRecording();
     wsClient.sendControlMessage('end_turn');
-    setListening(false);
-  };
+    setTalking(false);
+  }, [wsClient, stopRecording]);
 
-  const endSession = () => {
+  // ---- controls -------------------------------------------------------------
+  const toggleMic = useCallback(() => {
+    setMicOn((on) => {
+      const next = !on;
+      streamRef.current?.getAudioTracks().forEach((tr) => { tr.enabled = next; });
+      return next;
+    });
+  }, []);
+
+  const toggleVideo = useCallback(async () => {
+    setVideoMode((prev) => {
+      const next = !prev;
+      if (next) {
+        enableVideoTrack().then((s) => { if (s && videoRef.current) videoRef.current.srcObject = s; });
+      } else {
+        disableVideoTrack();
+      }
+      return next;
+    });
+  }, []);
+
+  const endSession = useCallback(() => {
     getOutputPlayer().stop();
     coachSpeakingRef.current = false;
     stopRecording();
-    setListening(false);
+    setTalking(false);
     onEnd?.();
-  };
+  }, [stopRecording, onEnd]);
 
-  const pal = PALETTES[orbState] || PALETTES.listening;
+  const reconnect = useCallback(() => {
+    if (!wsClient) return;
+    wsClient.reconnectAttempts = 0;
+    wsClient.reconnectDelay = 1000;
+    const cid = wsClient.connectionId ?? (conversationId != null ? Number(conversationId) : null);
+    if (wsClient.currentToken && cid != null) {
+      setConnStatus('connecting');
+      wsClient.connect(cid, wsClient.currentToken);
+    }
+  }, [wsClient, conversationId]);
 
+  // ---- keyboard: Space = push-to-talk, Esc = exit, M = mute, V = video ------
+  useEffect(() => {
+    const onKeyDown = (e) => {
+      const el = document.activeElement;
+      const typing = el && (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA' || el.isContentEditable);
+      if (typing) return;
+      if (e.key === 'Escape') { e.preventDefault(); endSession(); return; }
+      if (e.code === 'Space') {
+        e.preventDefault(); // also stops Space from activating a focused button
+        if (!e.repeat) startTalking();
+        return;
+      }
+      const k = e.key.toLowerCase();
+      if (k === 'm') { e.preventDefault(); toggleMic(); }
+      else if (k === 'v') { e.preventDefault(); toggleVideo(); }
+    };
+    const onKeyUp = (e) => {
+      if (e.code === 'Space') { e.preventDefault(); stopTalking(); }
+    };
+    window.addEventListener('keydown', onKeyDown);
+    window.addEventListener('keyup', onKeyUp);
+    return () => {
+      window.removeEventListener('keydown', onKeyDown);
+      window.removeEventListener('keyup', onKeyUp);
+    };
+  }, [startTalking, stopTalking, toggleMic, toggleVideo, endSession]);
+
+  const isError = orbState === 'error';
+  const description = phase === 'reconnecting' && reconnectAttempt
+    ? `Connection dropped — reconnecting (attempt ${reconnectAttempt} of ${wsClient?.maxReconnectAttempts ?? 5})…`
+    : meta.desc;
+
+  // ---------------------------------------------------------------------------
   return (
-    <div style={{
-      position: 'fixed', inset: 0, zIndex: 50,
-      background: `radial-gradient(65% 50% at 50% 34%, ${pal.glow}22, transparent 72%), radial-gradient(90% 80% at 50% 118%, ${pal.core}16, transparent 70%), #07070b`,
-      transition: 'background 600ms ease',
-      display: 'flex', flexDirection: 'column', alignItems: 'center',
-      justifyContent: 'center', fontFamily: "'Inter', system-ui, sans-serif",
-      animation: 'fadeIn 320ms ease both',
-    }}>
-      {/* status label */}
-      <div style={{
-        position: 'absolute', top: 44, left: 0, right: 0, textAlign: 'center',
-        display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8,
-      }}>
+    <div
+      role="dialog"
+      aria-modal="true"
+      aria-label="Voice conversation with your coach"
+      style={{
+        position: 'fixed', inset: 0, zIndex: 50,
+        background: 'var(--ink)',
+        display: 'flex', flexDirection: 'column',
+        alignItems: 'center', justifyContent: 'center',
+        fontFamily: "'Inter', system-ui, sans-serif",
+        animation: 'fadeIn 320ms ease both',
+        overflow: 'hidden',
+      }}
+    >
+      {/* phase-tinted glow (isolated layer so it degrades to plain ink) */}
+      <div aria-hidden="true" style={{
+        position: 'absolute', inset: 0, pointerEvents: 'none',
+        background: `radial-gradient(55% 45% at 50% 40%, color-mix(in srgb, ${meta.color} 20%, transparent), transparent 72%)`,
+        transition: 'background 600ms ease',
+      }} />
+
+      {/* status header — the "whose turn is it" line (announced to SRs) */}
+      <div
+        role="status"
+        aria-live="polite"
+        style={{
+          position: 'absolute', top: 'clamp(28px, 6vh, 56px)', left: 0, right: 0,
+          display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 10,
+          padding: '0 24px', textAlign: 'center',
+        }}
+      >
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+          <span aria-hidden="true" style={{
+            width: 8, height: 8, borderRadius: '50%', background: meta.color,
+            boxShadow: `0 0 12px ${meta.color}`,
+            animation: (orbState === 'thinking' || orbState === 'connecting' || orbState === 'reconnecting')
+              ? 'breathe 1.4s ease-in-out infinite' : 'none',
+          }} />
+          <span style={{
+            color: meta.color, fontSize: 12, fontFamily: "'JetBrains Mono', monospace",
+            letterSpacing: 4, textTransform: 'uppercase', transition: 'color .4s',
+          }}>{meta.label}</span>
+        </div>
         <div style={{
-          color: pal.glow, fontSize: 12, fontFamily: "'JetBrains Mono', monospace",
-          letterSpacing: 4, textTransform: 'uppercase', transition: 'color .4s',
-        }}>{pal.label}</div>
-        <div style={{
-          fontSize: 12, color: '#6b6b78', fontFamily: "'Inter', system-ui, sans-serif",
-          letterSpacing: 0.3, opacity: orbState === 'speaking' ? 0 : 1, transition: 'opacity .3s',
+          fontSize: 13, color: 'var(--text-muted)',
+          fontFamily: "'Inter', system-ui, sans-serif", letterSpacing: 0.2, maxWidth: 420,
         }}>
-          {listening ? 'Listening — release to send' : 'Hold the mic to talk'}
+          {description}
         </div>
       </div>
 
-      {/* main stage */}
-      {videoMode ? (
-        <div style={{ display: 'flex', alignItems: 'center', gap: 48, flexWrap: 'wrap', justifyContent: 'center' }}>
-          <div style={{
-            position: 'relative', width: 420, height: 315, borderRadius: 24,
-            overflow: 'hidden', background: '#18181b', border: '1px solid #27272a',
-            boxShadow: '0 30px 80px rgba(0,0,0,0.55)',
-          }}>
-            <video ref={videoRef} autoPlay playsInline muted
-              style={{ width: '100%', height: '100%', objectFit: 'cover', transform: 'scaleX(-1)' }} />
-            <div style={{
-              position: 'absolute', bottom: 12, left: 14, fontSize: 11, color: '#a1a1aa',
-              fontFamily: "'DM Mono', monospace", background: 'rgba(0,0,0,0.45)',
-              padding: '3px 9px', borderRadius: 6,
-            }}>you</div>
-          </div>
-          <div style={{ width: 220, height: 220 }}>
-            <VoiceOrb state={orbState} getLevel={getLevel} size="sm" />
-          </div>
+      {/* main stage — the orb is always the hero */}
+      <div style={{
+        width: 'min(58vh, 78vw, 460px)', height: 'min(58vh, 78vw, 460px)',
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
+      }}>
+        <VoiceOrb state={orbState} getLevel={getLevel} size="lg" />
+      </div>
+
+      {/* recovery actions for the unglamorous states */}
+      {isError && (
+        <div style={{ position: 'absolute', top: '62%', display: 'flex', gap: 12 }}>
+          {phase === 'no-connection' ? (
+            <ActionButton onClick={reconnect} label="Reconnect" primary />
+          ) : (
+            <ActionButton onClick={acquireMic} label="Retry microphone" primary />
+          )}
         </div>
-      ) : (
-        <div style={{ width: 'min(52vh, 420px)', height: 'min(52vh, 420px)' }}>
-          <VoiceOrb state={orbState} getLevel={getLevel} size="lg" />
+      )}
+
+      {/* self-view: a small, secondary PiP in the corner (video mode only) */}
+      {videoMode && (
+        <div style={{
+          position: 'absolute', right: 'clamp(16px, 3vw, 28px)', bottom: 'clamp(104px, 16vh, 132px)',
+          width: 'clamp(120px, 20vw, 190px)', aspectRatio: '4 / 3', borderRadius: 16,
+          overflow: 'hidden', background: 'var(--ink-3)', border: '1px solid var(--border)',
+          boxShadow: '0 20px 50px -18px rgba(0,0,0,0.7)',
+          animation: 'fadeUp 300ms cubic-bezier(.2,.7,.2,1) both',
+        }}>
+          <video ref={videoRef} autoPlay playsInline muted
+            style={{ width: '100%', height: '100%', objectFit: 'cover', transform: 'scaleX(-1)' }} />
+          <div style={{
+            position: 'absolute', bottom: 8, left: 10, fontSize: 10, color: 'var(--text-muted)',
+            fontFamily: "'JetBrains Mono', monospace", letterSpacing: 1,
+            background: 'rgba(10,11,16,0.55)', padding: '2px 8px', borderRadius: 6,
+          }}>YOU</div>
         </div>
       )}
 
       {/* controls — floating glass bar */}
       <div style={{
-        position: 'absolute', bottom: 40, left: '50%', transform: 'translateX(-50%)',
+        position: 'absolute', bottom: 'clamp(24px, 5vh, 40px)', left: '50%', transform: 'translateX(-50%)',
         display: 'flex', alignItems: 'center', gap: 14,
         padding: '12px 18px', borderRadius: 999,
-        background: 'rgba(18,18,24,0.55)', border: '1px solid rgba(255,255,255,0.06)',
+        background: 'rgba(19,21,28,0.62)', border: '1px solid var(--border)',
         backdropFilter: 'blur(14px)', WebkitBackdropFilter: 'blur(14px)',
         boxShadow: '0 20px 60px -20px rgba(0,0,0,0.8)',
+        maxWidth: '92vw', flexWrap: 'wrap', justifyContent: 'center',
       }}>
-        <CtrlBtn active={listening} 
-          onMouseDown={startTalking} 
-          onMouseUp={stopTalking} 
-          onMouseLeave={listening ? stopTalking : undefined}
-          onTouchStart={startTalking} 
-          onTouchEnd={stopTalking}
-          title="Hold to talk">
-          {listening ? MicActiveIcon : MicIcon}
+        {/* push-to-talk */}
+        <CtrlBtn
+          active={talking}
+          disabled={!canTalk}
+          onMouseDown={startTalking}
+          onMouseUp={stopTalking}
+          onMouseLeave={talking ? stopTalking : undefined}
+          onTouchStart={(e) => { e.preventDefault(); startTalking(); }}
+          onTouchEnd={(e) => { e.preventDefault(); stopTalking(); }}
+          title="Hold to talk (Space)"
+          ariaLabel={talking ? 'Recording — release to send' : 'Hold to talk'}
+          accent="var(--sage)"
+        >
+          {talking ? MicActiveIcon : MicIcon}
         </CtrlBtn>
-        <CtrlBtn active={micOn} onClick={toggleMic} title={micOn ? 'Mute' : 'Unmute'}>
+
+        {/* mute */}
+        <CtrlBtn active={micOn} onClick={toggleMic}
+          title={micOn ? 'Mute (M)' : 'Unmute (M)'}
+          ariaLabel={micOn ? 'Mute microphone' : 'Unmute microphone'}
+          alert={!micOn}>
           {micOn ? MicIcon : MicOffIcon}
         </CtrlBtn>
-        <CtrlBtn active={videoMode} onClick={toggleVideo} title="Toggle video">
-          {VideoIcon}
+
+        {/* video */}
+        <CtrlBtn active={videoMode} onClick={toggleVideo}
+          title="Toggle video (V)"
+          ariaLabel={videoMode ? 'Turn camera off' : 'Turn camera on'}>
+          {videoMode ? VideoIcon : VideoOffIcon}
         </CtrlBtn>
-        <button onClick={endSession} style={{
-          width: 56, height: 56, borderRadius: '50%', border: 'none',
-          background: '#dc2626', color: '#fff', cursor: 'pointer', display: 'flex',
-          alignItems: 'center', justifyContent: 'center',
-        }}>{EndIcon}</button>
+
+        {/* exit */}
+        <button onClick={endSession} title="Exit (Esc)" aria-label="Exit voice mode"
+          style={{
+            width: 52, height: 52, borderRadius: '50%', border: '1px solid var(--rose)',
+            background: 'color-mix(in srgb, var(--rose) 22%, transparent)', color: 'var(--rose)',
+            cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center',
+          }}>
+          {EndIcon}
+        </button>
       </div>
     </div>
   );
 }
 
-function CtrlBtn({ active, onClick, onMouseDown, onMouseUp, onMouseLeave, onTouchStart, onTouchEnd, title, children }) {
+// ---- small presentational helpers -----------------------------------------
+function CtrlBtn({ active = true, disabled, onClick, onMouseDown, onMouseUp, onMouseLeave,
+  onTouchStart, onTouchEnd, title, ariaLabel, children, accent = 'var(--gold)', alert }) {
+  const borderColor = alert ? 'var(--rose)' : active ? 'var(--border)' : 'var(--border)';
+  const color = alert ? 'var(--rose)' : active ? 'var(--text-base)' : 'var(--text-muted)';
   return (
-    <button 
-      onClick={onClick} 
+    <button
+      onClick={onClick}
       onMouseDown={onMouseDown}
       onMouseUp={onMouseUp}
       onMouseLeave={onMouseLeave}
       onTouchStart={onTouchStart}
       onTouchEnd={onTouchEnd}
-      title={title} 
+      title={title}
+      aria-label={ariaLabel || title}
+      aria-pressed={onClick ? active : undefined}
+      disabled={disabled}
       style={{
         width: 52, height: 52, borderRadius: '50%',
-        border: `1px solid ${active ? '#27272a' : '#7f1d1d'}`,
-        background: active ? '#18181b' : '#3f1d1d',
-        color: active ? '#e4e4e7' : '#f87171', cursor: 'pointer',
+        border: `1px solid ${borderColor}`,
+        background: active && accent && !alert ? `color-mix(in srgb, ${accent} 16%, transparent)` : 'var(--ink-3)',
+        color, cursor: disabled ? 'not-allowed' : 'pointer',
+        opacity: disabled ? 0.45 : 1,
         display: 'flex', alignItems: 'center', justifyContent: 'center',
         transition: 'all .15s',
       }}>
@@ -309,8 +463,24 @@ function CtrlBtn({ active, onClick, onMouseDown, onMouseUp, onMouseLeave, onTouc
   );
 }
 
+function ActionButton({ onClick, label, primary }) {
+  return (
+    <button onClick={onClick} style={{
+      padding: '11px 20px', borderRadius: 8, cursor: 'pointer',
+      fontFamily: "'Inter', system-ui, sans-serif", fontSize: 13, fontWeight: 600, letterSpacing: 0.3,
+      border: primary ? 'none' : '1px solid var(--border)',
+      background: primary ? 'var(--gold)' : 'transparent',
+      color: primary ? 'var(--ink)' : 'var(--text-base)',
+    }}>
+      {label}
+    </button>
+  );
+}
+
+// ---- icons ----------------------------------------------------------------
 const MicIcon = (<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2M12 19v4"/></svg>);
-const MicActiveIcon = (<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="8" fill="currentColor"/><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2M12 19v4"/></svg>);
+const MicActiveIcon = (<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="8" fill="currentColor" opacity="0.18"/><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2M12 19v4"/></svg>);
 const MicOffIcon = (<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="1" y1="1" x2="23" y2="23"/><path d="M9 9v3a3 3 0 0 0 5.12 2.12M15 9.34V4a3 3 0 0 0-5.94-.6"/><path d="M17 16.95A7 7 0 0 1 5 12v-2m14 0v2a7 7 0 0 1-.11 1.23M12 19v4"/></svg>);
 const VideoIcon = (<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>);
+const VideoOffIcon = (<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M16 16v1a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h2m5.66 0H14a2 2 0 0 1 2 2v3.34l1 1L23 7v10"/><line x1="1" y1="1" x2="23" y2="23"/></svg>);
 const EndIcon = (<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M10.68 13.31a16 16 0 0 0 3.41 2.6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7 2 2 0 0 1 1.72 2v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.42 19.42 0 0 1-3.33-2.67" transform="rotate(135 12 12)"/></svg>);
