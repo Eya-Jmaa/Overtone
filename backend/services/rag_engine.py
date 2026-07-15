@@ -57,7 +57,16 @@ def _ensure_loaded() -> bool:
             import chromadb
             from sentence_transformers import SentenceTransformer
 
-            model = SentenceTransformer(settings.rag_embed_model)
+            # local_files_only: the model is already cached, so never hit the
+            # network. Without this, sentence-transformers does an online HEAD
+            # check on huggingface.co and fails hard when the box is offline /
+            # DNS is flaky ("getaddrinfo failed"), disabling RAG needlessly.
+            try:
+                model = SentenceTransformer(settings.rag_embed_model, local_files_only=True)
+            except Exception:
+                # Fall back to a normal (possibly online) load if the cache is
+                # incomplete or the kwarg isn't supported by this version.
+                model = SentenceTransformer(settings.rag_embed_model)
             client = chromadb.PersistentClient(path=_db_path())
             collection = client.get_collection(settings.rag_collection)
             _model = model
