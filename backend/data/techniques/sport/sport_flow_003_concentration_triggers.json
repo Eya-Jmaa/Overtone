@@ -1,0 +1,21 @@
+{
+  "id": "sport_flow_003",
+  "technique": "Concentration Triggers",
+  "source_framework": "Sport Psychology",
+  "source_citation": "Moran — Sport and Exercise Psychology (2004); Boutcher — attentional focus in sport research",
+  "mode": "sport",
+  "topics": ["flow", "concentration", "pre_performance", "mental_preparation"],
+  "applicable_scenarios": ["pre_competition", "during_performance", "mental_preparation"],
+  "detected_signals": [
+    "concentration_lapse_detected",
+    "distraction_language_detected",
+    "low_engagement_markers",
+    "speaking_rate_drop_mid_performance"
+  ],
+  "problem_it_solves": "Entering performance without a reliable method to shift from divided, wandering attention into the narrowed, task-focused attentional state that performance requires — and being unable to recover focus once it's been disrupted.",
+  "description": "A concentration trigger is a personal cue — physical, verbal, or visual — that reliably signals the transition from 'off-task' to 'on-task' attention. It functions as the mental equivalent of a start signal: everything before it is preparation, everything after it is performance. The trigger creates a discrete attentional boundary that makes the shift from broad awareness to narrow task focus deliberate and rapid.\n\nConcentration triggers work through conditioning: by consistently using the same cue at the moment of attention shift during hundreds of practice trials, the cue becomes associated with the attentional state and begins to reliably produce it. Over time, the trigger functions almost automatically — a finger snap, a deep breath, saying a word, or looking at a specific spot on the court or field becomes sufficient to produce the focused attentional state.\n\nTriggers also function as re-concentration devices during performance: when attention has been pulled away by a distraction (crowd noise, previous error, scoreboard check), the athlete can use their trigger to signal the return to task focus without requiring prolonged mental effort. This is why athletes with strong pre-performance routines typically include an explicit concentration trigger as the final step — it marks the moment where preparation ends and execution begins.",
+  "when_to_use": "As the final step in any pre-performance routine, and as a reset tool whenever concentration has been disrupted during performance. The system would detect the need for concentration trigger development when users report inconsistent concentration quality across performances or when attention disruption cascades into multiple errors.",
+  "practice_drill": "Design a personal concentration trigger: choose something physical (a specific hand movement, a particular bounce of the ball, adjusting a piece of equipment), verbal (a single word said internally), or visual (focusing on a specific external point). Use this trigger consistently at the moment your attention shifts from preparation to execution in 100 training instances. Test it in simulated pressure environments. Over time, the trigger should be able to produce a fast, reliable attentional shift with minimal conscious effort.",
+  "common_mistakes": "Choosing a trigger that depends on external circumstances that won't always be available. Not practicing the trigger enough to condition the association — the trigger only works if the association has been built through repetition. Using the trigger but not actually shifting attention at that moment — the trigger is only as good as the attentional shift it initiates. Abandoning the trigger under extreme pressure when it's most needed.",
+  "language": "en"
+}

@@ -1,0 +1,21 @@
+{
+  "id": "psy_got_002",
+  "technique": "Soft Startup",
+  "source_framework": "Gottman Method",
+  "source_citation": "John Gottman — The Seven Principles for Making Marriage Work; Gottman Institute",
+  "mode": "psy",
+  "topics": ["conflict_resolution", "relationships", "communication_patterns"],
+  "applicable_scenarios": ["conflict_resolution", "partner_conflict", "difficult_feedback"],
+  "detected_signals": [
+    "harsh_startup_detected",
+    "accusatory_language_detected",
+    "high_you_statement_ratio",
+    "pitch_elevation_at_conversation_start"
+  ],
+  "problem_it_solves": "Opening difficult conversations with criticism or blame ('You always do this...'), which puts the listener on the defensive before any productive dialogue can begin.",
+  "description": "Gottman's research shows that how a difficult conversation begins determines how it will end — with 96% accuracy. A harsh startup (leading with criticism, contempt, or blame) almost always escalates into conflict. A soft startup is not about being tentative or suppressing your feelings — it's about leading with your experience rather than with an accusation about the other person's character or behavior.\n\nThe formula for a soft startup has three components: (1) Start with 'I' instead of 'you.' (2) Describe the situation, not the person. (3) State what you need, positively. Contrast these two openings: 'You never think about my feelings when you make plans without me' versus 'I've been feeling lonely lately, and I'd love to talk about how we make plans together.' The first triggers defensiveness immediately. The second invites conversation. The soft startup does not mean pretending you're not upset — you can be firm and clear about how you feel. It simply means the opening sentence puts the issue on the table without simultaneously attacking the other person for being the issue.\n\nSoft startups are particularly important when you're already emotionally activated, because your instinct in that state is to lead with what the other person did wrong. The soft startup is a discipline of reorienting to your own experience first.",
+  "when_to_use": "At the beginning of any conversation where you're raising a concern or complaint. The system would flag harsh startup patterns — conversations that open with 'you' + verb + blame, elevated pitch at the first sentence, or accusatory tone within the first 10 seconds of a discussion. This is one of the most important intervention points because the damage from a harsh startup compounds rapidly.",
+  "practice_drill": "Write out the opening sentence of a conversation you've been avoiding. Count the 'you' statements and check for character attacks. Then rewrite using this structure: 'I feel [real feeling word] when [specific observable situation], and I need [specific positive request].' Say the rewritten version aloud three times, starting gently. Record yourself. Does the opening sound like an invitation to conversation or an opening salvo?",
+  "common_mistakes": "Thinking that starting softly means starting weakly — you can be very clear and firm with a soft startup. Softening the beginning but getting harsh within 30 seconds. Using soft words but harsh tone — the system can detect vocal pitch elevation even when the words look neutral on paper. Starting with an apology ('I'm sorry to bring this up, but...') as a substitute for a genuine soft startup — this signals discomfort rather than care.",
+  "language": "en"
+}

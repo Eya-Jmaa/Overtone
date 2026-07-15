@@ -1,0 +1,21 @@
+{
+  "id": "psy_att_003",
+  "technique": "Creating Emotional Safety Before Raising Issues",
+  "source_framework": "Emotionally Focused Therapy / Gottman Method",
+  "source_citation": "Sue Johnson — Hold Me Tight; John Gottman — The Seven Principles for Making Marriage Work",
+  "mode": "psy",
+  "topics": ["attachment", "relationships", "conflict_resolution", "communication_patterns"],
+  "applicable_scenarios": ["partner_conflict", "conflict_resolution", "difficult_conversation"],
+  "detected_signals": [
+    "harsh_startup_detected",
+    "defensiveness_from_partner",
+    "stonewalling_detected",
+    "low_positive_affect_ratio"
+  ],
+  "problem_it_solves": "Raising legitimate issues in a relational climate that is too cold, distant, or adversarial for the conversation to go anywhere productive — ensuring that important issues get rejected by the climate rather than addressed on their merits.",
+  "description": "The success of a difficult conversation depends heavily on the relational conditions in which it occurs. When the emotional bank account is low — when recent interactions have been predominantly negative, distant, or conflictual — even a well-structured complaint will be received through a defensive lens. Gottman's research identified the 5:1 ratio: stable relationships have at least five positive interactions for every negative one. When that ratio drops below 1:1, even neutral events start being interpreted negatively (sentiment override), and repair attempts stop working.\n\nCreating emotional safety before raising issues means ensuring that the relational context is warm enough to receive a concern without triggering automatic defensiveness. This involves three concrete practices. First, build deposits before making withdrawals — increase positive connection through small appreciations, physical affection, humor, shared activities, and genuine interest in the other person's day. Second, check the timing — never raise a significant issue when either person is physiologically activated, hungry, exhausted, or under external stress. Third, signal care before signaling concern — begin by expressing that you value the relationship and want to work together on something that matters to you. This is not manipulation; it's honoring the relational context within which problems have to be solved.\n\nEmotional safety is the soil in which difficult conversations can grow productively. Hard conversations planted in relational drought tend to die.",
+  "when_to_use": "When the system detects a pattern of low positive affect across multiple sessions, or when a difficult issue has been raised multiple times without resolution despite technically sound technique. Also valuable when the user describes conversations that feel 'impossible' regardless of approach — this often indicates a safety problem at the relationship level, not a communication technique problem.",
+  "practice_drill": "For the next seven days, make one deliberate deposit into your relationship's emotional bank account each day — and make it specific and genuine rather than performative. Not just 'how was your day?' but noticing and naming something specific you appreciate about the person, initiating a shared activity, or expressing genuine gratitude. At the end of the week, assess whether the emotional temperature in the relationship has shifted. Then plan the difficult conversation you've been avoiding, knowing the soil is better prepared.",
+  "common_mistakes": "Treating emotional safety as a tactical step to get to the 'real' conversation — if the other person perceives this as a setup, it backfires. Trying to create safety in the same conversation where you raise the difficult issue ('I love you so much, and also I need to talk about something that bothers me') — in chronically strained relationships, more time is needed. Confusing niceness with safety — superficial positivity that the other person doesn't find genuine does not build safety.",
+  "language": "en"
+}

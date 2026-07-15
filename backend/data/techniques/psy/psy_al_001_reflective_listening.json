@@ -1,0 +1,21 @@
+{
+  "id": "psy_al_001",
+  "technique": "Reflective Listening",
+  "source_framework": "Person-Centered Therapy / Motivational Interviewing",
+  "source_citation": "Carl Rogers — Client-Centered Therapy; Miller & Rollnick — Motivational Interviewing",
+  "mode": "psy",
+  "topics": ["active_listening", "empathy", "conflict_resolution"],
+  "applicable_scenarios": ["conflict_resolution", "partner_conflict", "difficult_conversation", "support_conversation"],
+  "detected_signals": [
+    "low_back_channel_rate",
+    "frequent_interruption_detected",
+    "advice_giving_before_listening",
+    "response_latency_too_short"
+  ],
+  "problem_it_solves": "Half-listening while preparing your rebuttal, jumping to advice before the other person feels heard, or responding to the surface content of what someone says while missing what they actually mean.",
+  "description": "Reflective listening is the practice of demonstrating that you have understood what the other person said — both the content and the emotional meaning — before moving on in the conversation. It is not parroting back words ('So you said that you feel frustrated'). It is paraphrasing in your own words to show genuine comprehension, often going slightly deeper than what was literally said to capture what was implied.\n\nSimple reflection mirrors the surface content: 'It sounds like the meeting didn't go the way you'd hoped.' Complex reflection goes deeper, naming something the person implied but didn't say explicitly: 'It sounds like you've been carrying this alone for a while.' The difference between the two is the depth of attunement — complex reflections feel more heard because they demonstrate that you've understood not just the facts but the emotional reality.\n\nMiller and Rollnick's research in Motivational Interviewing demonstrates that reflective listening is one of the most powerful tools for reducing resistance and defensiveness, and for helping people continue to explore their own experience. When people feel genuinely heard, they open up — they go deeper, they access their own ambivalence, and they're far more likely to accept a perspective or suggestion you offer afterward. The sequence matters: listen until they feel heard, then offer your perspective. The reverse order rarely works.",
+  "when_to_use": "Whenever someone is sharing something emotionally significant — a concern, a complaint, or a difficult experience. The system would flag the need for more reflective listening when the user's response latency is very short (jumping in before the person finishes), when there are frequent interruptions, or when the back-channel rate is low (no 'mm-hmm,' 'yeah,' 'I see' signals that indicate tracking).",
+  "practice_drill": "In your next three conversations where someone shares a difficulty or concern, commit to making at least two reflections before you ask a question, offer advice, or share your own perspective. Each reflection should begin with 'It sounds like...' 'So what you're saying is...' or 'I'm hearing...' followed by a paraphrase — not a direct quote. After the conversation, ask yourself: did the person seem to feel heard? Did they go deeper in their sharing after each reflection?",
+  "common_mistakes": "Treating reflection as a set phrase to deploy before getting to your real response, rather than as genuine attention. Reflecting only the facts and missing the emotion ('You said the meeting ran long' rather than 'It sounds like you felt dismissed in that meeting'). Ending every reflection with an upward inflection that sounds like a question — this can feel like you're asking for confirmation rather than demonstrating understanding. Reflecting too much and never contributing your own perspective — the goal is adequate understanding before responding, not replacing response with reflection.",
+  "language": "en"
+}

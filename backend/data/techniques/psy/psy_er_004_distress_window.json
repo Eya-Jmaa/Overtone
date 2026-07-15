@@ -1,0 +1,22 @@
+{
+  "id": "psy_er_004",
+  "technique": "Distress Tolerance Window",
+  "source_framework": "Trauma-Informed Care / Somatic Psychology",
+  "source_citation": "Daniel Siegel — The Developing Mind; Pat Ogden — Sensorimotor Psychotherapy",
+  "mode": "psy",
+  "topics": ["emotion_regulation", "self_awareness", "stress_management"],
+  "applicable_scenarios": ["anxiety_regulation", "anger_management", "conflict_resolution"],
+  "detected_signals": [
+    "emotional_flooding_detected",
+    "speaking_rate_extreme_spike",
+    "low_vocal_energy",
+    "flat_affect_detected",
+    "stonewalling_detected"
+  ],
+  "problem_it_solves": "Not recognizing when you've moved out of your functional emotional range into either hyper-arousal (flooding, rage, panic) or hypo-arousal (shutdown, dissociation, numbness), where effective communication is neurologically impossible.",
+  "description": "The Window of Tolerance describes the zone of emotional arousal within which a person can function effectively: processing information, regulating impulses, maintaining empathy, and making deliberate choices. Within the window, you can be fully present in a difficult conversation. Outside the window — in either direction — effective communication breaks down at the neurological level.\n\nHyper-arousal (above the window's upper edge) is the flooding state: racing thoughts, emotional overwhelm, reactive speech, impulse to attack or flee. Heart rate typically exceeds 100 BPM. Physiologically, the cortex goes largely offline and the system is in fight-or-flight. Hypo-arousal (below the window's lower edge) is the shutdown state: emotional numbness, inability to speak, zoning out, collapse, stonewalling. This is the freeze response. Neither state is voluntary, and shaming yourself for being in either state is counterproductive — the biology doesn't respond to willpower at that point.\n\nThe practical value of this framework is twofold: (1) It gives you a map so you can recognize where you are before you've done too much damage. (2) It tells you what to do: if you're above the window, activate the parasympathetic system (slow exhale, STOP technique, physiological sigh, take a break). If you're below the window, activate the sympathetic system just enough to re-engage (movement, splashing cold water on your face, making brief eye contact, slow speech to re-engage the social engagement system).",
+  "when_to_use": "As a self-monitoring framework throughout any difficult conversation. The system can assist by flagging arousal indicators — vocal pitch, speaking rate, response latency, energy level — that suggest the user is approaching the window's edges. Learning your personal early-warning signals (jaw tension, speaking faster, brain going 'foggy') allows you to intervene before you exit the window rather than after.",
+  "practice_drill": "Identify your personal early-warning signals for both directions. For hyper-arousal: what does the first sign of flooding feel like in your body? (Chest tightness, warmth in the face, thoughts speeding up?) For hypo-arousal: what does the first sign of shutdown feel like? (Going blank, voice dropping, urge to stare at the floor?) Write these down. Then create a personal intervention plan: 3 specific actions you'll take when you notice each set of signals. Practice them in low-stress situations so they're available under pressure.",
+  "common_mistakes": "Thinking that staying perfectly calm is the goal — some emotional activation is appropriate and signals engagement. Believing that you can reason yourself back into the window through willpower alone — you cannot; physiological interventions are required. Confusing hypo-arousal (shutdown) for calmness — the quiet person who has stopped engaging has often left the window downward, not found peace.",
+  "language": "en"
+}

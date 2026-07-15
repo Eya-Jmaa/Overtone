@@ -1,0 +1,21 @@
+{
+  "id": "pro_ps_002",
+  "technique": "Framing as Learning Problems",
+  "source_framework": "Organizational Behavior / Leadership",
+  "source_citation": "Amy Edmondson — The Fearless Organization (2018); teaming and learning culture research",
+  "mode": "professional",
+  "topics": ["leadership", "psychological_safety", "communication_patterns"],
+  "applicable_scenarios": ["leadership_conversation", "team_meeting", "performance_discussion"],
+  "detected_signals": [
+    "execution_pressure_language_detected",
+    "blame_language_detected",
+    "low_back_channel_rate",
+    "hedging_language_in_others"
+  ],
+  "problem_it_solves": "Creating a conversational climate where people are afraid to surface problems, ask questions, or admit uncertainty because the framing of work is purely as execution — where not-knowing is a failure and problems are assumed to be attributable to someone's inadequacy.",
+  "description": "Edmondson identifies two fundamentally different ways that leaders frame work, with radically different effects on team behavior and information flow. In an execution frame, the work is assumed to be known, the plan is assumed to be correct, and deviations are treated as failures or errors attributable to individuals. In a learning frame, the work is genuinely uncertain, the plan is a best current hypothesis, and deviations are treated as information about what to adjust.\n\nThe execution frame is appropriate for truly routine, well-understood work. But most complex modern work — especially anything involving new situations, novel markets, technical uncertainty, or human behavior — requires constant adjustment based on real-time information. In those contexts, an execution frame is actively dangerous: people hide problems until they become crises, admit uncertainty only in private, and optimize for looking capable rather than for finding what's actually true.\n\nThe practical tools for framing as a learning problem are specific and linguistic. Before a project: 'We don't know all the answers here, and we'll learn as we go — I need you to surface what you're seeing, especially when it doesn't fit the plan.' When problems arise: 'What are we learning from this? What does it tell us about our assumptions?' When asking for input: 'What am I missing? What would you do differently if this were your call?' These phrases signal that uncertainty is expected, questions are welcome, and information about reality is more valuable than performance of confidence.",
+  "when_to_use": "Whenever leading a complex conversation, project kickoff, debrief, or performance discussion. Specifically when the system detects that the user's framing language is creating execution pressure that may be suppressing useful information — phrases like 'we just need to execute,' 'there's no room for error here,' or 'I need everyone committed' used in contexts where genuine uncertainty exists.",
+  "practice_drill": "Before your next team meeting or performance conversation, identify one area where you don't actually know the answer. Practice saying, out loud: 'I genuinely don't know how this will unfold, and I need everyone to tell me what they're seeing — especially when it conflicts with the plan.' Notice how this feels different from your usual mode. Then observe what information emerges when you signal that not-knowing is safe.",
+  "common_mistakes": "Saying learning-frame words while behaving in execution-frame ways — people detect the inconsistency immediately. Applying learning framing only to safe or already-settled decisions, not to genuinely uncertain ones where it would matter. Conflating a learning frame with low standards — 'we're all learning here' can become an excuse for poor work if not paired with high expectations and genuine accountability for outcomes.",
+  "language": "en"
+}

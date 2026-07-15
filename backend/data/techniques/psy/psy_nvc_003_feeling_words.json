@@ -1,0 +1,21 @@
+{
+  "id": "psy_nvc_003",
+  "technique": "Feeling Words vs Thinking Words",
+  "source_framework": "Nonviolent Communication",
+  "source_citation": "Marshall Rosenberg — Center for Nonviolent Communication",
+  "mode": "psy",
+  "topics": ["emotional_expression", "self_awareness", "conflict_resolution"],
+  "applicable_scenarios": ["conflict_resolution", "partner_conflict", "boundary_setting"],
+  "detected_signals": [
+    "pseudo_feeling_language_detected",
+    "accusatory_language_detected",
+    "emotional_reactivity_voice",
+    "high_you_statement_ratio"
+  ],
+  "problem_it_solves": "Disguising interpretations and accusations as feelings, which prevents emotional connection and keeps the other person in a defensive position.",
+  "description": "A true feeling is a single emotional word that describes your internal state: sad, scared, relieved, confused, excited, hurt, overwhelmed. It does not contain a subject other than yourself, and it does not imply anything about another person's behavior. 'I feel abandoned' sounds like a feeling, but it contains a judgment about the other person's actions — it says they have abandoned you. A true feeling in that moment might be 'I feel lonely' or 'I feel scared.' The linguistic test: replace 'I feel' with 'I am' — if the sentence still makes sense as a purely internal state, it's likely a real feeling. 'I am sad' — yes. 'I am abandoned' — now the interpretation is obvious.\n\nThe distinction matters because true feelings invite empathy while pseudo-feelings invite debate. When you say 'I feel like you don't care,' the other person hears an accusation and responds with 'That's not true, I do care.' When you say 'I feel hurt,' they have nothing to argue with — they can only respond to your experience. This single shift, from pseudo-feelings to real feelings, often breaks conversational deadlocks that have lasted for years.",
+  "when_to_use": "When the system detects 'I feel that...' or 'I feel like...' constructions, or when your emotion statements are triggering the other person's defensiveness rather than their empathy. The pattern is visible in the conversation rhythm: accusation-like feeling statement followed immediately by the partner's counter-denial.",
+  "practice_drill": "Build your personal feelings vocabulary. Write down 10 emotions you commonly experience in conflict. Then check each one: Does it describe only your internal state, or does it imply something about another person? Replace any pseudo-feelings with true feeling words. Keep a reference card with 20-30 real feeling words (lonely, anxious, overwhelmed, disconnected, relieved, grateful, frustrated, hopeful) and review it before difficult conversations.",
+  "common_mistakes": "Thinking 'I feel ignored' is a feeling — 'ignored' implies someone is doing the ignoring. Confusing intensity with clarity — 'I feel terrible' is vague and unlikely to generate specific empathy. Overcorrecting and suppressing all feeling language to avoid vulnerability. The goal is more precise emotional language, not less of it.",
+  "language": "en"
+}

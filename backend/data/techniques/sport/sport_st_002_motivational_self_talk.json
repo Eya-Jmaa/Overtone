@@ -1,0 +1,22 @@
+{
+  "id": "sport_st_002",
+  "technique": "Motivational Self-Talk",
+  "source_framework": "Sport Psychology / Self-Talk Research",
+  "source_citation": "Hatzigeorgiadis et al. — Perspectives on Psychological Science (2011); Hardy et al. — Journal of Sport and Exercise Psychology",
+  "mode": "sport",
+  "topics": ["self_talk", "motivation", "confidence", "energy_management"],
+  "applicable_scenarios": ["pre_competition", "during_performance", "endurance_challenge", "low_energy_state"],
+  "detected_signals": [
+    "low_vocal_energy",
+    "sadness_emotion_detected",
+    "low_confidence_markers",
+    "flat_affect_detected",
+    "energy_drop_post_error"
+  ],
+  "problem_it_solves": "Energy, confidence, or effort dropping during performance — not due to technical failure but due to reduced internal drive, negative momentum, or a belief that the situation is unrecoverable.",
+  "description": "Motivational self-talk uses language to influence internal states rather than to direct technical execution. Where instructional self-talk tells the body what to do, motivational self-talk affects arousal level, effort, and belief in the outcome. Research distinguishes two sub-types: arousal-motivation cues ('push,' 'go,' 'come on,' 'dig deep') that increase energy and intensity, and confidence-motivation cues ('I've done this before,' 'I belong here,' 'I'm ready') that support belief and resilience without necessarily increasing arousal.\n\nHatzigeorgiadis's meta-analysis found that motivational self-talk is particularly effective for gross motor tasks requiring strength, endurance, or sustained effort — sprinting, lifting, cycling climbs, long-distance performance maintenance. It is less consistently effective for precision tasks where arousal management is already a challenge (where you might want to be calmer, not more activated). Choosing the right type of motivational cue — arousal-raising vs. confidence-supporting — requires knowing whether your current deficit is energy or belief.\n\nThe timing of motivational self-talk also matters. Pre-competition motivational cues are most effective when used consistently as part of a pre-performance routine, so the cue becomes conditioned to a state of readiness. Mid-performance motivational cues are most effective during moments of declining effort or confidence — the fatigue wall in endurance events, the psychological moment after giving up a point or making an error.",
+  "when_to_use": "When the system detects energy drops, sadness or disappointment following an error, flat affect during performance, or vocal energy decline that suggests motivational flagging. Also as a deliberate component of a pre-competition routine. The distinction to make first: is the deficit energy/effort (use arousal cues) or confidence/belief (use confidence cues) — they require different interventions.",
+  "practice_drill": "Identify your two most common mental low points in your sport: the moment when your energy or belief most reliably drops. For each, develop a personal motivational cue that feels genuinely activating to you — not one you've read somewhere, but words that you associate with your best performances. Test them: say them out loud with full intention and notice their effect on your body. Weak cues don't move you; strong cues produce a physical response. Refine until you have cues that work, then use them consistently so they become conditioned.",
+  "common_mistakes": "Using motivational self-talk for precision tasks when it increases arousal beyond optimal levels — more arousal is not always better. Using generic cues ('come on!') that you haven't associated with specific high-quality performance memories — specificity and personal relevance matter more than energy. Deploying motivational cues only in crisis rather than as proactive maintenance throughout performance.",
+  "language": "en"
+}

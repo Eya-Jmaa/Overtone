@@ -1,0 +1,273 @@
+{
+  "generated_at": "2026-07-01T14:58:07.892407+00:00",
+  "collection": "coaching_kb",
+  "db_path": "C:\\Users\\ghwal\\OneDrive\\Desktop\\ai-coach\\backend\\data\\chroma_db",
+  "total_documents": 603,
+  "tier_counts": {
+    "technique": 60,
+    "article": 39,
+    "abstract": 158,
+    "session_guide": 346
+  },
+  "missing_tier_count": 0,
+  "mode_counts": {
+    "professional": 70,
+    "psy": 364,
+    "sport": 155,
+    "all": 14
+  },
+  "missing_mode_count": 0,
+  "tier_mode_matrix": {
+    "technique": {
+      "psy": 20,
+      "professional": 20,
+      "sport": 20,
+      "all": 0
+    },
+    "article": {
+      "psy": 25,
+      "professional": 14,
+      "sport": 0,
+      "all": 0
+    },
+    "abstract": {
+      "psy": 72,
+      "professional": 36,
+      "sport": 50,
+      "all": 0
+    },
+    "session_guide": {
+      "psy": 247,
+      "professional": 0,
+      "sport": 85,
+      "all": 14
+    }
+  },
+  "mode_order": [
+    "psy",
+    "professional",
+    "sport",
+    "all"
+  ],
+  "tier_order": [
+    "technique",
+    "article",
+    "abstract",
+    "session_guide"
+  ],
+  "source_counts_top15": [
+    [
+      "SAMHSA TIP 35 - Enhancing Motivation for Change in SUD Treatment",
+      159
+    ],
+    [
+      "VA CBT for Chronic Pain Therapist Manual",
+      83
+    ],
+    [
+      "VA Brief CBT Therapist Manual",
+      54
+    ],
+    [
+      "Dancing Gecko MI Guided Dialogue",
+      17
+    ],
+    [
+      "Clinical Consensus Strategies to Repair Ruptures in the Therapeutic Alliance - PMC",
+      14
+    ],
+    [
+      "Iowa MI Example Conversation",
+      6
+    ],
+    [
+      "CT DCF MI Refresher - Reflective Listening",
+      4
+    ],
+    [
+      "Person-Centered Therapy (Rogerian Therapy) - StatPearls - NCBI Bookshelf",
+      4
+    ],
+    [
+      "UNH Motivational Interviewing Basics OARS",
+      3
+    ],
+    [
+      "Ohio State Imagery in Sport Guide",
+      2
+    ]
+  ],
+  "unique_source_count": 10,
+  "missing_source_count": 257,
+  "language_counts": {
+    "en": 603
+  },
+  "metadata_key_health": {
+    "authors": {
+      "populated": 93,
+      "pct": 15.42
+    },
+    "chunk_index": {
+      "populated": 39,
+      "pct": 6.47
+    },
+    "content_type": {
+      "populated": 192,
+      "pct": 31.84
+    },
+    "detected_signals": {
+      "populated": 60,
+      "pct": 9.95
+    },
+    "doi": {
+      "populated": 92,
+      "pct": 15.26
+    },
+    "journal": {
+      "populated": 93,
+      "pct": 15.42
+    },
+    "language": {
+      "populated": 603,
+      "pct": 100.0
+    },
+    "mode": {
+      "populated": 603,
+      "pct": 100.0
+    },
+    "pmid": {
+      "populated": 93,
+      "pct": 15.42
+    },
+    "pubmed_url": {
+      "populated": 93,
+      "pct": 15.42
+    },
+    "purpose": {
+      "populated": 411,
+      "pct": 68.16
+    },
+    "scenarios": {
+      "populated": 60,
+      "pct": 9.95
+    },
+    "source": {
+      "populated": 346,
+      "pct": 57.38
+    },
+    "source_domain": {
+      "populated": 39,
+      "pct": 6.47
+    },
+    "source_framework": {
+      "populated": 60,
+      "pct": 9.95
+    },
+    "source_name": {
+      "populated": 411,
+      "pct": 68.16
+    },
+    "source_title": {
+      "populated": 39,
+      "pct": 6.47
+    },
+    "source_type": {
+      "populated": 346,
+      "pct": 57.38
+    },
+    "source_url": {
+      "populated": 450,
+      "pct": 74.63
+    },
+    "technique_name": {
+      "populated": 60,
+      "pct": 9.95
+    },
+    "tier": {
+      "populated": 603,
+      "pct": 100.0
+    },
+    "title": {
+      "populated": 93,
+      "pct": 15.42
+    },
+    "topic": {
+      "populated": 192,
+      "pct": 31.84
+    },
+    "total_chunks": {
+      "populated": 39,
+      "pct": 6.47
+    },
+    "year": {
+      "populated": 93,
+      "pct": 15.42
+    }
+  },
+  "inconsistent_metadata_keys": [
+    "authors",
+    "chunk_index",
+    "content_type",
+    "detected_signals",
+    "doi",
+    "journal",
+    "pmid",
+    "pubmed_url",
+    "purpose",
+    "scenarios",
+    "source",
+    "source_domain",
+    "source_framework",
+    "source_name",
+    "source_title",
+    "source_type",
+    "source_url",
+    "technique_name",
+    "title",
+    "topic",
+    "total_chunks",
+    "year"
+  ],
+  "chunk_size_stats": {
+    "min": 58,
+    "max": 12618,
+    "mean": 3663.1,
+    "median": 3888,
+    "under_100_chars": 2,
+    "over_3000_chars": 385
+  },
+  "gaps": {
+    "low_document_modes": [
+      {
+        "mode": "all",
+        "count": 14
+      }
+    ],
+    "zero_document_tiers": [
+      "signal_mapping"
+    ],
+    "empty_mode_tier_combos": [
+      {
+        "tier": "technique",
+        "mode": "all"
+      },
+      {
+        "tier": "article",
+        "mode": "sport"
+      },
+      {
+        "tier": "article",
+        "mode": "all"
+      },
+      {
+        "tier": "abstract",
+        "mode": "all"
+      },
+      {
+        "tier": "session_guide",
+        "mode": "professional"
+      }
+    ],
+    "sport_has_article_tier": false
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "id": "sport_vis_002",
+  "technique": "Process Visualization",
+  "source_framework": "Sport Psychology",
+  "source_citation": "Taylor & Wilson — Applying Sport Psychology (2005); process vs. outcome imagery research",
+  "mode": "sport",
+  "topics": ["visualization", "mental_imagery", "performance_preparation", "concentration"],
+  "applicable_scenarios": ["pre_competition", "performance_preparation", "anxiety_regulation"],
+  "detected_signals": [
+    "outcome_focus_detected",
+    "anxiety_emotion_detected",
+    "low_confidence_markers",
+    "worry_language_detected"
+  ],
+  "problem_it_solves": "Fixating on outcomes (winning, losing, the result) during mental preparation rather than on the process of executing well — which increases anxiety and reduces the focus on controllable factors that actually determine performance quality.",
+  "description": "Process visualization focuses mental rehearsal on the execution of specific technical and tactical behaviors rather than on outcomes or results. Instead of imagining the ball going in the net (outcome), you imagine the exact sequence of steps that lead to a clean shot: your approach angle, your body positioning, your contact point, your follow-through, the feeling of clean execution. Instead of imagining winning the match (outcome), you imagine playing each critical situation with the tactical clarity and technical precision you've developed.\n\nThe research distinction between mastery imagery (imagining doing it correctly) and outcome imagery (imagining the desired result) consistently finds that mastery imagery produces greater performance transfer. This is likely because outcome imagery activates the evaluation system — the self-monitoring circuitry that compares current performance to a desired result — which is precisely what athletes need quieted during performance. Process imagery activates the execution system, which is what needs to be online.\n\nProcess visualization is also a direct anxiety-management tool: much performance anxiety is future-focused and outcome-attached ('what if I miss?', 'what if we lose?'). Shifting attention from outcomes to process automatically reduces anxiety because process is present-focused and controllable. You can control how you execute; you cannot control the result.",
+  "when_to_use": "As the primary content of pre-competition mental rehearsal, particularly when the user reports outcome-focused worry, result anxiety, or has a tendency to rehearse negative outcomes rather than positive processes. The system would detect outcome-focus indicators in the user's pre-competition language — references to score, results, or opponent comparisons rather than to personal execution cues.",
+  "practice_drill": "Write two versions of your pre-competition mental rehearsal: Version A (outcome focused — winning, scoring, succeeding) and Version B (process focused — the three to five specific technical behaviors that constitute excellent execution for you). Practice each version three times in the week before your next competition. After each practice, rate your anxiety level and your focus quality on a 1-10 scale. Compare the two versions' effects — for most athletes, process imagery produces lower anxiety and sharper focus.",
+  "common_mistakes": "Mixing process and outcome imagery and not distinguishing which is which — the distinction requires deliberate attention to what you're actually picturing. Using process imagery that is generic rather than specific to your individual technique and style — 'doing it well' is not a process image. Abandoning process focus when under high pressure and defaulting back to outcome thinking — this is precisely when process focus is most needed and most difficult.",
+  "language": "en"
+}

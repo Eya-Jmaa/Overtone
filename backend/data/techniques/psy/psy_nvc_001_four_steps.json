@@ -1,0 +1,21 @@
+{
+  "id": "psy_nvc_001",
+  "technique": "NVC Four-Step Formula",
+  "source_framework": "Nonviolent Communication",
+  "source_citation": "Marshall Rosenberg — Center for Nonviolent Communication",
+  "mode": "psy",
+  "topics": ["conflict_resolution", "emotional_expression", "relationships"],
+  "applicable_scenarios": ["conflict_resolution", "boundary_setting", "partner_conflict"],
+  "detected_signals": [
+    "high_you_statement_ratio",
+    "accusatory_language_detected",
+    "emotional_reactivity_voice",
+    "contempt_microexpression"
+  ],
+  "problem_it_solves": "Expressing frustration in ways that trigger defensiveness — accusations, generalizations ('you always...'), and demands that escalate rather than resolve conflict.",
+  "description": "Structure your communication in four steps: (1) Observation — state what you saw or heard without judgment or evaluation. 'When I see the dishes still in the sink at 9pm' not 'When you never clean up after yourself.' (2) Feeling — name your actual emotion. 'I feel frustrated' not 'I feel like you don't care' (that's a thought disguised as a feeling). (3) Need — identify the unmet need behind the feeling. 'Because I need shared responsibility in our home' not 'Because you should do your part.' (4) Request — make a specific, doable request. 'Would you be willing to do the dishes before 8pm on weekdays?' not 'Can you just be more responsible?' The formula works because it removes blame from the conversation. The other person hears your experience instead of an attack, which makes them far more likely to engage rather than defend.",
+  "when_to_use": "When you're raising a sensitive issue and the system detects accusatory 'you' statements, emotional vocal spikes, or the other person becoming defensive. Particularly effective in partner/friend scenarios where preserving the relationship matters as much as resolving the issue.",
+  "practice_drill": "Think of a current frustration with someone. Write it out as an accusation first ('You never...'). Then rewrite it using all four NVC steps. Say both versions out loud and notice how differently they feel. The system will compare your delivery of both — pitch, pace, and facial expression should be calmer on the NVC version.",
+  "common_mistakes": "Disguising judgments as observations ('When you rudely interrupted me' — 'rudely' is an evaluation). Using 'I feel that...' or 'I feel like...' which are thoughts, not feelings. Making demands disguised as requests (tone of voice matters here — the system can detect if your 'request' sounds like an ultimatum). Skipping the need step, which makes the request feel arbitrary to the listener.",
+  "language": "en"
+}

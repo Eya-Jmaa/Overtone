@@ -1,0 +1,19 @@
+{
+  "pmid": "37364363",
+  "doi": "10.1016/j.brat.2023.104357",
+  "title": "Approximating exposure therapy in the lab: Replacing the CS+ with a similar versus a different stimulus and including additional stimuli resembling the CS+ during extinction.",
+  "authors": [
+    "Waters Allison M",
+    "Ryan Katherine M",
+    "Luck Camilla C",
+    "Craske Michelle G",
+    "Lipp Ottmar V"
+  ],
+  "year": "2023",
+  "journal": "Behaviour research and therapy",
+  "abstract": "Recent studies have shown that extinction training including the conditional stimulus (CS+) and stimuli that are similar to the CS + enhances extinction retention and generalisation to novel stimuli. However, in a clinical setting, the CS+ is rarely available for use during exposure therapy. The aim of the present study was to determine if replacing the CS+ with a similar versus different stimulus, and including other similar stimuli during extinction, could reduce fear at test on par with extinction using the original CS+ with and without other similar stimuli. In an experiment conducted in a single session, participants completed a habituation phase followed by an acquisition phase using two dog images presented with (CS+) and without (CS-) an acoustic unconditional stimulus (US). Participants were randomly allocated to four extinction conditions: similar CS + dog with novel dog images (Similar replacement extinction condition); different CS + dog with novel dog images (Different replacement extinction condition); original CS + dog with novel dog images (Multiple extinction control condition); and original CS + without novel dog images (Standard extinction control condition). All participants completed a test phase with the original CSs followed by a generalisation test with another two novel dog images. All groups acquired, and then extinguished differential skin conductance responses (SCRs) with no differences observed between groups. Whereas the Similar replacement extinction group and the Multiple and Standard extinction control groups did not exhibit significant differential SCRs when re-exposed to the original CS + relative to the CS- at test, differential responding to the CSs was significant at test in the Different replacement extinction group. There were no significant differences between groups in SCRs to the two novel dog images during the generalisation phase and in between-phase subjective ratings. Findings suggest that replacement stimuli used during extinction should be as similar as possible to the CS + to reduce physiological arousal to the original CS+.",
+  "pubmed_url": "https://pubmed.ncbi.nlm.nih.gov/37364363/",
+  "mode": "psy",
+  "topic": "emotional_flooding",
+  "content_type": "research_abstract"
+}

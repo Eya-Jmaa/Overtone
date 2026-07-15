@@ -1,0 +1,21 @@
+{
+  "id": "psy_nvc_004",
+  "technique": "Identifying Unmet Needs Behind Emotions",
+  "source_framework": "Nonviolent Communication",
+  "source_citation": "Marshall Rosenberg — Center for Nonviolent Communication",
+  "mode": "psy",
+  "topics": ["self_awareness", "emotional_expression", "conflict_resolution"],
+  "applicable_scenarios": ["conflict_resolution", "partner_conflict", "boundary_setting"],
+  "detected_signals": [
+    "emotional_reactivity_voice",
+    "circular_argument_pattern",
+    "anger_emotion_detected",
+    "sadness_emotion_detected"
+  ],
+  "problem_it_solves": "Getting stuck arguing about positions and surface behaviors while the underlying unmet needs — the real source of the conflict — go unaddressed and unacknowledged.",
+  "description": "Every emotion is a signal about a need: either a need being met (positive emotions) or a need going unmet (uncomfortable emotions). Anger, frustration, sadness, loneliness — each points toward something you require that isn't currently present. Rosenberg's model posits a universal set of human needs: connection, autonomy, meaning, safety, respect, contribution, honesty, play, and others. When you can name the need underneath your emotion, you shift from a blame frame ('you're making me angry') to a needs frame ('I need to feel respected, and right now that need isn't being met').\n\nThis shift is transformative in conflict because needs are universal — the other person has the same needs, even if they're trying to meet them differently. When you reveal your need rather than attacking the other person's behavior, you create the possibility of genuine problem-solving. Instead of 'you never listen to me,' which generates defensiveness, you might say 'I feel unheard, and I have a need to feel that my perspective matters in this relationship' — which opens a completely different kind of conversation. This technique requires significant self-reflection and is best practiced before difficult conversations, not in the heat of the moment.",
+  "when_to_use": "When a conversation is going in circles or escalating without resolution, and the system detects repeated emotional reactivity signals without progress — patterns of circular arguments where the same accusations appear multiple times. Also valuable when one or both parties seem unable to articulate what they actually want beyond 'stop doing X.'",
+  "practice_drill": "Take your most recent frustration with someone. Write the surface complaint. Then ask yourself three times: 'And what does that mean to me? What do I need that isn't happening?' Each time, go deeper. 'They didn't text me back' -> 'I need to know I'm a priority' -> 'I need to feel secure in this relationship.' The third answer is usually closest to the real unmet need. Now try to express that need directly in a conversation.",
+  "common_mistakes": "Confusing strategies (what you want the other person to do) with needs (the underlying human requirement). 'I need you to text me back within an hour' is a strategy; 'I need to feel valued and secure' is a need. Getting lost in self-analysis and never actually naming the need out loud to the other person. Treating the other person's behavior as the problem rather than a failed strategy for meeting their own needs.",
+  "language": "en"
+}

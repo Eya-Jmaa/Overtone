@@ -1,0 +1,21 @@
+{
+  "id": "pro_pub_004",
+  "technique": "Handling Hostile Questions",
+  "source_framework": "Public Speaking / Presentation Training",
+  "source_citation": "Weissman — Presenting to Win; communication coaching literature",
+  "mode": "professional",
+  "topics": ["public_speaking", "conflict_resolution", "assertiveness"],
+  "applicable_scenarios": ["presentation", "public_speaking", "difficult_conversation", "leadership_conversation"],
+  "detected_signals": [
+    "defensive_language_detected",
+    "speaking_rate_spike",
+    "emotional_reactivity_voice",
+    "pitch_elevation_under_challenge"
+  ],
+  "problem_it_solves": "Becoming visibly defensive, losing composure, or inadvertently validating hostile premises when challenged in a public or semi-public setting.",
+  "description": "Hostile questions — questions that challenge your credibility, contain embedded criticism, or attempt to undermine your position — are a specific and common challenge in professional communication. They are particularly dangerous because the social dynamics of a group setting amplify any visible defensiveness: the audience watches how you respond to pressure, not just what you say. A composed, confident response to a hostile question often raises your credibility more than the original presentation did. A flustered, defensive response can undo a strong presentation in 30 seconds.\n\nThe ABD technique provides a structure: Acknowledge, Bridge, Deliver. First, acknowledge the question — briefly and neutrally, without validating the hostile premise. 'That's an important concern to raise' or 'I appreciate that question' — not 'great question' (which sounds false) and not 'that's not a fair question' (which sounds defensive). Second, bridge from the question back to your key message or an alternative framing of the issue. 'What I'd say is...' 'The way I think about this is...' 'The evidence I've seen suggests...' Third, deliver your actual answer, tightly and without over-explaining.\n\nCritical skill: never repeat the hostile framing. If a questioner asks 'Why did your team fail to meet the deadline?' repeating 'we didn't fail to meet the deadline in the traditional sense...' keeps you inside their frame. Instead: bridge directly to your frame — 'What we delivered was a partial release that addressed the highest-priority features — let me tell you what that included.'",
+  "when_to_use": "Before presentations or panel discussions where challenge is likely. In real time when the system detects defensive vocal patterns — pitch elevation, rate increase, or defensive language — immediately following a challenging question from the other party.",
+  "practice_drill": "Generate five hostile questions that could be asked about something you present regularly. Write a hostile version and then an ABD response for each. Specifically write the bridge phrase — that's the hardest and most important part. Practice delivering each response with deliberate vocal control: same pace as non-hostile questions, same volume, no visible increase in tension. The goal is to be indistinguishable in composure between an easy question and a hostile one.",
+  "common_mistakes": "Answering the hostile premise rather than bridging past it. Over-answering — long answers to hostile questions look like defensiveness even if the content is sound. Signaling that the question got to you through body language (shifted posture, broken eye contact, audible breath) even when your words are composed. Using the acknowledge step sarcastically — hostile questions sometimes make 'that's an interesting point' sound contemptuous.",
+  "language": "en"
+}

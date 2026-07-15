@@ -1,0 +1,431 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Dark theme (default) ─────────────────────────── */
+:root {
+  --ink:        #0a0b10;
+  --ink-2:      #13151c;
+  --ink-3:      #1c1f2a;
+  --ink-4:      #252836;
+  --whisper:    #3d4458;
+  --whisper-2:  #2a2e3d;
+  --bone:       #f5f1e8;
+  --bone-dim:   #a8a294;
+  --bone-faint: #6b6759;
+  --gold:       #d4a574;
+  --gold-soft:  rgba(212, 165, 116, 0.12);
+  --gold-glow:  rgba(212, 165, 116, 0.35);
+  --rose:       #c97f6a;
+  --sage:       #8fa896;
+
+  --bg-base:     var(--ink);
+  --bg-surface:  var(--ink-2);
+  --bg-elevated: var(--ink-3);
+  --border:      var(--whisper-2);
+  --text-base:   var(--bone);
+  --text-muted:  var(--bone-dim);
+  --text-faint:  var(--bone-faint);
+  --accent:      var(--gold);
+  --accent-soft: var(--gold-soft);
+  --accent-text: var(--gold);
+}
+
+/* ── Light theme ──────────────────────────────────── */
+:root.light {
+  --ink:        #f5f0e8;
+  --ink-2:      #ebe4d8;
+  --ink-3:      #ddd5c6;
+  --ink-4:      #d0c7b6;
+  --whisper:    #b8ae9a;
+  --whisper-2:  #cdc3af;
+  --bone:       #1e1b16;
+  --bone-dim:   #5c5548;
+  --bone-faint: #8a8273;
+  --gold:       #b8844f;
+  --gold-soft:  rgba(184, 132, 79, 0.10);
+  --gold-glow:  rgba(184, 132, 79, 0.25);
+  --rose:       #a86b58;
+  --sage:       #6f8e7c;
+
+  --bg-base:     var(--ink);
+  --bg-surface:  var(--ink-2);
+  --bg-elevated: var(--ink-3);
+  --border:      var(--whisper-2);
+  --text-base:   var(--bone);
+  --text-muted:  var(--bone-dim);
+  --text-faint:  var(--bone-faint);
+  --accent:      var(--gold);
+  --accent-soft: var(--gold-soft);
+  --accent-text: var(--gold);
+}
+
+* { box-sizing: border-box; }
+
+/* ── Smooth theme transitions ─────────────────────────── */
+* {
+  transition: background-color 300ms ease, border-color 300ms ease, color 200ms ease, box-shadow 200ms ease;
+}
+@media (prefers-reduced-motion: reduce) {
+  * { transition-duration: 0.01ms !important; }
+}
+
+html, body, #root {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+  background: var(--ink);
+  color: var(--bone);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-thumb { background: var(--whisper-2); border-radius: 3px; }
+::-webkit-scrollbar-track { background: transparent; }
+
+::selection { background: var(--gold-soft); color: var(--bone); }
+
+/* ── Auth-page animations ─────────────────────────── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; } to { opacity: 1; }
+}
+@keyframes glow {
+  0%, 100% { box-shadow: 0 0 0 0 var(--gold-glow); }
+  50%      { box-shadow: 0 0 24px 2px var(--gold-glow); }
+}
+@keyframes shimmer {
+  0%   { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+.auth-stagger > * { opacity: 0; animation: fadeUp 600ms cubic-bezier(.2,.7,.2,1) forwards; }
+.auth-stagger > *:nth-child(1) { animation-delay: 100ms; }
+.auth-stagger > *:nth-child(2) { animation-delay: 160ms; }
+.auth-stagger > *:nth-child(3) { animation-delay: 220ms; }
+.auth-stagger > *:nth-child(4) { animation-delay: 280ms; }
+.auth-stagger > *:nth-child(5) { animation-delay: 340ms; }
+.auth-stagger > *:nth-child(6) { animation-delay: 400ms; }
+.auth-stagger > *:nth-child(7) { animation-delay: 460ms; }
+.auth-stagger > *:nth-child(8) { animation-delay: 520ms; }
+
+/* ── Floating-label input ─────────────────────────── */
+.field {
+  position: relative;
+  padding-top: 22px;
+  margin-bottom: 24px;
+}
+.field input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--whisper-2);
+  padding: 8px 0;
+  color: var(--bone);
+  font-size: 15px;
+  font-family: inherit;
+  outline: none;
+  transition: border-color 200ms;
+}
+.field input:focus {
+  border-bottom-color: transparent;
+}
+.field .underline {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 1px;
+  width: 100%;
+  background: var(--gold);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 280ms cubic-bezier(.2,.7,.2,1);
+}
+.field input:focus ~ .underline { transform: scaleX(1); }
+
+.field label {
+  position: absolute;
+  left: 0;
+  top: 22px;
+  font-size: 15px;
+  color: var(--bone-dim);
+  pointer-events: none;
+  transition: all 220ms cubic-bezier(.2,.7,.2,1);
+  font-family: inherit;
+}
+.field.has-value label,
+.field input:focus + label {
+  top: 0;
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--gold);
+}
+
+/* ── Primary CTA ──────────────────────────────────── */
+.cta {
+  position: relative;
+  width: 100%;
+  padding: 14px 20px;
+  background: var(--gold);
+  color: var(--ink);
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  cursor: pointer;
+  overflow: hidden;
+  transition: transform 150ms, box-shadow 200ms;
+  font-family: inherit;
+}
+.cta:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 32px -8px var(--gold-glow);
+}
+.cta:disabled { opacity: 0.5; cursor: wait; transform: none; box-shadow: none; }
+.cta::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transform: translateX(-100%);
+}
+.cta:hover::after { animation: shimmer 900ms; }
+
+/* ── Google button ────────────────────────────────── */
+.google-btn {
+  width: 100%;
+  padding: 12px 16px;
+  background: transparent;
+  color: var(--bone);
+  border: 1px solid var(--whisper-2);
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: all 200ms;
+  font-family: inherit;
+}
+.google-btn:hover {
+  border-color: var(--whisper);
+  background: rgba(255,255,255,0.02);
+}
+
+/* ── Toast ────────────────────────────────────────── */
+@keyframes toastIn {
+  from { opacity: 0; transform: translate(-50%, 12px); }
+  to   { opacity: 1; transform: translate(-50%, 0); }
+}
+.toast {
+  position: fixed;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 12px 18px;
+  background: var(--ink-3);
+  border: 1px solid var(--whisper-2);
+  border-left: 2px solid var(--gold);
+  border-radius: 4px;
+  color: var(--bone);
+  font-size: 13px;
+  animation: toastIn 280ms cubic-bezier(.2,.7,.2,1);
+  z-index: 1000;
+  box-shadow: 0 12px 40px -12px rgba(0,0,0,0.6);
+}
+
+/* ── Wordmark ─────────────────────────────────────── */
+.wordmark {
+  font-family: 'Fraunces', serif;
+  font-weight: 500;
+  font-size: 22px;
+  letter-spacing: -0.5px;
+  color: var(--bone);
+}
+.wordmark span { color: var(--gold); }
+
+/* ── Display headline ─────────────────────────────── */
+.display {
+  font-family: 'Fraunces', serif;
+  font-weight: 400;
+  font-size: clamp(32px, 4.5vw, 52px);
+  line-height: 1.05;
+  letter-spacing: -1.2px;
+  color: var(--bone);
+}
+.display em {
+  font-style: italic;
+  font-weight: 400;
+  color: var(--gold);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+/* ── Conversation-page animations ──────────────────── */
+/* Add these to the bottom of your existing index.css   */
+
+@keyframes typingDot {
+  0%, 80%, 100% {
+    opacity: 0.3;
+    transform: scale(0.8);
+  }
+  40% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes breathe {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
+}
+
+@keyframes waveBar {
+  0% { transform: scaleY(0.4); }
+  100% { transform: scaleY(1); }
+}
+
+/* ── Skeleton pulse animation ──────────────────────────── */
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+/* ── Focus ring for accessibility ──────────────────────── */
+*:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+
+/* ── Conversation layout utilities ─────────────────── */
+
+.conv-page {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: var(--ink);
+}
+
+/* Scrollbar styling for message list */
+.conv-messages::-webkit-scrollbar {
+  width: 4px;
+}
+.conv-messages::-webkit-scrollbar-thumb {
+  background: var(--whisper-2);
+  border-radius: 2px;
+}
+.conv-messages::-webkit-scrollbar-thumb:hover {
+  background: var(--whisper);
+}
+
+/* Input bar textarea placeholder */
+.conv-input-bar textarea::placeholder {
+  color: var(--bone-faint);
+}
+
+/* Mic/video toggle button ripple on click */
+.conv-toggle-btn:active {
+  transform: scale(0.92);
+}
+
+/* Mode picker popover backdrop blur (optional, progressive enhancement) */
+@supports (backdrop-filter: blur(8px)) {
+  .mode-popover {
+    backdrop-filter: blur(8px);
+    background: rgba(19, 21, 28, 0.85) !important;
+  }
+}
+
+/* Send button shimmer — same as auth CTA */
+.conv-send-btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 40%,
+    rgba(255, 255, 255, 0.15) 50%,
+    transparent 60%
+  );
+  transform: translateX(-100%);
+  transition: none;
+}
+.conv-send-btn:hover::after {
+  animation: shimmer 600ms ease forwards;
+}
+
+/* Webcam panel slide transition */
+.webcam-panel-enter {
+  animation: slideInRight 350ms cubic-bezier(.2,.7,.2,1) both;
+}
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* End session confirmation overlay */
+.session-confirm-overlay {
+  animation: fadeIn 200ms ease both;
+}
+.session-confirm-card {
+  animation: fadeUp 300ms cubic-bezier(.2,.7,.2,1) both;
+}
+
+/* Gold underline sweep for input bar focus */
+.conv-underline {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 1.5px;
+  background: var(--gold);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 280ms cubic-bezier(.2,.7,.2,1);
+}
+.conv-input-focused .conv-underline {
+  transform: scaleX(1);
+}
+
+/* Responsive: collapse webcam panel on narrow screens */
+@media (max-width: 768px) {
+  .webcam-panel {
+    position: absolute;
+    right: 0;
+    top: 52px;
+    bottom: 0;
+    z-index: 20;
+    box-shadow: -8px 0 24px rgba(0, 0, 0, 0.3);
+  }
+}
+@keyframes typingDot {
+  0%, 80%, 100% { opacity: .3; transform: scale(.8); }
+  40% { opacity: 1; transform: scale(1); }
+}
+@keyframes breathe {
+  0%, 100% { opacity: 1; } 50% { opacity: .35; }
+}
+@keyframes waveBar {
+  0% { transform: scaleY(.4); } 100% { transform: scaleY(1); }
+}

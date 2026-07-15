@@ -1,0 +1,21 @@
+{
+  "id": "pro_pub_002",
+  "technique": "Power Posing — What the Research Actually Shows",
+  "source_framework": "Social Psychology / Embodied Cognition",
+  "source_citation": "Cuddy, Wilmuth & Yap — Psychological Science (2015); Ranehill et al. (2015); subsequent replication debate",
+  "mode": "professional",
+  "topics": ["public_speaking", "body_language", "confidence", "pre_performance"],
+  "applicable_scenarios": ["presentation", "public_speaking", "high_pressure_situation", "salary_negotiation"],
+  "detected_signals": [
+    "posture_closed_detected",
+    "low_vocal_energy",
+    "anxiety_emotion_detected",
+    "low_confidence_markers"
+  ],
+  "problem_it_solves": "Going into a high-stakes performance situation in a physically contracted, closed posture that physiologically signals and reinforces low confidence — and not knowing what to do instead.",
+  "description": "Power posing became famous through Amy Cuddy's 2012 TED talk and initial research claiming that holding expansive, open postures for 2 minutes before a performance situation raises testosterone and lowers cortisol, producing measurable changes in confidence and risk tolerance. Subsequent replication attempts produced mixed results, and the hormonal claims specifically have not been consistently replicated. The scientific status is genuinely contested.\n\nWhat has replicated more robustly is the behavioral and psychological component: adopting expansive postures before a performance situation is associated with greater subjective feelings of confidence and higher-quality performance outcomes — even if the hormonal mechanism hasn't been confirmed. The likely explanation involves a combination of embodied cognition (body posture affects mental state bidirectionally, not just in one direction) and attention-resource effects (physically expansive posture reduces self-monitoring and frees cognitive resources for task performance).\n\nThe practical advice is straightforward: regardless of the contested hormonal mechanism, spending 2 minutes before a presentation or high-stakes conversation in an upright, open, expansive posture (standing tall, shoulders back and down, arms uncrossed, taking up space) produces a different internal state than spending those 2 minutes hunched over your phone in a compressed posture. The behavioral effect — on your vocal quality, your eye contact, your sense of authority — is real and consistently observed, even if Cuddy's specific claims about cortisol were overclaimed.",
+  "when_to_use": "In the 2-10 minutes immediately before a high-stakes performance event: a presentation, a negotiation, a difficult conversation, a job interview. The system would detect the need for pre-performance physical intervention when anxiety markers are high and the user describes or shows closed, contracted physical posture in the lead-up to an important interaction.",
+  "practice_drill": "For your next significant performance event, spend exactly 2 minutes in a private space in the most expansive posture that feels natural to you — standing, shoulders back, arms slightly out, chin level. Breathe slowly and deliberately. Don't try to manufacture a particular mental state; just hold the physical position and notice what happens. Compare this to your usual pre-event preparation (likely phone-checking). Notice the difference in your vocal quality in the first 30 seconds of speaking after each preparation style.",
+  "common_mistakes": "Performing power poses in front of other people before a negotiation or interview — this reads as strange rather than confident, and the technique is specifically for private preparation. Expecting a dramatic internal transformation from 2 minutes of posture — the effect is subtle but consistent. Dismissing the technique entirely because of the replication controversy around the hormonal claims, while missing the well-supported behavioral effects.",
+  "language": "en"
+}

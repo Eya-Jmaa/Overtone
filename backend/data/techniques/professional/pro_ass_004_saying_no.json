@@ -1,0 +1,22 @@
+{
+  "id": "pro_ass_004",
+  "technique": "Saying No Without Over-Explaining",
+  "source_framework": "Assertiveness Training / CBT",
+  "source_citation": "Manuel Smith — When I Say No, I Feel Guilty (1975); Brené Brown — Daring Greatly",
+  "mode": "professional",
+  "topics": ["assertiveness", "boundary_setting", "professional_boundaries"],
+  "applicable_scenarios": ["boundary_setting", "difficult_conversation", "professional_context"],
+  "detected_signals": [
+    "apology_over_density",
+    "over_justification_language_detected",
+    "hedging_language_detected",
+    "qualification_language_detected",
+    "filler_words_after_key_ask"
+  ],
+  "problem_it_solves": "Turning a simple 'no' into a long, apologetic explanation that (a) sounds like it's seeking permission to say no, (b) provides the other person with information to argue against, and (c) leaves you feeling guilty and exhausted.",
+  "description": "A complete refusal is 'No' or 'I can't take this on.' Everything after that is either context (sometimes appropriate) or justification-seeking (almost always counterproductive). Most people who struggle to say no have the opposite problem: they say too much. They explain, apologize, offer alternatives, justify with their workload, volunteer information about why they can't, and then feel guilty when the other person uses that information to argue against their no.\n\nThe underlying dynamic is that over-explaining treats the other person as a judge whose verdict you need — as though your no requires their approval to be valid. A clean, brief no treats your own judgment as sufficient. Context can be kind ('I'm at capacity this week') but elaborate justification is usually a sign that you haven't fully accepted your own right to decline. Brené Brown notes that 'no' is a complete sentence. This doesn't mean being curt or unkind — warmth and brevity are compatible. 'I'm not able to take this on, but I appreciate you thinking of me' is brief, warm, and complete.\n\nThere are three useful formats depending on the relationship and context: The brief no: 'I can't take that on right now.' The brief no with context: 'I'm at capacity through the end of the month — not the right time for me to take on new projects.' The brief no with alternative: 'I can't commit to this, but [person X] might be a good fit.' Notice that all three are under two sentences.",
+  "when_to_use": "Whenever you need to decline a request, limit a commitment, or set a professional boundary. The system would detect over-explaining patterns when the word count of a refusal exceeds roughly 40 words, when apology density is high at the start of a refusal, or when hedging language ('I'm not sure if I can...') precedes or replaces a clean no.",
+  "practice_drill": "Practice the 15-word limit for a no. Write out three situations where you need to say no and write your natural response. Count the words. If it's over 15, edit until you're under. Read the edited version aloud. Notice the discomfort — that discomfort is the system noticing that you've stopped over-explaining. Sit with it. Then practice with a friend or the system: ask them to push back on your no, and practice maintaining it without elaborating.",
+  "common_mistakes": "Saying 'I can't' when you mean 'I won't' — 'can't' often sounds like an excuse when it's actually a choice, and the other person knows it. Adding 'sorry' before the no without it actually signifying genuine regret — reflexive apology undermines the statement. Offering an alternative as a way to soften the no rather than as a genuine helpful gesture — if you don't mean it, don't say it. Reopening the no when the other person expresses disappointment — disappointment is not the same as a counter-argument.",
+  "language": "en"
+}

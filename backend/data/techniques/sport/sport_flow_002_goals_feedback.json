@@ -1,0 +1,21 @@
+{
+  "id": "sport_flow_002",
+  "technique": "Clear Goals and Immediate Feedback as Flow Conditions",
+  "source_framework": "Positive Psychology / Flow Theory",
+  "source_citation": "Csikszentmihalyi — Flow: The Psychology of Optimal Experience (1990); Jackson & Marsh — Journal of Sport and Exercise Psychology (1996)",
+  "mode": "sport",
+  "topics": ["flow", "performance_optimization", "goal_setting"],
+  "applicable_scenarios": ["performance_preparation", "training_design", "competition_planning"],
+  "detected_signals": [
+    "goal_clarity_low",
+    "feedback_absence_detected",
+    "concentration_lapse_detected",
+    "low_engagement_markers"
+  ],
+  "problem_it_solves": "Training or competing without clear, specific goals for what constitutes success in that session or competition — which removes the feedback signal needed for flow and leaves performance without direction.",
+  "description": "Csikszentmihalyi identified clear goals and immediate feedback as two of the nine conditions that reliably precede flow. These two conditions are deeply linked: clear goals define what success looks like, which makes feedback interpretable. Without clear goals, there is no performance signal — every action is equally meaningful and therefore equally motivating, which means not very. Immediate feedback tells you in real time how you're doing relative to the goal, which creates the tight action-feedback loop that characterizes flow.\n\nIn sport, clear goals are process goals set before performance: 'In this session, success means maintaining my service placement above 70% to the backhand,' not 'I want to play well.' Immediate feedback is already built into most sport performance — the ball went in or it didn't, the time was faster or slower. The work is in ensuring that: (a) the goal is defined precisely enough that you can extract a clear signal from what happens, and (b) your attention is on the feedback in real time, not filtered through outcome concerns.\n\nJackson's research with elite athletes found that having clear goals was one of the most commonly reported conditions for flow across sports. Interestingly, the goal specificity mattered more than goal difficulty — vague ambitious goals produced less flow than specific modest ones, because vague goals don't generate a clear enough feedback signal.",
+  "when_to_use": "In training design and pre-competition preparation. The system would suggest attending to this condition when sessions show low engagement markers, when a user reports training feeling 'pointless' or 'going through the motions,' or when the connection between practice activities and competition performance is unclear.",
+  "practice_drill": "For your next five training sessions, write a single specific process goal before each session — one thing, measurable, whose success or failure you'll know immediately from what happens. After each session, rate: (1) How clear was your goal? (2) How clear was the feedback? (3) How present and engaged did you feel? Track the correlation. You'll likely find that sessions with specific goals and clear feedback produce significantly higher engagement ratings.",
+  "common_mistakes": "Setting outcome goals ('win the point') rather than process goals ('get first serve in above 65%') — outcome goals remove your control over the feedback signal because outcomes depend on factors beyond your performance. Setting too many goals per session, which creates attentional overload. Failing to actually monitor the feedback during performance — goal and feedback must both be active simultaneously, not just set and then forgotten.",
+  "language": "en"
+}

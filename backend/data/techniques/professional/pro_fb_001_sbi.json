@@ -1,0 +1,21 @@
+{
+  "id": "pro_fb_001",
+  "technique": "SBI Feedback Model",
+  "source_framework": "Center for Creative Leadership",
+  "source_citation": "Center for Creative Leadership — Situation-Behavior-Impact feedback model",
+  "mode": "professional",
+  "topics": ["feedback", "leadership", "difficult_conversation"],
+  "applicable_scenarios": ["difficult_feedback", "leadership_conversation", "performance_discussion"],
+  "detected_signals": [
+    "vague_feedback_language_detected",
+    "accusatory_language_detected",
+    "evaluation_language_detected",
+    "hedging_language_detected"
+  ],
+  "problem_it_solves": "Giving feedback that is too vague to act on ('you need to be more proactive'), too evaluative to hear without defensiveness ('your presentation was sloppy'), or too general to be credible ('you always do this').",
+  "description": "The SBI model structures feedback around three elements: Situation, Behavior, and Impact. Situation pins the feedback to a specific, observable moment in time and place — 'In yesterday's client meeting' rather than 'In general' or 'often.' This specificity removes the generalization problem and gives the recipient something concrete to recall and examine. Behavior describes what you actually saw or heard — the observable action, not the interpretation of it. 'You answered two questions with \"I'm not sure, let me check on that\"' rather than 'you seemed underprepared.' Behavior is what a video camera would capture, not your read of what it meant. Impact describes the effect of that behavior on you, the team, the client, or the outcome — 'which left the client uncertain about whether to move forward' or 'which I noticed left the team without clear direction for the next sprint.'\n\nThe SBI model is powerful because it separates what happened (behavior) from what it meant (interpretation) and what it caused (impact). This separation gives the recipient a full picture without requiring them to accept your interpretation of their character or intent. It also makes the feedback undeniable at the behavior level — they may dispute your interpretation, but they can't dispute what was said if the behavior is described accurately.\n\nThe model can also be used for positive feedback — and should be. Positive SBI feedback ('In this morning's standup, when you flagged the dependency before anyone asked, it gave the team 30 minutes to adjust before the issue became a blocker') is vastly more useful than generic praise because it tells the person exactly what to repeat.",
+  "when_to_use": "Whenever delivering performance feedback, developmental feedback, or recognition — any feedback that you want the recipient to understand and act on. The system would detect the need for SBI structure when feedback language is vague ('be better at X'), evaluative rather than behavioral ('you were unprepared'), or when the user is delivering feedback that has previously not led to behavior change.",
+  "practice_drill": "Take a piece of feedback you need to give someone. Write it in your natural way. Then audit it: (1) Is there a specific situation? (2) Is the behavior described in observable terms — what would a camera show? (3) Is there a concrete impact? Rewrite until all three elements are present and specific. Read it aloud. Does it sound fair? Can it be disputed at the behavior level, or only at the interpretation level?",
+  "common_mistakes": "Describing impact as blame ('your behavior made me look bad') rather than as genuine effect ('the client asked follow-up questions that delayed sign-off by a week'). Combining multiple behaviors from multiple occasions in one piece of feedback — each SBI should cover one behavior from one situation. Adding a fourth element (judgment or advice) without invitation: 'In that meeting [S], you interrupted Sarah twice [B], which I noticed made her withdraw from the discussion [I] — and honestly I expected better from you [judgment].' The last phrase cancels the neutrality of everything before it.",
+  "language": "en"
+}

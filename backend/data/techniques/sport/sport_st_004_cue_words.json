@@ -1,0 +1,20 @@
+{
+  "id": "sport_st_004",
+  "technique": "Self-Talk Cue Words",
+  "source_framework": "Sport Psychology",
+  "source_citation": "Moran — Concentration in Sport (1996); Landin — cue word research Journal of Applied Sport Psychology (1994)",
+  "mode": "sport",
+  "topics": ["self_talk", "concentration", "technical_performance"],
+  "applicable_scenarios": ["skill_acquisition", "pre_competition", "during_performance", "technical_correction"],
+  "detected_signals": [
+    "concentration_lapse_detected",
+    "technical_error_focus_detected",
+    "information_overload_in_speech"
+  ],
+  "problem_it_solves": "Trying to hold too much technical information in working memory during performance, or lacking a compact mental trigger that reliably connects to a well-practiced movement pattern.",
+  "description": "A cue word is a condensed trigger — typically one or two syllables — that activates a complete technical response or attentional state that has been built through practice. The power of a cue word is compression: rather than holding a multi-step technical sequence in working memory during performance ('extend my arm, rotate my shoulder, follow through to the target'), a single cue word ('rocket,' 'through,' 'snap') activates the entire trained sequence through an associative link built during practice.\n\nCue words work through classical conditioning: you practice the correct movement while consistently using the same cue word, until the cue word alone begins to activate the movement pattern. This is why cue words must be developed in practice, not invented during competition. The association is built through repetition — hundreds of practice trials pairing the cue with the correct execution — until the cue becomes a reliable trigger.\n\nDifferent cue words serve different functions: technique cues anchor specific movement elements ('smooth,' 'release,' 'push through'); attentional cues direct focus to key external stimuli ('ball,' 'target,' 'rim'); emotional cues set a performance state ('calm,' 'sharp,' 'fire'). Elite athletes typically have a small library of cue words — three to five — that cover their key technical focus points and emotional states, rather than a large vocabulary that creates choice paralysis.",
+  "when_to_use": "As part of a developed pre-performance routine, as an anchor within a skill execution sequence, or as a quick reset tool following a concentration lapse. The system would suggest cue word development when analysis shows consistent technical inconsistency under pressure conditions — the performance gap between training and competition that indicates inadequate mental anchoring.",
+  "practice_drill": "Select one technical element you want to improve or one attentional focus you want to strengthen. Choose a cue word — it should be short (1-2 syllables), personally meaningful, and positive or action-oriented. Use it consistently for the next 30 practice sessions: say it aloud (in training) or think it at the exact moment of skill initiation. After 30 sessions, test the cue in a simulated pressure environment. Does saying the cue word reliably activate the intended focus? If not, the practice volume was insufficient or the cue word wasn't the right one.",
+  "common_mistakes": "Creating too many cue words simultaneously — the associative link becomes diluted. Changing cue words frequently rather than deepening the association with one — consistency over time is what makes cue words powerful. Using someone else's cue words without building the personal association — a cue word someone else swears by may mean nothing to you until you've built your own associations. Treating the cue as a superstition rather than a trained trigger — the power comes from the associative practice, not the word itself.",
+  "language": "en"
+}

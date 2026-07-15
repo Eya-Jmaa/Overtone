@@ -1,0 +1,21 @@
+{
+  "id": "pro_fb_003",
+  "technique": "Crucial Conversations — Start with Heart",
+  "source_framework": "Crucial Conversations Framework",
+  "source_citation": "Patterson, Grenny, McMillan & Switzler — Crucial Conversations: Tools for Talking When Stakes Are High (2002)",
+  "mode": "professional",
+  "topics": ["difficult_conversation", "feedback", "leadership", "conflict_resolution"],
+  "applicable_scenarios": ["difficult_feedback", "conflict_resolution", "leadership_conversation", "difficult_conversation"],
+  "detected_signals": [
+    "hidden_agenda_detected",
+    "speaking_rate_spike",
+    "defensive_language_detected",
+    "win_orientation_language"
+  ],
+  "problem_it_solves": "Entering a high-stakes conversation with a hidden agenda of winning, being right, or making the other person feel bad — which sabotages outcomes before the conversation starts.",
+  "description": "The Crucial Conversations framework identifies three conditions that make a conversation crucial: high stakes, strong emotions, and differing opinions. Their research found that most people either go silent (avoid the conversation) or go violent (attack, manipulate, or insist) when conversations hit these conditions. Both strategies fail to produce the outcomes people actually want.\n\nThe first and most fundamental skill in Crucial Conversations is 'Start with Heart' — examining your own intentions before entering the conversation. Ask yourself three questions: What do I really want for myself? What do I really want for the other person? What do I really want for this relationship? And then: How would I behave if I actually wanted those things? The gap between your answers to the first three questions and your actual planned approach reveals where your true motivation has drifted toward winning, punishing, or being right.\n\nThe framework also introduces the concept of 'the fool's choice' — the false dichotomy between honesty and kindness, or between raising the issue and maintaining the relationship. Crucial conversations research shows that the highest performers find ways to do both simultaneously. The 'AND' question breaks the fool's choice: 'How can I be both totally honest AND completely respectful?' Treating this as a genuine design challenge changes what conversations you believe are possible.",
+  "when_to_use": "Before any conversation where the stakes feel high and the user is reporting emotional activation in anticipation of it — anxiety, anger, dread. The system would detect win-orientation signals or strategy language suggesting the user is approaching the conversation with a goal of prevailing rather than resolving. Starting with Heart is a preparation intervention.",
+  "practice_drill": "Before a difficult conversation you've been preparing for, write honest answers to: (1) What do I actually want for myself here? (2) What do I actually want for the other person? (3) What do I want for the relationship long term? Then write what you'd be doing differently if those three things were genuinely your goals — not a restatement of what you planned, but an honest comparison. Use the gap as your preparation material.",
+  "common_mistakes": "Treating 'Start with Heart' as a feel-good step rather than a diagnostic one — the real value is noticing where your actual intention has drifted from your stated goal. Believing you can check your intentions while still running the same conversation plan — if your plan is designed to win, inspecting your intentions won't change the outcome. Applying Crucial Conversations only to formal 'difficult' conversations and missing the dozens of micro-crucial conversations that happen every day.",
+  "language": "en"
+}

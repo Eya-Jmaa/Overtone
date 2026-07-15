@@ -1,0 +1,16 @@
+{
+  "pmid": "41722218",
+  "doi": "10.1016/j.actpsy.2026.106488",
+  "title": "Emotional contagion in virtual leadership: A webcam-based study of expressivity, psychological safety, and team output.",
+  "authors": [
+    "Gaur Vidhu",
+    "Vallabh Priyanka"
+  ],
+  "year": "2026",
+  "journal": "Acta psychologica",
+  "abstract": "Drawing on theories of emotional contagion, psychological safety, emotional intelligence, and e‑leadership, this study investigates how leaders' expressive behaviours over webcams impact emotional dynamics and team performance in virtual settings. While emotional contagion has been widely studied in co-located teams, its digital transmission via video conferencing remains underexplored, especially in high power-distance, tech-forward cultures like India. This research fills that gap by analyzing how leader expressivity shapes affective climates and output in remote teams. Using a sequential mixed-methods design, the study combined a three-wave survey of 400 professionals across IT, finance, and consulting sectors in India with behavioural observations of 20 virtual meetings. Validated instruments (WLEIS, ECS, Edmondson's scale) were analyzed via CFA, SEM, bootstrapping, moderation analysis, and random forest regression. Findings showed leader expressivity significantly predicted emotional contagion (β = 0.49), which enhanced psychological safety (β = 0.54) and team output (β = 0.61). Emotional intelligence (β = 0.21) and camera-on culture (β = 0.18) moderated these relationships. Observations confirmed that expressive leaders triggered higher engagement and team mood alignment. The study positions webcam expressivity as a measurable, culturally grounded lever for emotional leadership, extending traditional leadership models into digitally mediated workspaces.",
+  "pubmed_url": "https://pubmed.ncbi.nlm.nih.gov/41722218/",
+  "mode": "professional",
+  "topic": "psych_safety",
+  "content_type": "research_abstract"
+}

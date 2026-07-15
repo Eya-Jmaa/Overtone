@@ -1,0 +1,48 @@
+# signal_mappings_template.yaml
+# ---------------------------------------------------------------
+# Tier D content: nobody else can scrape this for you — it bridges
+# your vocal/video signals to therapeutic response patterns.
+# Fill in 30-50 entries like the two examples below, then run
+# load_signal_mappings.py to embed and add them to ChromaDB.
+#
+# Each entry becomes ONE atomic document (no chunking needed).
+# ---------------------------------------------------------------
+
+mappings:
+  - id: sm_001
+    mode: psy
+    signal_trigger: "pitch_drop_midsentence"
+    interpretation: >
+      Energy or pitch dropping mid-sentence often signals the person is
+      approaching something emotionally difficult, not just running out
+      of breath.
+    do: >
+      Slow your own pace, lower your voice slightly, and give space —
+      e.g. "Take your time" or a brief silence before responding.
+    avoid: >
+      Filling the silence immediately, changing the subject, or asking
+      a rapid follow-up question.
+    language: en
+
+  - id: sm_002
+    mode: professional
+    signal_trigger: "filler_word_spike_before_ask"
+    interpretation: >
+      A sudden increase in filler words ("um", "like", "I guess") right
+      before a request or ask usually indicates discomfort with being
+      direct, not lack of preparation.
+    do: >
+      Name it gently and invite a retry — e.g. "Try stating that again,
+      just the ask, no qualifiers."
+    avoid: >
+      Pointing out the filler words as a flaw, or moving on without
+      addressing the underlying hesitation.
+    language: en
+
+  # - id: sm_003
+  #   mode: sport
+  #   signal_trigger: "..."
+  #   interpretation: "..."
+  #   do: "..."
+  #   avoid: "..."
+  #   language: en

@@ -1,0 +1,22 @@
+{
+  "id": "psy_er_001",
+  "technique": "Cognitive Reappraisal",
+  "source_framework": "Cognitive Emotion Regulation / CBT",
+  "source_citation": "James Gross — Stanford Psychophysiology Laboratory; Gross & John (2003) Journal of Personality and Social Psychology",
+  "mode": "psy",
+  "topics": ["emotion_regulation", "self_awareness", "stress_management"],
+  "applicable_scenarios": ["anxiety_regulation", "conflict_resolution", "high_pressure_situation"],
+  "detected_signals": [
+    "anxiety_emotion_detected",
+    "anger_emotion_detected",
+    "catastrophizing_language_detected",
+    "emotional_reactivity_voice",
+    "speaking_rate_spike"
+  ],
+  "problem_it_solves": "Getting hijacked by an emotional interpretation of a situation that is catastrophic, personalized, or distorted — feeling anger, panic, or shame based on a reading of events that isn't necessarily accurate.",
+  "description": "Cognitive reappraisal is the practice of changing how you mentally frame a situation in order to change its emotional impact. It works upstream of the emotional response — before the emotion has fully fired — by intervening at the level of interpretation. Gross's research distinguishes this from suppression (pushing down an emotion that has already been generated), which requires continuous effort and backfires under stress. Reappraisal changes what the emotion generator sees, so the emotion itself is different from the start.\n\nThere are several reappraisal strategies. Reinterpreting meaning asks: is there another plausible explanation for what happened? (Your manager didn't respond to your email — they might be in back-to-back meetings, not ignoring you.) Decentering asks: how would this look in 5 years? How would a respected mentor view this situation? Normalizing asks: is this actually a catastrophe, or an ordinary difficulty? Benefit-finding asks: even in this difficult situation, is there something valuable — feedback, information, growth? None of these strategies is about toxic positivity or denying real problems. They're about examining whether your initial interpretation is the only reasonable one, or whether a less distressing interpretation is equally or more plausible.\n\nNeuroscience research (Ochsner et al., 2002, using fMRI) shows that successful reappraisal reduces activity in the amygdala — the brain's threat-detection center — and increases prefrontal activity, the signature of deliberate regulation.",
+  "when_to_use": "When the system detects catastrophizing language ('this always happens,' 'it's a disaster,' 'I'll never be able to'), high emotional reactivity markers, or when the user is interpreting ambiguous cues in maximally negative ways. This technique is most useful in the preparation phase before a difficult conversation, not mid-confrontation when the emotional system is already fully activated.",
+  "practice_drill": "Think of a situation that's currently causing you anxiety or anger. Write down your current interpretation in one sentence. Then generate three alternative interpretations — at least one must be more neutral or positive than your current reading. For each alternative, ask: 'How likely is this interpretation compared to mine?' Often just seeing the alternatives on paper loosens your grip on the worst-case reading. Then identify what you would need to find out to know which interpretation is closest to reality.",
+  "common_mistakes": "Using reappraisal to gaslight yourself into accepting genuinely bad situations — if your boss consistently ignores your contributions, reframing it as 'they're just busy' is avoidance, not reappraisal. Reappraising at the wrong moment — trying to cognitively restructure while flooded is nearly impossible; the technique works best in calm preparation. Confusing reappraisal with suppression — if you're gritting your teeth and telling yourself 'it's fine,' that's suppression, not reappraisal.",
+  "language": "en"
+}

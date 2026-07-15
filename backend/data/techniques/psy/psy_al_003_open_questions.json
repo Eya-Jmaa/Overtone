@@ -1,0 +1,21 @@
+{
+  "id": "psy_al_003",
+  "technique": "Open-Ended Questions",
+  "source_framework": "Motivational Interviewing / Person-Centered Therapy",
+  "source_citation": "Miller & Rollnick — Motivational Interviewing; Carl Rogers — Client-Centered Therapy",
+  "mode": "psy",
+  "topics": ["active_listening", "communication_clarity", "empathy"],
+  "applicable_scenarios": ["support_conversation", "conflict_resolution", "partner_conflict", "difficult_conversation"],
+  "detected_signals": [
+    "closed_question_dominance",
+    "low_exploration_depth",
+    "frequent_interruption_detected",
+    "advice_giving_before_listening"
+  ],
+  "problem_it_solves": "Closing down conversations with yes/no questions or leading questions that put words in the other person's mouth, preventing you from learning what they actually think and feel.",
+  "description": "An open question cannot be answered with yes, no, or a single word. It invites the other person to elaborate, reflect, and share their perspective in their own terms. Closed questions ('Are you upset about this?', 'Did it go badly?') constrain the answer and often lead the witness. Open questions ('What was that like for you?', 'How are you feeling about where things stand?', 'What's been going on?') create space for the person to reveal what's actually true for them, rather than confirming or denying your hypothesis.\n\nIn Motivational Interviewing, open questions are the first of four core skills (OARS: Open questions, Affirmations, Reflections, Summaries). Research shows that open questions increase the ratio of the client talking to the therapist talking — and that higher client-talk ratios are associated with better outcomes. The principle extends beyond therapy: in any conversation where you want to understand rather than direct, open questions produce richer information and signal genuine curiosity.\n\nThere is a difference between open questions that invite exploration ('What do you make of what happened?') and open questions that express agenda ('Why would you ever do that?'). The latter is technically open but emotionally closed — it signals judgment and will generate defensiveness. Genuinely curious open questions begin with 'what,' 'how,' and 'tell me more about' — they're future-oriented or exploratory. 'Why' questions deserve caution because they often sound like interrogations even when they're not intended that way.",
+  "when_to_use": "As a default orientation in any conversation where your goal is to understand rather than to persuade. The system would flag a need for more open questions when the conversation shows a pattern of closed questions followed by minimal answers — a rhythm that indicates the user is driving the direction rather than exploring the other person's reality.",
+  "practice_drill": "Audit your question style for one week. At the end of each significant conversation, write down the three questions you asked. Were they open or closed? Leading or neutral? Did they invite the person to share their own perspective, or did they confirm yours? Try replacing each closed question with an open alternative. Notice how the conversations change when you start with 'What was that like for you?' instead of 'Was it stressful?'",
+  "common_mistakes": "Using questions as a persuasion technique — 'Wouldn't you agree that...?' is a closed leading question dressed as inquiry. Asking too many questions in sequence, which can feel like an interrogation even when each question is individually good. Defaulting to 'why' questions, which often trigger self-justification rather than genuine reflection. Asking an open question and then not giving the person enough silence to actually answer it — jumping in after 3 seconds when the person is still thinking.",
+  "language": "en"
+}

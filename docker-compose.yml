@@ -1,0 +1,48 @@
+version: '3.9'
+services:
+  backend:
+    build: ./backend
+    ports:
+      - '8000:8000'
+    environment:
+      - ANTHROPIC_API_KEY=your_key_here
+    volumes:
+      - ./backend:/app
+    # Kokoro TTS service runs on GPU, so backend can reach it at http://kokoro:8880
+
+  # Kokoro-FastAPI TTS service (GPU variant)
+  # Run standalone for testing: cd docker/gpu && docker compose up --build kokoro
+  # Health endpoint: http://localhost:8880/health (after port mapping)
+  kokoro:
+    image: ghcr.io/remsky/kokoro-fastapi:gpu-latest
+    # Alternative: build from source if custom config needed
+    # build:
+    #   context: .
+    #   dockerfile: docker/gpu/Dockerfile
+    ports:
+      - '8880:8880'  # Expose for testing; backend connects via internal network
+    environment:
+      - KOKORO_MODEL=Kokoro-82M
+      - KOKORO_VOICE=af_bella  # Warm American female voice
+      - KOKORO_RESPONSE_FORMAT=mp3  # MP3 for small file size, browser compatible
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8880/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    # Note: espeak-ng is pre-installed in the GPU image
+
+  frontend:
+    build: ./frontend
+    ports:
+      - '5173:5173'
+    volumes:
+      - ./frontend:/app

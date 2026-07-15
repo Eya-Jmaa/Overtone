@@ -1,0 +1,22 @@
+{
+  "id": "psy_er_003",
+  "technique": "The STOP Technique",
+  "source_framework": "Mindfulness-Based Stress Reduction / DBT",
+  "source_citation": "Jon Kabat-Zinn — MBSR Program; adapted in DBT by Marsha Linehan",
+  "mode": "psy",
+  "topics": ["emotion_regulation", "mindfulness", "impulse_control"],
+  "applicable_scenarios": ["anxiety_regulation", "anger_management", "conflict_resolution", "high_pressure_situation"],
+  "detected_signals": [
+    "emotional_flooding_detected",
+    "speaking_rate_spike",
+    "anger_emotion_detected",
+    "impulsive_speech_pattern_detected",
+    "long_pause_absent_before_response"
+  ],
+  "problem_it_solves": "Reacting impulsively from a triggered emotional state and saying or doing something that escalates the situation or that you'll regret.",
+  "description": "STOP is a four-step micro-intervention for breaking automatic reactive patterns in real time. S: Stop — physically pause whatever you're doing or saying. Even mid-sentence, you can pause. T: Take a breath — one deliberate breath that activates parasympathetic slowing. This is not a dramatic gesture; it takes under 3 seconds. O: Observe — briefly scan what's happening in your body, your thoughts, and the situation around you. What emotion am I in? What is my body doing (tension, heat, tightness)? What story am I telling myself about this moment? P: Proceed — re-engage the situation with whatever response is most aligned with your values and goals in this moment, rather than with whatever impulse fired automatically.\n\nThe STOP technique works because it inserts a gap between stimulus and response. In that gap, you shift from the reactive limbic system to the deliberate prefrontal cortex. The entire intervention takes 5-15 seconds. It does not require the other person to pause, does not require you to leave the room, and does not require any explanation. It is designed for in-the-moment use, unlike techniques that require preparation or reflection.\n\nThe technique is particularly valuable for people who recognize their reactive patterns after the fact ('I always blow up and then regret it') but struggle to interrupt them in real time. The STOP gives a concrete behavioral anchor — a physical stop — rather than a cognitive instruction like 'think before you speak,' which is rarely actionable when flooded.",
+  "when_to_use": "At any moment when you notice yourself about to react from an activated emotional state — especially when you recognize the sensation of 'I'm about to say something I shouldn't.' The system would detect this need when speaking rate spikes suddenly, when emotional activation is high and response latency drops to near zero (immediate reactive responses without any processing pause), or when the session shows a pattern of escalating exchanges.",
+  "practice_drill": "Practice STOP in low-stakes situations first to build the muscle. When you feel mild frustration during the day — a slow line, a minor tech failure — stop for 2 seconds, take one breath, observe what's happening in your body, then proceed. This conditions the STOP response so it's available under higher emotional load. Once it's automatic in low-stakes situations, you'll be able to access it mid-argument.",
+  "common_mistakes": "Trying to use STOP after you've already flooded — the stop moment has to come before the reactive behavior, not after. Using STOP as a way to withdraw from the conversation and never return to it. Performing the technique in a visible way that the other person reads as contempt or dismissal ('I'm calming myself down from your ridiculousness'). The STOP should be nearly invisible to the other person — a brief breath and a 3-second shift in posture.",
+  "language": "en"
+}

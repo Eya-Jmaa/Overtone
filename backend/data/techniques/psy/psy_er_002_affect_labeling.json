@@ -1,0 +1,22 @@
+{
+  "id": "psy_er_002",
+  "technique": "Affect Labeling",
+  "source_framework": "Affective Neuroscience / CBT",
+  "source_citation": "Lieberman et al. (2007) — Psychological Science; UCLA Social Cognitive Neuroscience Laboratory",
+  "mode": "psy",
+  "topics": ["emotion_regulation", "self_awareness", "mindfulness"],
+  "applicable_scenarios": ["anxiety_regulation", "anger_management", "conflict_resolution"],
+  "detected_signals": [
+    "anger_emotion_detected",
+    "anxiety_emotion_detected",
+    "emotional_reactivity_voice",
+    "energy_level_erratic",
+    "voice_tremor_detected"
+  ],
+  "problem_it_solves": "Being overwhelmed by emotion without a tool to reduce its intensity in the moment, leading to reactive behavior you later regret.",
+  "description": "Affect labeling — putting feelings into words — reduces the subjective intensity of an emotional experience. Lieberman's fMRI research at UCLA showed that when participants labeled a negative emotional image with a word ('angry,' 'scared'), activity in the right amygdala (the brain's threat-response center) decreased and right prefrontal cortex activity increased. This right-to-left hemisphere shift represents a literal neural interruption of the emotional cascade. The process works even when labeling silently in your own mind — you don't need to express the emotion to someone else.\n\nThe technique is deceptively simple: notice the emotion in your body, name it specifically (not just 'bad' or 'stressed,' but 'embarrassed,' 'scared,' 'humiliated,' 'resentful'), and say or write that name. The specificity matters — research suggests more precise labels generate stronger prefrontal activation. 'Anxious' is better than 'upset.' 'Embarrassed' is better than 'anxious.' The act of labeling engages the observing part of your brain, which begins to shift you from being inside the emotion to being aware of the emotion — a crucial distinction.\n\nThis technique is foundational to DBT's mindfulness skills, and appears in various forms across ACT (Acceptance and Commitment Therapy), MBSR (Mindfulness-Based Stress Reduction), and CBT. It is one of the few emotion-regulation strategies with robust fMRI-level evidence for mechanism of action.",
+  "when_to_use": "In any moment of emotional activation before or during a difficult conversation. The system would detect this need when emotional markers are high (facial expression, vocal pitch spike, speaking rate change) and the user appears to be reacting rather than responding. This is a micro-technique — it takes 2-3 seconds and can be done silently mid-conversation without anyone knowing.",
+  "practice_drill": "For one week, keep an emotion log. Three times per day — morning, afternoon, evening — pause and write down the specific emotion you're experiencing, rated 1-10 in intensity. Use a diverse vocabulary: beyond happy/sad/angry/scared, try to name the exact flavor (contemptuous, sheepish, wistful, indignant, deflated, energized). At the end of the week, review which emotions appear most frequently in which contexts. The labeling practice itself, done consistently, measurably reduces emotional reactivity over time.",
+  "common_mistakes": "Using overly broad labels ('I'm stressed') when more specific ones are available — precision is what activates the prefrontal inhibition effect. Confusing labeling with rumination — naming an emotion once is regulatory; replaying the emotion-generating story over and over is not. Trying to label while already flooded — like reappraisal, labeling works best before the emotional peak, not after it has fully activated.",
+  "language": "en"
+}

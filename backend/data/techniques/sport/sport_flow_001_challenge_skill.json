@@ -1,0 +1,21 @@
+{
+  "id": "sport_flow_001",
+  "technique": "Challenge-Skill Balance for Flow",
+  "source_framework": "Positive Psychology / Flow Theory",
+  "source_citation": "Csikszentmihalyi — Flow: The Psychology of Optimal Experience (1990); Jackson & Csikszentmihalyi — Flow in Sports (1999)",
+  "mode": "sport",
+  "topics": ["flow", "performance_optimization", "mental_preparation"],
+  "applicable_scenarios": ["performance_preparation", "skill_acquisition", "competition_planning"],
+  "detected_signals": [
+    "boredom_language_detected",
+    "anxiety_emotion_detected",
+    "low_confidence_markers",
+    "overwhelming_challenge_language"
+  ],
+  "problem_it_solves": "Either being bored (challenge too low relative to skill) or anxious (challenge too high relative to skill) during performance — neither of which produces flow or optimal performance quality.",
+  "description": "Csikszentmihalyi's flow research identified the challenge-skill ratio as the single most important condition for the flow state. When perceived challenge significantly exceeds perceived skill, the result is anxiety. When perceived skill significantly exceeds perceived challenge, the result is boredom. Flow occurs in the narrow corridor where challenge and skill are closely matched at a high level — you are stretched but not overwhelmed, engaged but not bored. In sport, this translates directly: competing against opponents who are far above your level produces anxiety and shutdown. Competing against opponents far below your level produces disengagement. The competitive situation that produces the best performance and the most satisfying experience is the closely matched contest where outcome is genuinely uncertain.\n\nThe practical implication for athletes is that they can deliberately influence the challenge-skill ratio. On the skill side: invest in genuine technical development so that your perceived skill level rises over time. On the challenge side: seek appropriately challenging competition rather than avoiding challenging opponents (a common self-protective strategy that eliminates flow opportunity). When a challenge feels overwhelming, you can also reframe the skill side — focus on what you already can do well rather than on the gap between your level and the competitor's, and set process goals that are achievable regardless of outcome.\n\nJackson's research with elite athletes found that the most common reported condition for flow in sport was being optimally challenged — neither bored nor overwhelmed. Elite athletes often describe deliberately 'turning up' their focus and expectations in less competitive situations to maintain the challenge they need for flow.",
+  "when_to_use": "As a framework for competition planning and mental preparation. The system would use this model when a user describes either pre-competition anxiety (challenge perceived as too high) or low motivation/flat affect (challenge perceived as too low) to diagnose the specific challenge-skill mismatch and suggest targeted intervention.",
+  "practice_drill": "Before your next competition, rate: (1) How do you perceive the challenge level? 1 (trivial) to 10 (overwhelming). (2) How do you perceive your current skill level relative to this challenge? 1 (far below) to 10 (far above). If challenge > skill by more than 2 points, work on perceived competence: list your specific technical strengths and what you can execute well in this matchup. If skill > challenge by more than 2 points, elevate internal standards: set process goals that stretch you regardless of opponent quality.",
+  "common_mistakes": "Confusing objective challenge level with perceived challenge level — flow responds to your perception, not objective difficulty. Waiting passively for flow rather than actively setting conditions for it. Believing that flow only happens in competitive contexts — deliberate practice at the right challenge-skill level can produce flow during training too.",
+  "language": "en"
+}

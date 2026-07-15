@@ -1,0 +1,113 @@
+[
+  {
+    "source": "SAMHSA TIP 35 - Enhancing Motivation for Change in SUD Treatment",
+    "status": "OK",
+    "chunks": 159,
+    "url": "https://casatondemand.org/wp-content/uploads/2019/07/tip.35.sma13-4212-3.pdf",
+    "http_status": 200
+  },
+  {
+    "source": "SAMHSA Quick Guide for Clinicians based on TIP 35",
+    "status": "FAILED_DOWNLOAD",
+    "url": "https://library.samhsa.gov/sites/default/files/sma12-4097.pdf",
+    "http_status": null,
+    "error": "403 Client Error: Forbidden for url: https://library.samhsa.gov/sites/default/files/sma12-4097.pdf"
+  },
+  {
+    "source": "SAMHSA Advisory - Using Motivational Interviewing",
+    "status": "FAILED_DOWNLOAD",
+    "url": "https://library.samhsa.gov/sites/default/files/PEP20-02-02-014.pdf",
+    "http_status": null,
+    "error": "403 Client Error: Forbidden for url: https://library.samhsa.gov/sites/default/files/PEP20-02-02-014.pdf"
+  },
+  {
+    "source": "VA Brief CBT Therapist Manual",
+    "status": "OK",
+    "chunks": 54,
+    "url": "https://depts.washington.edu/dbpeds/therapists_guide_to_brief_cbtmanual.pdf",
+    "http_status": 200
+  },
+  {
+    "source": "CAMH CBT Information Guide",
+    "status": "EMPTY_TEXT",
+    "url": "https://www.camh.ca/-/media/health-info-files/guides-and-publications/cbt-guide-en.pdf",
+    "http_status": 200
+  },
+  {
+    "source": "CT DCF MI Refresher - Reflective Listening",
+    "status": "OK",
+    "chunks": 4,
+    "url": "https://portal.ct.gov/dcf/-/media/dcf/substance_abuse/2024/dcf-mi-refresher-topic-1-reflective-listening.pdf",
+    "http_status": 200
+  },
+  {
+    "source": "UNH Motivational Interviewing Basics OARS",
+    "status": "OK",
+    "chunks": 3,
+    "url": "https://iod.unh.edu/sites/default/files/media/2021-10/motivational-interviewing-the-basics-oars.pdf",
+    "http_status": 200
+  },
+  {
+    "source": "Dancing Gecko MI Guided Dialogue",
+    "status": "OK",
+    "chunks": 17,
+    "url": "https://dancinggeckotraining.ca/wp-content/uploads/2020/10/DG_MI-guided-dialogue_EN.pdf",
+    "http_status": 200
+  },
+  {
+    "source": "Iowa MI Example Conversation",
+    "status": "OK",
+    "chunks": 6,
+    "url": "https://www.iowacebh.org/wp-content/uploads/2025/03/MI-3.11.25-Resources.pdf",
+    "http_status": 200
+  },
+  {
+    "source": "Person-Centered Therapy (Rogerian Therapy) - StatPearls - NCBI Bookshelf",
+    "status": "OK",
+    "chunks": 4,
+    "url": "https://www.ncbi.nlm.nih.gov/books/NBK589708/",
+    "http_status": 200
+  },
+  {
+    "source": "Clinical Consensus Strategies to Repair Ruptures in the Therapeutic Alliance - PMC",
+    "status": "OK",
+    "chunks": 14,
+    "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5966286/",
+    "http_status": 200
+  },
+  {
+    "source": "ICF Core Competencies 2025",
+    "status": "FAILED_DOWNLOAD",
+    "url": "https://coachingfederation.org/wp-content/uploads/2025/09/icf-cs-core-competencies-2025.pdf",
+    "http_status": null,
+    "error": "403 Client Error: Forbidden for url: https://coachingfederation.org/wp-content/uploads/2025/09/icf-cs-core-competencies-2025.pdf"
+  },
+  {
+    "source": "ICF 2019-2025 Competencies Comparison Chart",
+    "status": "FAILED_DOWNLOAD",
+    "url": "https://coachingfederation.org/wp-content/uploads/2025/09/icf-cs-core-comptencies-comparison-2025.pdf",
+    "http_status": null,
+    "error": "403 Client Error: Forbidden for url: https://coachingfederation.org/wp-content/uploads/2025/09/icf-cs-core-comptencies-comparison-2025.pdf"
+  },
+  {
+    "source": "USMC Performance Imagery Script Guide",
+    "status": "FAILED_DOWNLOAD",
+    "url": "https://www.marforres.marines.mil/Portals/116/Docs/WPT/Performance%20Imagery%20Script.pdf",
+    "http_status": null,
+    "error": "403 Client Error: Forbidden for url: https://www.marforres.marines.mil/Portals/116/Docs/WPT/Performance%20Imagery%20Script.pdf"
+  },
+  {
+    "source": "Ohio State Imagery in Sport Guide",
+    "status": "OK",
+    "chunks": 2,
+    "url": "https://lifesports.osu.edu/cdn/FINAL-Imagery.pdf",
+    "http_status": 200
+  },
+  {
+    "source": "VA CBT for Chronic Pain Therapist Manual",
+    "status": "OK",
+    "chunks": 83,
+    "url": "https://www.va.gov/painmanagement/docs/cbt-cp_therapist_manual.pdf",
+    "http_status": 200
+  }
+]

@@ -1,0 +1,21 @@
+{
+  "id": "pro_fb_002",
+  "technique": "Radical Candor",
+  "source_framework": "Leadership Communication",
+  "source_citation": "Kim Scott — Radical Candor: Be a Kick-Ass Boss Without Losing Your Humanity (2017)",
+  "mode": "professional",
+  "topics": ["feedback", "leadership", "communication_patterns"],
+  "applicable_scenarios": ["difficult_feedback", "leadership_conversation", "performance_discussion"],
+  "detected_signals": [
+    "ruinous_empathy_patterns",
+    "vague_feedback_language_detected",
+    "hedging_language_detected",
+    "apology_over_density"
+  ],
+  "problem_it_solves": "Defaulting to kind-sounding but vague or withheld feedback (ruinous empathy) that feels comfortable but ultimately fails the other person by depriving them of information they need to grow.",
+  "description": "Kim Scott's Radical Candor framework maps feedback behavior on two axes: Care Personally (how much you genuinely invest in the other person's wellbeing and success) and Challenge Directly (how clearly and completely you share honest assessments, even when difficult). Radical Candor sits at the intersection of high care and high challenge. The three failure modes are: Ruinous Empathy (high care, low challenge) — you're so concerned about the person's feelings that you soften or withhold the important feedback; Obnoxious Aggression (low care, high challenge) — you're direct but cold or contemptuous; Manipulative Insincerity (low care, low challenge) — you give empty praise and hint at concerns without ever saying them clearly.\n\nScott's observation is that ruinous empathy is far more common than obnoxious aggression in most professional environments — and that it feels virtuous while being genuinely harmful. When you don't tell someone that their work is not meeting the bar, or that a behavior is costing them opportunities, you prioritize your own comfort (avoiding an awkward conversation) over their actual wellbeing. The kindest thing is often the clearest thing.\n\nRadical candor requires that both elements be genuine. Challenging directly without caring personally is not radical candor — it's obnoxious aggression with a rebranding. The care has to come first and come through: in the relationship, in the context, in the way the direct feedback is delivered. Scott uses the phrase 'praise in public, criticize in private, and always be specific' as a set of operational rules.",
+  "when_to_use": "When the system detects feedback patterns that are heavy on appreciation and vague on challenge, when the user is struggling to name something critical, or when hedging language suggests the real message is being buried. Also when a pattern of consistent ruinous empathy across sessions suggests the user has a systematic difficulty delivering hard truths.",
+  "practice_drill": "Plot your last three significant pieces of feedback on the 2x2 grid. Where did they land? If most fall in ruinous empathy territory, practice what radical candor would have sounded like for one of them: write a version that is both warmer and more direct. Read it aloud. Notice that being clear doesn't require being cold — in fact, the warmth of the relationship is what makes the directness land as care rather than attack.",
+  "common_mistakes": "Treating Radical Candor as permission to be harsh — directness without care is the obnoxious aggression quadrant, not radical candor. Using the framework to justify feedback that hasn't been thought through — directness requires preparation and clarity about what you're trying to communicate. Applying radical candor only in formal feedback settings rather than making real-time candor a cultural norm.",
+  "language": "en"
+}

@@ -1,0 +1,20 @@
+{
+  "id": "sport_vis_001",
+  "technique": "PETTLEP Mental Imagery Model",
+  "source_framework": "Sport Psychology / Applied Imagery",
+  "source_citation": "Holmes & Collins — The Sport Psychologist (2001); PETTLEP model development",
+  "mode": "sport",
+  "topics": ["visualization", "mental_imagery", "skill_acquisition", "performance_preparation"],
+  "applicable_scenarios": ["pre_competition", "skill_acquisition", "injury_recovery", "performance_preparation"],
+  "detected_signals": [
+    "anxiety_emotion_detected",
+    "low_confidence_markers",
+    "technical_error_focus_detected"
+  ],
+  "problem_it_solves": "Using mental imagery in a way that is too abstract, too outcome-focused, or too different from the actual performance environment to transfer effectively to competition.",
+  "description": "PETTLEP is an acronym for the seven elements that make mental imagery functionally equivalent to physical practice: Physical (imagining in your performance clothing, holding relevant equipment, in a performance stance — not lying in bed thinking about it), Environment (imagining the actual competition venue with as much environmental detail as possible — sight, sound, smell), Task (imagining the exact task you perform, not a simplified or idealized version), Timing (imagining in real time, not slowed down or speeded up — the temporal pattern of performance is part of what's being trained), Learning (updating imagery content as your technique develops — don't keep imaging outdated technique), Emotion (fully including the emotional experience of competition — the pressure, the crowd reaction, the post-execution feeling), Perspective (using first-person internal perspective — seeing through your own eyes — for most tasks, though external perspective has specific uses in movement correction).\n\nHolmes and Collins developed PETTLEP based on functional equivalence theory: the premise that mental imagery produces genuine neural activation that overlaps with the activation patterns of physical performance, and that the more functionally similar the imagery is to actual performance, the greater the neural and performance transfer. The model specifically addresses the common failure mode of generic, 'lying on a couch imagining success' imagery that is too abstract to generate functional equivalence.\n\nResearch comparing PETTLEP imagery to traditional imagery consistently shows superior performance gains, particularly in skills that are technically complex and performance-environment-dependent.",
+  "when_to_use": "As a deliberate practice tool during training camps, injury rehabilitation (to maintain neural patterns during forced rest), and in the pre-competition preparation window. The system would suggest PETTLEP imagery when physical practice time is constrained, when a user describes imagining outcomes rather than process, or when standard mental imagery has not been producing transfer to competition.",
+  "practice_drill": "Create a PETTLEP imagery script for your most critical performance skill. Check each element: Are you wearing your competition kit mentally? Are you imagining the actual venue? Is your imagery in real time? Is the emotion of competition present? Write a 3-minute script and audio-record yourself reading it. Listen to the recording with eyes closed in your performance stance or position. Practice 3x per week for four weeks and compare your competition-vs-training performance gap.",
+  "common_mistakes": "Imaging the perfect execution every time — include some adversity and recovery imagery (see coping imagery card). Skipping the Emotion element — imagery without emotional activation produces less transfer. Using imagery as outcome visualization only ('I see myself winning') rather than as process rehearsal. Imaging at a tempo slower than competition pace — real-time timing is a specific technical requirement of PETTLEP.",
+  "language": "en"
+}

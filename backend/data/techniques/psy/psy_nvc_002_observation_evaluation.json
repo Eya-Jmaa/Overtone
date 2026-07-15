@@ -1,0 +1,21 @@
+{
+  "id": "psy_nvc_002",
+  "technique": "Separating Observation from Evaluation",
+  "source_framework": "Nonviolent Communication",
+  "source_citation": "Marshall Rosenberg — Nonviolent Communication: A Language of Life",
+  "mode": "psy",
+  "topics": ["conflict_resolution", "emotional_expression", "communication_clarity"],
+  "applicable_scenarios": ["conflict_resolution", "partner_conflict", "difficult_feedback"],
+  "detected_signals": [
+    "accusatory_language_detected",
+    "high_you_statement_ratio",
+    "evaluation_language_detected",
+    "defensive_language_from_partner"
+  ],
+  "problem_it_solves": "Mixing judgments and interpretations into factual descriptions, which causes the listener to dispute your characterization rather than engaging with the underlying issue.",
+  "description": "An observation is a pure, video-camera description of what happened: something both parties could confirm if they watched a recording. An evaluation is your interpretation or judgment of that event. 'You interrupted me three times in the last ten minutes' is an observation. 'You never let me finish a sentence' is an evaluation — it includes the word 'never' (a generalization) and implies a pattern rather than a specific event. When we mix evaluations into observations, the other person's brain instinctively responds to the evaluation rather than the event. They argue about whether 'never' is accurate instead of addressing the interruption pattern.\n\nRosenberg identified this as one of the most common and damaging communication habits. The fix requires slowing down and asking yourself: 'What specifically happened? What would a video camera show?' Practice editing your statements until they contain only observable behavior: who, what, when, how many times. Strip out adjectives that carry judgment (rude, lazy, inconsiderate, always, never, constantly). The result may feel blunt, but it creates the factual common ground from which productive conversation becomes possible.",
+  "when_to_use": "When the system detects evaluation language in your statements — words like 'always,' 'never,' 'constantly,' 'irresponsible,' or 'disrespectful' — or when the other person starts pushing back on your characterization of events rather than engaging with the substance. This signal appears as accusatory language spikes combined with the partner's defensive pitch elevation.",
+  "practice_drill": "Take three recent complaints you have about someone and write each as a blended statement first (e.g., 'You're always on your phone during dinner'). Then rewrite each as a pure observation: 'During the last four dinners, you checked your phone an average of six times per meal.' Read both aloud. Notice which version you could defend with video evidence. Practice until the observable version comes naturally before you speak.",
+  "common_mistakes": "Thinking that softening an evaluation makes it an observation — 'You're sometimes a little dismissive' is still an evaluation. Using frequency adverbs carelessly ('often,' 'usually,' 'rarely') when specific counts are possible. Believing that stripping evaluations makes you seem cold — in practice, specific observations signal that you've paid close attention, which feels more respectful, not less.",
+  "language": "en"
+}

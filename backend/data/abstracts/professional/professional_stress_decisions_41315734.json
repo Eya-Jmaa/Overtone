@@ -1,0 +1,17 @@
+{
+  "pmid": "41315734",
+  "doi": "10.1038/s44271-025-00355-x",
+  "title": "Acute stress impairs decision-making at varying levels of decision complexity.",
+  "authors": [
+    "Doroc Karlo",
+    "Yadav Nitin",
+    "Murawski Carsten"
+  ],
+  "year": "2025",
+  "journal": "Communications psychology",
+  "abstract": "Acute stress triggers a cascade of physiological and psychological changes, including heightened perspiration, cortisol levels, and anxiety. Currently, little is known about the effects of acute stress on the quality of higher-order decision-making, with existing studies unable to disentangle decision-making capacity from subjective preferences. To address this gap, we conducted a within-participants laboratory experiment in which university students (n = 42) made objective decisions of varying complexity (computational hardness) under both acutely stressful and control conditions. We find that higher cortisol levels, induced via the Trier Social Stress Test, leads to lower decision quality and a higher incidence of experienced time pressure. Among cortisol responders, the deterioration in decision quality was independent of the level of computational hardness, whilst among the full sample it was concentrated among trials with higher levels of computational hardness. Post-hoc, we find that the most substantial deficits in decision quality occurred when acute stress was accompanied by time pressure, with gaze-tracking analyses offering tentative evidence that changes in attention allocation may be one mechanism for this effect. Our results demonstrate that acute stress impairs the capacity to decide correctly, and highlights the importance of computational hardness and time pressure as potential moderators of this effect.",
+  "pubmed_url": "https://pubmed.ncbi.nlm.nih.gov/41315734/",
+  "mode": "professional",
+  "topic": "stress_decisions",
+  "content_type": "research_abstract"
+}

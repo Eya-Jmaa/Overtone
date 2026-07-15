@@ -1,0 +1,20 @@
+{
+  "id": "pro_neg_005",
+  "technique": "ZOPA — Mapping the Negotiation Space",
+  "source_framework": "Harvard Negotiation Project / Negotiation Theory",
+  "source_citation": "Lax & Sebenius — The Manager as Negotiator (1986); Harvard Program on Negotiation",
+  "mode": "professional",
+  "topics": ["negotiation", "preparation", "strategic_thinking"],
+  "applicable_scenarios": ["salary_negotiation", "business_deal", "vendor_negotiation"],
+  "detected_signals": [
+    "low_preparation_signals",
+    "reactive_anchoring_detected",
+    "concession_language_early_detected"
+  ],
+  "problem_it_solves": "Negotiating blindly without a mental map of the deal space — not knowing whether a deal is theoretically possible, where value can be created, and how much room exists to move.",
+  "description": "The Zone of Possible Agreement is the range within which a deal can theoretically happen — the overlap between your reservation point (the worst deal you'd accept) and the other party's reservation point (the worst deal they'd accept). If no overlap exists, there is no ZOPA and no deal is possible. If overlap exists, any point within that range is technically acceptable to both parties, and the negotiation is about where within that range the deal lands.\n\nUnderstanding ZOPA requires estimating the other party's reservation point — their true walkaway. This requires research and inference: What do they pay other people in comparable roles? What is their budget for this project? What alternatives do they have if you walk away? What pressures are they under to close? You will rarely know their reservation point with certainty, but a calibrated estimate dramatically improves your negotiation strategy. If you believe the ZOPA is narrow, aggressive anchoring carries more risk. If the ZOPA is wide, you have room to be ambitious without threatening the deal.\n\nThe ZOPA framework also helps you spot value creation opportunities. When there are multiple issues on the table, parties rarely value them identically. One party may care most about the base salary, another about the start date and flexibility. Trading across issues — 'I'll give you X on issue A if you give me Y on issue B' — can expand the total value of the deal so that both parties get more than in a single-issue compromise. This is what negotiators call growing the pie before dividing it.",
+  "when_to_use": "In preparation for any multi-issue negotiation. The system would detect poor ZOPA preparation when a user is making concessions early, reacting to anchors without strategy, or showing uncertainty about what range of outcomes is actually achievable. This is primarily a pre-conversation analytical tool.",
+  "practice_drill": "For your next negotiation, draw a simple number line for the primary issue (e.g., salary). Mark your target, your reservation point, and your anchor. Then estimate the other party's anchor and reservation point based on your research. Mark the estimated ZOPA. Does a deal exist? Where does your opening anchor sit relative to the estimated ZOPA? If you're negotiating multiple issues, list them and rate how much each party likely cares about each one — this reveals the trade opportunities.",
+  "common_mistakes": "Assuming a ZOPA doesn't exist without doing the research to verify — many negotiations fail because one party believed the other couldn't move, when they actually could. Treating ZOPA as fixed — interests and alternatives change, and so does the ZOPA. Anchoring at your reservation point rather than above it — starting at your walkaway leaves no room to make concessions while still getting a deal you want.",
+  "language": "en"
+}

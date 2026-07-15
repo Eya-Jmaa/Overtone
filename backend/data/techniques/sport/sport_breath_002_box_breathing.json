@@ -1,0 +1,21 @@
+{
+  "id": "sport_breath_002",
+  "technique": "Box Breathing",
+  "source_framework": "Stress Physiology / Military and Sport Performance",
+  "source_citation": "US Navy SEAL training protocols; Jerath et al. — Medical Hypotheses (2006); slow breathing and autonomic regulation research",
+  "mode": "sport",
+  "topics": ["physiological_regulation", "anxiety_regulation", "concentration", "pre_performance"],
+  "applicable_scenarios": ["pre_competition", "anxiety_regulation", "mid_performance_reset", "recovery"],
+  "detected_signals": [
+    "anxiety_emotion_detected",
+    "speaking_rate_spike",
+    "pitch_elevation_sustained",
+    "energy_level_erratic"
+  ],
+  "problem_it_solves": "Elevated physiological arousal that is sustained or recurrent — requiring a reliable multi-cycle regulation technique that produces robust parasympathetic activation after several repetitions rather than in a single breath.",
+  "description": "Box breathing (also called tactical breathing) involves four equal-duration phases: inhale for 4 counts, hold for 4 counts, exhale for 4 counts, hold for 4 counts. The pattern is symmetrical — hence the 'box' name — and is practiced for 4-6 cycles, taking approximately 2-3 minutes for a full regulation effect. Unlike the physiological sigh (which works in a single breath), box breathing produces its effects cumulatively across multiple cycles and is better suited to situations where you have 2-3 minutes of preparation time rather than a 5-second window.\n\nThe physiological mechanism involves slowing breathing rate to approximately 5-6 breaths per minute (well below the default 12-15 breaths per minute), which promotes heart rate variability and shifts the autonomic balance toward parasympathetic dominance. The hold phases add a mild CO2 build-up effect that further dampens sympathetic drive. Research on slow breathing techniques consistently shows reductions in heart rate, blood pressure, and subjective anxiety ratings within 2-5 minutes of practice.\n\nBox breathing is used extensively in military contexts (SEAL training, combat stress management) and has been adopted by many elite sport programs as a standard pre-competition protocol. Its symmetrical simplicity makes it easy to remember and execute under pressure without counting errors — you count to four four times, and the pattern is obvious.",
+  "when_to_use": "In the 5-15 minute pre-competition window, during extended warm-up periods, in the locker room before competition, or during longer natural breaks in play (halftime, extended timeouts). Contrasted with the physiological sigh (used for single-breath crisis moments), box breathing is the sustained regulation protocol for proactive anxiety management. The system would suggest box breathing when arousal is elevated and sufficient time is available.",
+  "practice_drill": "Practice box breathing daily for one week at a neutral time (not during stress). Learn to count the four phases without thinking about the counting — the goal is for the pattern to be automatic so cognitive resources aren't consumed by it during competition. Then practice it in a mild stress condition (cold exposure, a challenging workout). Finally, implement it as part of your pre-competition routine for one competition and compare your arousal state at competition start to a previous baseline.",
+  "common_mistakes": "Breathing too shallowly during the technique — use diaphragmatic breathing throughout, not chest breathing. Tensing while trying to hold the breath — the hold phases should involve breath retention, not muscular contraction. Using box breathing when you have 10 seconds rather than 2-3 minutes available — use the physiological sigh in that situation. Expecting box breathing to completely eliminate arousal — the goal is to bring arousal into the optimal zone, not eliminate it.",
+  "language": "en"
+}

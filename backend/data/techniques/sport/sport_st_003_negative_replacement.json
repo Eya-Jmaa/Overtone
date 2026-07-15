@@ -1,0 +1,22 @@
+{
+  "id": "sport_st_003",
+  "technique": "Replacing Negative Self-Talk",
+  "source_framework": "Sport Psychology / CBT",
+  "source_citation": "Meyers & Whelan — self-talk intervention research; Hardy et al. — sport self-talk literature",
+  "mode": "sport",
+  "topics": ["self_talk", "confidence", "resilience", "emotion_regulation"],
+  "applicable_scenarios": ["post_error", "performance_slump", "anxiety_regulation", "competition_pressure"],
+  "detected_signals": [
+    "negative_self_talk_detected",
+    "catastrophizing_language_detected",
+    "anger_emotion_detected",
+    "energy_drop_post_error",
+    "self_critical_language_detected"
+  ],
+  "problem_it_solves": "An internal running commentary of self-criticism, catastrophizing, or hopelessness following errors or setbacks that disrupts focus, increases anxiety, and makes further errors more likely.",
+  "description": "Negative self-talk interferes with athletic performance through two primary mechanisms: attentional distraction (internal criticism occupies cognitive resources that should be directed at the task) and emotional disruption (self-attack generates shame, fear, and anxiety that raise arousal to counterproductive levels). The relationship is self-reinforcing: negative self-talk after an error increases the probability of the next error, which generates more negative self-talk.\n\nThe two-stage replacement process is: (1) Stop — interrupt the negative self-talk chain before it compounds. Some athletes use a physical gesture (snapping a wristband, a brief hand clap), a verbal stop ('stop,' 'let it go'), or a visual anchor (looking at a specific point on the court/field) as the interruption signal. This physical-verbal-visual stop is important because simply trying to think positive thoughts doesn't interrupt negative thought momentum — you need a genuine interruption first. (2) Replace — substitute a pre-rehearsed constructive thought: a cue word, a process focus ('next play,' 'next point'), a brief success memory, or a perspective cue ('one point, stay present'). The replacement must be ready before the performance — athletes who try to generate constructive thoughts in the moment, under pressure, after an error, rarely succeed.\n\nThe replacement self-talk doesn't need to be aggressively positive — it needs to be task-orienting. 'Come on, you idiot' is damaging. 'Next one' is sufficient. The bar for constructive self-talk is simply that it redirects attention toward the next relevant task rather than keeping it stuck on the previous failure.",
+  "when_to_use": "After any error or setback during performance. The system would detect the need for negative self-talk replacement when self-critical language density is high, when emotional activation is elevated following an error, or when performance patterns show performance degradation cascades — multiple consecutive errors following a first error — suggesting the self-talk cycle is active.",
+  "practice_drill": "Identify your three most common negative self-talk statements in competition ('I always miss this shot when it matters,' 'I'm completely falling apart,' 'They're so much better than me'). For each one, design: (1) A stop signal — physical and verbal. (2) A replacement cue — one to three words that redirect to the next task. Write them on a card. Practice the stop-and-replace sequence at least 20 times in training with deliberately induced frustration (time pressure, consequence, audience) so it's available under actual competition stress.",
+  "common_mistakes": "Trying to suppress negative self-talk without replacing it — suppression creates a rebound effect where the suppressed thought returns more forcefully. Using replacement cues that are too long or complex to execute quickly mid-performance. Using replacement cues that aren't genuinely meaningful — 'I am confident and capable' said while you feel destroyed by an error rarely works; 'next play' said with intention to refocus often does.",
+  "language": "en"
+}

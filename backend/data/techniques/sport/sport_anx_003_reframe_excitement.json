@@ -1,0 +1,22 @@
+{
+  "id": "sport_anx_003",
+  "technique": "Reframing Anxiety as Excitement",
+  "source_framework": "Sport Psychology / Cognitive Reappraisal",
+  "source_citation": "Alison Wood Brooks — Journal of Experimental Psychology: General (2014); arousal reappraisal research",
+  "mode": "sport",
+  "topics": ["pre_competition_anxiety", "anxiety_regulation", "reappraisal", "mindset"],
+  "applicable_scenarios": ["pre_competition", "anxiety_regulation", "high_pressure_situation"],
+  "detected_signals": [
+    "anxiety_emotion_detected",
+    "voice_tremor_detected",
+    "speaking_rate_spike",
+    "pitch_elevation_sustained",
+    "negative_anticipation_language"
+  ],
+  "problem_it_solves": "Interpreting pre-competition physiological arousal as a negative signal ('I'm too anxious, something is wrong') when the same physiological state can be reinterpreted as functional readiness for performance.",
+  "description": "Alison Wood Brooks's research at Harvard found that when people experiencing pre-performance anxiety were instructed to say 'I am excited' (rather than 'I am calm' or nothing), they performed significantly better on subsequent tasks — singing accuracy, math tests, public speaking performance. The mechanism is what she calls 'arousal congruence': anxiety and excitement produce almost identical physiological states (elevated heart rate, heightened alertness, butterflies). The difference is purely in how the arousal is interpreted — as a threat signal (anxiety) or as an opportunity signal (excitement). Calming strategies fight the arousal, which is physiologically difficult and often unsuccessful. Reappraisal strategies redirect the same arousal toward performance rather than threat.\n\nThe research has specific implications for sport: many athletes experience intense pre-competition arousal that they've been trained to interpret as anxiety and then attempt to reduce. But moderate to high arousal is often facilitative for sport performance (particularly gross motor, explosive, or high-effort tasks). The problem is not the arousal itself — it's the negative appraisal of the arousal. 'My heart is racing — that means I'm not ready' versus 'My heart is racing — my body is preparing for competition.'\n\nThis technique is distinct from toxic positivity ('just be positive!') because it doesn't deny the arousal or the difficulty. It simply offers a different, equally valid interpretation of the same physiological signal. The reinterpretation must be credible to the athlete — practiced, genuine, and matched to their actual performance history of competing well when aroused.",
+  "when_to_use": "In the pre-competition window when the athlete is experiencing high physiological arousal and interpreting it negatively. The system would detect anxiety-labeled high arousal versus excitement-labeled high arousal through language content (negative anticipation vs. energized language) and suggest the reappraisal when the former is present.",
+  "practice_drill": "Before your next competition, when you notice the physical arousal ramping up, practice saying — out loud, not in your head — 'I am excited.' Say it three times. Then direct attention to a process cue rather than to the physiological sensations. In training, run a self-experiment: in one session, label your arousal as anxiety ('I'm nervous') and notice performance. In another, label it as excitement. Track your performance and subjective experience. Most athletes find the difference is measurable.",
+  "common_mistakes": "Trying to use this technique to achieve complete calm rather than to redirect arousal — 'I am excited' is not the same as 'I am relaxed.' Applying the reappraisal when the arousal is genuinely debilitating (above the window of tolerance) rather than when it's moderate-to-high but functional — at extreme arousal levels, physiological interventions (breathing) are needed first. Using the technique without believing it — the reappraisal must feel credible, which requires practice and memory of previous high-arousal high-performance experiences.",
+  "language": "en"
+}

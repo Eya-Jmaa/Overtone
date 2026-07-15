@@ -1,0 +1,21 @@
+{
+  "id": "sport_vis_003",
+  "technique": "Coping Imagery",
+  "source_framework": "Sport Psychology",
+  "source_citation": "Hanton & Jones — Journal of Sport Sciences (1999); coping imagery in elite sport research",
+  "mode": "sport",
+  "topics": ["visualization", "resilience", "anxiety_regulation", "mental_imagery"],
+  "applicable_scenarios": ["pre_competition", "anxiety_regulation", "performance_preparation"],
+  "detected_signals": [
+    "worst_case_scenario_focus",
+    "anxiety_emotion_detected",
+    "worry_language_detected",
+    "low_resilience_markers"
+  ],
+  "problem_it_solves": "Being blindsided by adversity during competition — an unexpected challenge, a run of errors, environmental difficulties — because mental preparation has only rehearsed success scenarios.",
+  "description": "Most athlete imagery rehearses the ideal: perfect execution, smooth performance, successful outcomes. Coping imagery deliberately rehearses adversity and the successful recovery from it. The athlete imagines things going wrong — a bad call, a technical error, an unexpected crowd reaction, an injury scare — and then images themselves responding effectively: staying composed, using their mental skills, adjusting their approach, and continuing to compete well. The imagery doesn't end with the problem; it ends with the coped-with problem.\n\nThe rationale is well-established in stress research: people who have mentally rehearsed dealing with a stressor are more resilient when that stressor actually occurs. The brain's threat-detection system is partially calibrated by prior experience — if your only mental experience of competition adversity is surprise and helplessness (because you've never rehearsed dealing with it), your threat response will be more severe when it happens. Coping imagery essentially provides controlled prior exposure to adversity and recovery, reducing the novelty and threat level when the real situation arises.\n\nResearch by Hanton and Jones with elite swimmers found that athletes who used coping imagery reported more facilitative interpretations of pre-competition anxiety (viewing it as energizing rather than debilitating) compared to athletes using only mastery imagery. The coping imagery group had effectively desensitized themselves to the idea that things could go wrong — they'd already handled it successfully, at least in their minds.",
+  "when_to_use": "As a deliberate component of pre-competition mental preparation, particularly in the final 1-2 weeks before a major competition. Also valuable for athletes who report catastrophizing about specific scenarios ('if I make an error early I completely fall apart'). The system would suggest coping imagery when the user's pre-competition mental preparation is exclusively positive/mastery focused and they report feeling blindsided by adversity.",
+  "practice_drill": "Identify the three adversity scenarios you are most afraid of in your next competition. For each, write a 90-second mental script that: (1) Fully imagines the adversity happening — vividly, with emotion. (2) Imagines your immediate internal reaction (the flash of frustration or fear — this is honest, not bypassed). (3) Imagines using your specific mental skills to respond: your stop cue, your breathing, your process focus cue. (4) Imagines continuing to perform well. Practice each script at least 5 times in the week before competition.",
+  "common_mistakes": "Stopping the coping imagery at the adversity rather than completing the recovery — the endpoint of the image must be effective coping, not the difficulty itself. Imagining too much adversity, creating anxiety rather than resilience — coping imagery should be challenging but manageable, not overwhelming. Treating coping imagery as pessimism rather than preparation — you're not imagining failure; you're imagining successful navigation of difficulty.",
+  "language": "en"
+}

@@ -1,0 +1,21 @@
+{
+  "id": "pro_pub_001",
+  "technique": "The Rule of Three",
+  "source_framework": "Rhetoric / Public Speaking",
+  "source_citation": "Classical rhetoric (Aristotle); modern communication: Carmine Gallo — Talk Like TED",
+  "mode": "professional",
+  "topics": ["public_speaking", "persuasion", "communication_clarity"],
+  "applicable_scenarios": ["presentation", "public_speaking", "persuasion", "key_message_delivery"],
+  "detected_signals": [
+    "low_message_clarity_detected",
+    "information_overload_detected",
+    "speaking_rate_spike",
+    "pitch_drop_end_of_sentence"
+  ],
+  "problem_it_solves": "Presenting too many points with equal weight, making it impossible for the audience to remember what you actually want them to take away from what you said.",
+  "description": "The rule of three is one of the most well-supported principles in rhetoric: people process, remember, and find satisfying information that comes in groups of three. Cognitive psychology research on working memory limitations confirms that three items are close to the ideal chunk for short-term retention. Below three often feels incomplete; above three tends to blur into an undifferentiated list that the audience can't hold. Great communicators have internalized this across every context: 'Life, Liberty, and the pursuit of Happiness.' 'Blood, sweat, and tears.' 'Tell them what you're going to say, say it, tell them what you said.'\n\nThe practical application is structural discipline: before any presentation, conversation, or pitch, force yourself to identify exactly three points you want to land. Not four, not six, not 'as many as possible so I cover everything.' Three, ranked by importance. If you have more than three things to say, either they're not all primary points (some are supporting evidence for one of your three), or you're not yet clear enough on what matters most.\n\nThe rule also applies within each point: structure each of your three points with three sub-elements. A claim, a concrete example, and an implication. Or a problem, a solution, and a benefit. This recursive three-ness gives your talk a fractal coherence that audiences feel as organized clarity even when they can't name the structure.",
+  "when_to_use": "In preparation for any communication where you need your message to stick: presentations, pitches, difficult conversations where you need to make a clear ask, meeting agendas, or any situation where you'll be speaking for more than two minutes. The system would flag low message clarity when analysis of speech reveals too many concepts with no apparent hierarchy or priority.",
+  "practice_drill": "Take the next presentation or pitch you're preparing. Write down everything you want to say. Then force rank: if the audience remembers only three things, what are the three most important? Cut everything that doesn't serve those three. Now structure each point with its own supporting triad. Practice delivering just the three core points in under 90 seconds. If you can't, your three points aren't clear enough yet.",
+  "common_mistakes": "Using three as a rigid limit even when two or four is genuinely right — the rule is a strong default, not an inviolable law. Choosing three points that are actually different versions of the same point (weak triads). Starting with the supporting evidence and getting to the main point last — the three points should be stated up front, then supported. Using the rule to organize information without actually making the structure explicit to the audience.",
+  "language": "en"
+}

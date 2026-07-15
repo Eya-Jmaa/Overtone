@@ -1,0 +1,22 @@
+{
+  "id": "psy_got_001",
+  "technique": "The Four Horsemen and Their Antidotes",
+  "source_framework": "Gottman Method",
+  "source_citation": "John Gottman — The Seven Principles for Making Marriage Work; Gottman Institute",
+  "mode": "psy",
+  "topics": ["conflict_resolution", "relationships", "communication_patterns"],
+  "applicable_scenarios": ["conflict_resolution", "partner_conflict", "difficult_conversation"],
+  "detected_signals": [
+    "contempt_microexpression",
+    "accusatory_language_detected",
+    "defensive_language_detected",
+    "stonewalling_detected",
+    "high_you_statement_ratio"
+  ],
+  "problem_it_solves": "Falling into the four communication patterns that Gottman's research identified as the strongest predictors of relationship dissolution, without recognizing them or knowing what to do instead.",
+  "description": "Gottman identified four communication patterns that predict relationship failure with over 90% accuracy. Criticism attacks the person's character rather than the behavior ('You're so selfish' vs 'I was upset that you didn't call'). Contempt — the most destructive horseman — communicates disgust or superiority through mockery, eye-rolling, sarcasm, or name-calling. Defensiveness responds to criticism with counter-attack or victim stance instead of taking any responsibility. Stonewalling is emotional withdrawal — the listener shuts down, stops responding, and goes emotionally absent.\n\nEach horseman has a specific antidote. For criticism: use a gentle startup that focuses on your feelings and the specific situation rather than attacking character. For contempt: build a culture of appreciation — actively express what you value in the other person on a daily basis, not just during conflict. For defensiveness: take even a small portion of responsibility ('You're right that I could have handled that better'). For stonewalling: signal that you need a break and take a genuine physiological self-soothing break of at least 20 minutes before returning — not a punishing withdrawal, but a biological reset.\n\nThe value of this framework is not that it tells you to 'be nicer' — it's that it names specific behaviors you can observe in yourself and in real time, so you can interrupt them before they compound.",
+  "when_to_use": "When the system detects contempt microexpressions (eyeroll, upper lip curl, condescending tone), stonewalling patterns (near-zero responsiveness, flat vocal energy, gaze aversion), or heavy accusatory 'you' statements with character-level generalizations. The system can flag these in both the user's own behavior and in what they report about their partner.",
+  "practice_drill": "Watch one of your recorded sessions and identify which horseman, if any, appeared. Write the exact words or tone that represented it. Then rewrite that exchange using the antidote: gentle startup for criticism, appreciation practice for contempt, partial responsibility for defensiveness, a self-soothing plan for stonewalling. Practice the rewrite aloud until it sounds natural and not performative.",
+  "common_mistakes": "Thinking that avoiding criticism means never raising issues — the goal is raising them without character attack. Confusing stonewalling (which feels self-protective) with healthy pausing — legitimate pausing requires communicating that you'll return. Believing contempt is only dramatic name-calling — subtle sarcasm and condescending tone count and are more damaging because they're harder to name.",
+  "language": "en"
+}

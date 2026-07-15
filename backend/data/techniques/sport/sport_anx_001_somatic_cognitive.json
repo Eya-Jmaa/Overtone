@@ -1,0 +1,22 @@
+{
+  "id": "sport_anx_001",
+  "technique": "Somatic vs Cognitive Anxiety — Different Problems, Different Tools",
+  "source_framework": "Sport Psychology / Multidimensional Anxiety Theory",
+  "source_citation": "Martens et al. — Competitive Anxiety in Sport (1990); CSAI-2 research; Mellalieu et al. review",
+  "mode": "sport",
+  "topics": ["pre_competition_anxiety", "anxiety_regulation", "self_awareness"],
+  "applicable_scenarios": ["pre_competition", "anxiety_regulation", "performance_preparation"],
+  "detected_signals": [
+    "anxiety_emotion_detected",
+    "voice_tremor_detected",
+    "pitch_elevation_sustained",
+    "speaking_rate_spike",
+    "worry_language_detected"
+  ],
+  "problem_it_solves": "Applying the wrong anxiety intervention — using a physical relaxation technique for cognitive worry, or using thought-stopping for physical tension — because you haven't correctly identified which type of anxiety you're actually experiencing.",
+  "description": "Multidimensional anxiety theory distinguishes two components of competitive anxiety that are physiologically and psychologically distinct and require different interventions. Cognitive anxiety is the mental component: worry, negative self-talk, distraction, self-doubt, rehearsal of failure scenarios. It is cognitive because it lives in thought. Somatic anxiety is the physical component: butterflies in the stomach, muscle tension, elevated heart rate, sweating, trembling, nausea. It is somatic because it lives in the body.\n\nThe critical practical implication is that each type requires a different intervention. For somatic anxiety, the most effective interventions are physiological: slow diaphragmatic breathing, progressive muscle relaxation, physiological sigh, cold water on the face, physical movement. These techniques directly regulate the nervous system and reduce the physical symptoms. For cognitive anxiety, physiological techniques have limited effect — you can breathe slowly while still worrying. Cognitive anxiety requires cognitive interventions: thought stopping, attentional refocusing, reappraisal, process visualization, pre-performance routines that direct attention away from worry thoughts.\n\nResearch using the CSAI-2 (Competitive State Anxiety Inventory) consistently shows that cognitive and somatic anxiety have different time courses and different relationships with performance. Somatic anxiety peaks just before competition and drops quickly once performance begins. Cognitive anxiety may peak days before competition and persist throughout performance if unaddressed. Elite athletes tend to experience less cognitive anxiety than less experienced athletes — not because they're less aroused, but because they've developed effective attentional strategies.",
+  "when_to_use": "As a diagnostic framework before implementing any anxiety intervention. The system would prompt this distinction when anxiety markers are detected — checking whether the reported anxiety is predominantly physical (racing heart, trembling, gastrointestinal symptoms) or predominantly mental (negative thoughts, worry, distraction) to correctly route the user to the appropriate tool.",
+  "practice_drill": "Before your next competition, rate two separate dimensions of anxiety on a 0-10 scale: (1) Physical symptoms: how much are you experiencing heart racing, muscle tension, stomach symptoms? (2) Mental symptoms: how much are you experiencing worry, negative self-talk, distraction from the task? If your physical score is higher, use a breathing or relaxation intervention. If your mental score is higher, use a thought management or attentional focusing intervention. If both are high, address the physical first (it's usually faster-acting) then the cognitive.",
+  "common_mistakes": "Treating all anxiety as one thing and applying the same tool regardless of type. Assuming that somatic anxiety always impairs performance — the evidence is mixed; moderate somatic arousal often facilitates gross motor performance. Trying to eliminate anxiety entirely rather than interpreting and managing it — the goal is optimal arousal, not zero anxiety.",
+  "language": "en"
+}

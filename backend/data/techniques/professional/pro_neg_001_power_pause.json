@@ -1,0 +1,21 @@
+{
+  "id": "pro_neg_001",
+  "technique": "The Power Pause",
+  "source_framework": "Harvard Negotiation Project",
+  "source_citation": "Fisher, Ury & Patton — Getting to Yes methodology",
+  "mode": "professional",
+  "topics": ["negotiation", "salary", "assertiveness"],
+  "applicable_scenarios": ["salary_negotiation", "business_deal", "vendor_negotiation"],
+  "detected_signals": [
+    "speaking_rate_spike_during_assertion",
+    "filler_words_after_key_ask",
+    "pitch_drop_during_number_statement",
+    "energy_drop_post_assertion"
+  ],
+  "problem_it_solves": "Rushing through your most important statement and immediately weakening it with qualifiers or nervous filler.",
+  "description": "After stating your position, number, or key request — stop talking completely. Count 3 full seconds of silence in your head. Maintain eye contact. Do not smile nervously, do not add 'if that makes sense', do not soften with 'but I understand if that's too much.' The silence does the work for you. In negotiation research, the person who speaks first after a number is stated tends to make the next concession. Your silence signals confidence in your position and forces the other party to respond to what you said rather than to a softened version of it. This technique is hardest for people who are uncomfortable with silence — which is exactly why it works. The discomfort you feel is the same discomfort the other party feels, and that discomfort creates pressure to respond substantively.",
+  "when_to_use": "Any moment where you've made a key ask (salary number, project deadline, boundary statement) and your instinct is to immediately fill the silence with qualifiers. The system would detect this as: speaking rate increasing >30% during the assertion, followed by filler words within 2 seconds of finishing the statement.",
+  "practice_drill": "Say out loud: 'Based on my contributions to [project X] and [achievement Y], I am requesting a 15% salary increase.' Then stay completely silent for 5 full seconds. No movement, no filler, no smile. Repeat 5 times until the silence feels natural. Record yourself and listen back — notice how the version with silence sounds more authoritative than the version where you immediately add 'so yeah, what do you think?'",
+  "common_mistakes": "Breaking the pause with a nervous laugh or 'so...' — this undoes the entire effect. Starting to negotiate against yourself ('I mean, 12% would also work') before the other person has even responded. Making the pause too theatrical (staring intensely) instead of calm and natural.",
+  "language": "en"
+}

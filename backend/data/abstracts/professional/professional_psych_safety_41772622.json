@@ -1,0 +1,19 @@
+{
+  "pmid": "41772622",
+  "doi": "10.1186/s12913-026-14257-z",
+  "title": "The relationship between psychological safety, patient safety culture, and work engagement with patient safety outcomes: a cross-sectional study in a Japanese university hospital.",
+  "authors": [
+    "Hata Takeo",
+    "Nitta Masahiko",
+    "Matsuo Takami",
+    "Arai Kohei",
+    "Ueda Eiichiro"
+  ],
+  "year": "2026",
+  "journal": "BMC health services research",
+  "abstract": "BACKGROUND: Patient safety is a central concern in healthcare, as adverse events result in prolonged hospital stays, increased costs, and serious harm to patients. Previous research has highlighted the importance of patient safety culture, psychological safety, and work engagement, but evidence linking these organizational characteristics with objective safety indicators is limited. This study aimed to clarify the relationships among patient safety culture, psychological safety, work engagement, and incident counts as an objective measure of patient safety. METHODS: This single-center, cross-sectional study included all employees of a Japanese university hospital as of April 2021. A questionnaire survey was conducted to assess patient safety culture, psychological safety, and work engagement. Patient safety culture was measured using the Hospital Survey on Patient Safety Culture, psychological safety using Edmondson’s Team Psychological Safety scale, and work engagement using the Utrecht Work Engagement Scale. Incident counts reported between 2018 and 2020 were used as the patient safety indicator. Factor structures were validated with factor analyses. Relationships among factors were examined using multilevel structural equation modeling at both the individual and department levels, with multiple regression analyses performed as sensitivity analyses. RESULTS: Of 3,316 distributed questionnaires, 2,734 responses were received (82.4% response rate), and 1,500 were included in the final multilevel structural equation modeling analysis. Factor analyses supported the 12-factor model of patient safety culture, a one-factor model of psychological safety, and a one-factor model of work engagement. Psychological safety was positively associated with patient safety culture and work engagement at both individual and department levels. At the department level, psychological safety showed the strongest negative association with incident counts (standardized estimate of − 0.67). Work engagement was not significantly related to incident counts. Sensitivity analyses excluding outlier departments yielded consistent results. CONCLUSIONS: Psychological safety was strongly associated with improved patient safety culture and higher work engagement, and it was the factor most strongly linked to lower incident counts. These findings suggest that enhancing psychological safety among healthcare staff is an effective strategy for reducing adverse events and improving patient safety. Future research should focus on interventions to foster psychological safety across diverse healthcare settings.",
+  "pubmed_url": "https://pubmed.ncbi.nlm.nih.gov/41772622/",
+  "mode": "professional",
+  "topic": "psych_safety",
+  "content_type": "research_abstract"
+}

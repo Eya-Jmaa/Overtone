@@ -1,0 +1,20 @@
+{
+  "id": "sport_st_001",
+  "technique": "Instructional Self-Talk",
+  "source_framework": "Sport Psychology / Self-Talk Research",
+  "source_citation": "Hatzigeorgiadis et al. — meta-analysis in Perspectives on Psychological Science (2011); self-talk sport research",
+  "mode": "sport",
+  "topics": ["self_talk", "technical_performance", "concentration"],
+  "applicable_scenarios": ["skill_acquisition", "technical_correction", "pre_competition", "during_performance"],
+  "detected_signals": [
+    "technical_error_focus_detected",
+    "low_concentration_markers",
+    "speaking_rate_drop_mid_performance"
+  ],
+  "problem_it_solves": "Losing technical focus during skill execution — reverting to old movement patterns under pressure, overthinking the mechanics, or losing the mental cue that coordinates a complex technique.",
+  "description": "Instructional self-talk consists of task-relevant cue words or phrases that direct attention to specific technical aspects of performance. Rather than motivating or energizing the athlete, instructional self-talk operates like a software command to the motor system: 'follow through,' 'bend the knee,' 'weight on the front foot,' 'release at the peak.' Hatzigeorgiadis and colleagues' meta-analysis across 37 studies found that self-talk produces reliable performance improvements, with instructional self-talk particularly effective for fine motor skills and tasks requiring technical precision.\n\nThe mechanism is attentional: instructional cue words direct focus toward the relevant technical cues and away from irrelevant stimuli (the crowd, the score, internal anxiety). Under pressure, athletes tend to revert to older, more automated patterns and lose access to recently learned technical improvements. A strong instructional cue word can re-anchor attention to the correct technical element precisely when pressure threatens to override it.\n\nEffective instructional cue words are typically one to three words long, positively framed (what to do, not what to avoid), and tied to the most critical technical moment in the skill execution. They are most effective when paired with deliberate practice — the cue word is associated with the correct movement through repetition, so that hearing it (or thinking it) activates the associated motor pattern automatically during competition.",
+  "when_to_use": "During skill execution for technically demanding actions — serves in tennis, freekicks in football, penalty kicks, gymnastics apparatus work, golf swings. Also during training when a technical correction is being reinforced. The system would detect the need for instructional self-talk when analysis shows technical degradation under pressure conditions compared to non-pressure conditions.",
+  "practice_drill": "Identify the most important technical element in a skill you're currently working to improve. Identify the exact moment in the skill where that element matters most. Develop a one-to-three word cue that captures that element in action terms ('snap,' 'lift and turn,' 'eyes up'). Use the cue consistently in 100 repetitions of deliberate practice. Then use it in a simulated pressure environment — time trial, evaluation session — and assess whether the technical element holds under pressure.",
+  "common_mistakes": "Using negative instructional cues ('don't bend your elbow') — the motor system tends to execute exactly what you picture, including things you tell it not to do. Using too long a cue phrase that interrupts the timing of the skill. Selecting a cue word for a technical element that isn't the rate-limiting factor in your performance — spend time identifying which technical aspect actually degrades most under pressure before assigning a cue.",
+  "language": "en"
+}

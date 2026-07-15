@@ -1,0 +1,20 @@
+{
+  "id": "pro_fb_004",
+  "technique": "Feedforward",
+  "source_framework": "Leadership Development",
+  "source_citation": "Marshall Goldsmith — What Got You Here Won't Get You There (2007); feedforward methodology",
+  "mode": "professional",
+  "topics": ["feedback", "leadership", "growth_mindset"],
+  "applicable_scenarios": ["performance_discussion", "leadership_conversation", "difficult_feedback"],
+  "detected_signals": [
+    "backward_focused_feedback_detected",
+    "blame_language_detected",
+    "low_actionability_feedback"
+  ],
+  "problem_it_solves": "Giving feedback that is entirely retrospective — focused on what went wrong in the past — which generates defensiveness and can't be acted upon because the past can't be changed.",
+  "description": "Feedforward is a technique developed by executive coach Marshall Goldsmith as an alternative or complement to traditional feedback. Traditional feedback is backward-looking: 'In that presentation, you lost the thread in the middle section and the recommendation wasn't clear.' Feedforward is forward-looking: 'For your next presentation, what would help most is structuring your recommendation in the first two minutes so the audience knows where you're going from the start.' The content can be identical in substance — but the framing changes the recipient's orientation from defensive (justifying the past) to constructive (planning the future).\n\nGoldsmith's feedforward process has a specific exercise format: the person receiving development asks for suggestions for how to be more effective at a specific goal in the future. The giver provides two or three specific forward-looking suggestions. The receiver listens without comment or critique — just says 'thank you.' No discussion, no defense, no qualifying. The asymmetry is intentional: it prevents the receiver from arguing about the past (which is the common derailment of traditional feedback conversations) and keeps all energy focused on what to do next.\n\nThe technique is particularly valuable for people who become very defensive about past performance, for long-standing behavioral patterns that keep reappearing in feedback, and in cultures where feedback has historically been weaponized rather than used constructively.",
+  "when_to_use": "When traditional retrospective feedback on a particular issue has not produced behavior change, when defensiveness is high in a feedback relationship, or when a pattern keeps recurring despite being addressed multiple times. Also useful when the user is the one seeking input and wants to reduce the social cost of asking — feedforward requests are much easier for people to respond to than open-ended 'give me feedback' requests.",
+  "practice_drill": "Identify one behavior you want to improve. Ask three people who know your work for two suggestions about what you could do differently in the future to be more effective in this area. Don't defend, don't explain context, don't qualify — just say 'thank you' after each suggestion. Then review all the suggestions and identify the one or two that resonate most. Write a specific implementation intention: 'In [situation X], I will do [specific thing] instead of [current default].'",
+  "common_mistakes": "Treating feedforward as a way to avoid accountability for past mistakes — it complements, it doesn't replace, honest acknowledgment of what went wrong. Asking for feedforward in a way that's actually a bid for reassurance ('tell me what I did right so I can keep doing it') rather than a genuine request for development suggestions. Collecting feedforward suggestions and doing nothing with them — the technique only works if you act on what you hear.",
+  "language": "en"
+}

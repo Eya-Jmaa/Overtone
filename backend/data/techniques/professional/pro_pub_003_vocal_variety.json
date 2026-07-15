@@ -1,0 +1,21 @@
+{
+  "id": "pro_pub_003",
+  "technique": "Vocal Variety Techniques",
+  "source_framework": "Public Speaking / Presentation Training",
+  "source_citation": "Carnegie — The Art of Public Speaking; Gallo — Talk Like TED; vocal coach literature",
+  "mode": "professional",
+  "topics": ["public_speaking", "vocal_delivery", "persuasion"],
+  "applicable_scenarios": ["presentation", "public_speaking", "key_message_delivery"],
+  "detected_signals": [
+    "monotone_delivery_detected",
+    "speaking_rate_high_sustained",
+    "low_vocal_energy",
+    "pitch_variance_low"
+  ],
+  "problem_it_solves": "Delivering content in a flat, monotone voice that loses the audience's attention regardless of the quality of the material, or at a speaking rate so fast that information can't be processed.",
+  "description": "Vocal variety is the deliberate modulation of four parameters to guide audience attention and emotional engagement: pace, pitch, volume, and pause. Each parameter carries specific meaning and serves specific functions. Pace — slowing down signals importance; critical points should be delivered more slowly than background context. Pitching down at the end of statements signals confidence and finality (the declarative intonation); pitching up at the end signals uncertainty or question (the interrogative). Volume — strategic softening (not just lowering overall level, but dropping to almost a whisper for a key phrase) creates sudden intimacy and forces the audience to lean in. Pause — the empty space between phrases and sentences is where meaning lands; rushing through pauses is the single most common error in professional speaking and the one with the most immediate impact when fixed.\n\nThe best speakers use these parameters together dynamically. A key message might be delivered: slow pace + slightly lowered pitch + moderate volume + a full 2-second pause before and after. This combination signals 'this is the most important thing I'm about to say, and I'm giving you time to receive it.' The effect on an audience is remarkably powerful relative to how simple the technique is.\n\nVocal variety also functions as an emotion-regulation signal: a measured, varied delivery communicates that the speaker is in command of their material and their state. Monotone or racing speech signals either anxiety (fast) or disengagement (flat) — and audiences pick up on both cues instantly.",
+  "when_to_use": "When the system detects monotone delivery (low pitch variance), sustained high speaking rate without variation, or flat energy level throughout a session. This is one of the most actionable signals in the system — small changes to vocal delivery have large effects on perceived confidence and authority, and the changes are detectable and measurable.",
+  "practice_drill": "Take a 1-minute segment of your next presentation. Identify your three most important sentences. Now mark them up: (S) for slow down, (↓) for pitch down at end, (P) for pause before and after, (Q) for quiet/intimate delivery. Deliver the segment twice — once at your natural pace without markings, once with the markings. Record both. The difference is typically dramatic. Make this a regular pre-talk ritual for your key phrases.",
+  "common_mistakes": "Varying voice in a way that feels performative or theatrical rather than natural — the goal is purposeful variety, not acting. Slowing down uniformly rather than varying pace strategically — everything slow is as monotonous as everything fast. Over-relying on volume for emphasis when pitch and pace changes are more powerful. Eliminating all vocal filler ('um,' 'uh') through tension rather than through actual mastery — tension in trying not to fill pauses often produces worse results than the fillers themselves.",
+  "language": "en"
+}

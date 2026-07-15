@@ -1,0 +1,22 @@
+{
+  "id": "psy_dbt_001",
+  "technique": "DEAR MAN",
+  "source_framework": "Dialectical Behavior Therapy",
+  "source_citation": "Marsha Linehan — DBT Skills Training Handouts and Worksheets",
+  "mode": "psy",
+  "topics": ["assertiveness", "conflict_resolution", "boundary_setting", "interpersonal_effectiveness"],
+  "applicable_scenarios": ["boundary_setting", "conflict_resolution", "difficult_conversation", "assertiveness_practice"],
+  "detected_signals": [
+    "hedging_language_detected",
+    "qualification_language_detected",
+    "low_confidence_markers",
+    "apology_over_density",
+    "filler_words_after_key_ask"
+  ],
+  "problem_it_solves": "Making requests or asserting needs in disorganized, apologetic, or unclear ways that undermine the request and make it easy for the other person to dismiss or ignore.",
+  "description": "DEAR MAN is a structured formula from DBT's Interpersonal Effectiveness module for making effective requests, saying no, or asserting a position. Each letter represents a step: Describe the situation factually and briefly — only the relevant facts, no interpretation. Express your feelings or opinion about it — using 'I' statements. Assert — clearly say what you want or don't want; don't hint or assume they'll figure it out. Reinforce — tell the person what's in it for them, or what positive outcome will result from compliance (not a threat, a genuine explanation of the benefit). Mindful — stay focused on your goal; if the other person deflects, stonewalls, or attacks, return to your main ask without getting pulled into side battles. Appear confident — use a firm vocal tone, direct eye contact, and upright posture even if you don't feel confident; the behavior signals confidence to the other person and begins to generate it in yourself. Negotiate — be willing to give to get; offer alternatives, explore what they can agree to, and look for creative solutions when your original request can't be met exactly as stated.\n\nDEAR MAN is particularly valuable for people who have learned over time to suppress their needs — either through people-pleasing, conflict avoidance, or repeated experience that their requests won't be honored. The structure provides scaffolding: you don't have to figure out on the fly how to say a hard thing, because the framework guides you through each component. With practice, it becomes internalized and stops feeling mechanical.",
+  "when_to_use": "When preparing for any conversation where you need to make a clear request, set a boundary, or assert a position and you're at risk of under-asserting or apologizing your way out of the ask. The system would detect the need for DEAR MAN when hedging language density is high ('I was wondering if maybe...'), apology frequency spikes before or after requests, or vocal confidence drops precisely during the key assertion.",
+  "practice_drill": "Pick one request you've been avoiding making. Write out the DEAR MAN script in full: one to two sentences for each step. Read it aloud. Then identify which step feels most uncomfortable — that's usually the Assert step. Practice that step alone until you can say it without qualification or apology. Record yourself. Does the Appear Confident component (tone, pace, posture) match the words you're saying, or does the delivery undermine the content?",
+  "common_mistakes": "Over-scripting and sounding robotic — the framework is a template, not a verbatim script. Skipping the Reinforce step, which makes the request feel like a demand. Being Mindful in a way that sounds stubborn rather than focused — you can acknowledge the other person's pushback while returning to your ask. Treating Negotiate as optional when it's often what converts a stuck conversation into movement.",
+  "language": "en"
+}

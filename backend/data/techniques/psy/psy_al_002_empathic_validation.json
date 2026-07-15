@@ -1,0 +1,22 @@
+{
+  "id": "psy_al_002",
+  "technique": "Empathic Validation",
+  "source_framework": "DBT / Person-Centered Therapy",
+  "source_citation": "Marsha Linehan — DBT Skills Training Manual; validation theory in dialectical behavior therapy",
+  "mode": "psy",
+  "topics": ["active_listening", "empathy", "emotional_support"],
+  "applicable_scenarios": ["support_conversation", "conflict_resolution", "partner_conflict", "difficult_conversation"],
+  "detected_signals": [
+    "sadness_emotion_detected",
+    "low_vocal_energy",
+    "dismissive_language_detected",
+    "advice_giving_before_listening",
+    "minimizing_language_detected"
+  ],
+  "problem_it_solves": "Invalidating the other person's emotional experience — consciously or not — by immediately problem-solving, minimizing, comparing, or disagreeing with how they feel, which leaves them feeling more isolated than before.",
+  "description": "Validation means communicating that another person's thoughts, feelings, or behaviors are understandable, given their situation and history — not necessarily that you agree with them, or that you would feel the same way, but that their response makes sense. Linehan identified several levels of validation, ranging from attentive listening (level 1) to radical genuineness (level 6). The most practically useful levels for everyday interaction are: accurately reflecting back what you're hearing (level 2), reading what the person hasn't quite said and putting it into words (level 3), and communicating that their response is valid given their past experience and history (level 4).\n\nValidation is often confused with agreement. You can validate someone's anger ('It makes complete sense that you're angry — you worked hard on that and didn't get recognized') without agreeing with every conclusion they've drawn ('though I don't think that means your manager hates you'). The validation comes first and stands independently. It's not a setup for 'but' — when people sense that a validation is followed by a reframe or correction, they stop feeling validated and start feeling managed.\n\nInvalidation is one of the most damaging experiences in relationships and conversations. Common forms include: dismissing ('You're overreacting'), minimizing ('It's not that bad'), comparing ('Other people have it much worse'), and premature problem-solving (jumping to solutions before the person feels understood). Any of these can close down a conversation and leave the other person feeling more alone than if they'd said nothing.",
+  "when_to_use": "Whenever someone is sharing a difficult emotional experience, especially when the system detects sadness, distress, or low energy — indicators that the person is seeking understanding rather than solutions. Also critical when the conversation has stalled or the other person seems to be repeating themselves, which often signals that they don't feel heard enough to move forward.",
+  "practice_drill": "Practice the distinction between validation and agreement. Write down three statements someone might make to you that you partially disagree with but can still validate. For each one, write a validation response that acknowledges their experience without agreeing with all their conclusions. Example: 'I feel like everyone at work hates me' -> 'It sounds like you've been feeling really isolated and like your contributions aren't being seen — that's exhausting.' Notice how this acknowledges the feeling without confirming the interpretation.",
+  "common_mistakes": "Adding 'but' after a validation, which cancels the validation. Validating in a tone that sounds condescending or clinical ('I understand you feel that way') — the words are right but the delivery feels hollow. Validating a behavior that you're actually not okay with in order to avoid conflict — this is dishonest validation and it usually shows. Rushing past the validation stage because you want to get to problem-solving.",
+  "language": "en"
+}

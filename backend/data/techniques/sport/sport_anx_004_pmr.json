@@ -1,0 +1,21 @@
+{
+  "id": "sport_anx_004",
+  "technique": "Progressive Muscle Relaxation for Athletes",
+  "source_framework": "Clinical Psychology / Sport Psychology",
+  "source_citation": "Jacobson — Progressive Relaxation (1938); Borkovec & Sides — meta-analysis; adapted in sport psychology",
+  "mode": "sport",
+  "topics": ["pre_competition_anxiety", "anxiety_regulation", "physiological_regulation"],
+  "applicable_scenarios": ["pre_competition", "anxiety_regulation", "sleep_preparation", "recovery"],
+  "detected_signals": [
+    "anxiety_emotion_detected",
+    "somatic_tension_reported",
+    "energy_level_erratic",
+    "voice_tremor_detected"
+  ],
+  "problem_it_solves": "Chronic muscle tension and somatic anxiety that persists through competition preparation and impairs both movement quality and mental clarity — tension that athletes often don't realize they're holding because it's become their baseline.",
+  "description": "Progressive Muscle Relaxation (PMR), developed by physician Edmund Jacobson, is a systematic technique that trains the ability to recognize and release muscle tension by deliberately tensing and releasing muscle groups in sequence. The tense-release cycle serves two purposes: the tension phase makes the feeling of tension conscious (many athletes carry chronic tension they've stopped noticing), and the release phase produces a deeper relaxation than passive relaxation alone — the physiological contrast amplifies the relaxation response.\n\nThe classic sequence works from extremities to core: feet and calves, thighs, abdomen, hands and forearms, upper arms, shoulders, neck, and face — tensing each group for 5-7 seconds and then releasing for 20-30 seconds. The full protocol takes 20-30 minutes. Athletes typically use an abbreviated version pre-competition, focusing on 3-5 muscle groups most prone to their personal tension pattern (often shoulders, jaw, and hands for sport athletes).\n\nFor athletes, PMR serves two specific functions beyond general relaxation. First, it develops body awareness — the ability to detect the difference between tense and relaxed states in real time during performance, enabling in-the-moment tension release without full PMR. Second, regular PMR practice lowers baseline tension levels so that pre-competition arousal builds from a lower starting point. Research on PMR in sport contexts shows benefit particularly for pre-competition somatic anxiety and for sleep quality in the night before competition.",
+  "when_to_use": "In the evening before competition (supports sleep quality and reduces overnight anxiety), in the pre-competition window with sufficient time (at least 20-30 minutes), and during recovery periods. Not recommended immediately before explosive or high-arousal performance — over-relaxation can blunt useful arousal. The system would suggest PMR when somatic tension is the dominant anxiety component and sufficient time is available.",
+  "practice_drill": "Practice full-sequence PMR (all muscle groups, 30 minutes) three times this week, in the evening before sleep. Keep a tension diary: rate your baseline tension level on a 0-10 scale before each session and immediately after. After four weeks of consistent practice, compare your pre-competition tension baseline to your starting level. Then develop a 5-minute competition-day abbreviated version focusing on your three highest-tension muscle groups.",
+  "common_mistakes": "Using PMR immediately before explosive performance requiring high arousal — it can induce excessive relaxation. Tensing muscle groups too forcefully, especially in injured areas. Expecting immediate results from a first session — PMR produces cumulative benefits through consistent practice. Treating PMR as a standalone anxiety tool rather than as a component of a broader mental performance routine.",
+  "language": "en"
+}

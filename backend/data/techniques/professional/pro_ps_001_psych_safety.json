@@ -1,0 +1,21 @@
+{
+  "id": "pro_ps_001",
+  "technique": "Creating Psychological Safety in Conversations",
+  "source_framework": "Organizational Behavior / Leadership",
+  "source_citation": "Amy Edmondson — The Fearless Organization (2018); Harvard Business School",
+  "mode": "professional",
+  "topics": ["leadership", "team_dynamics", "psychological_safety"],
+  "applicable_scenarios": ["leadership_conversation", "team_meeting", "difficult_feedback", "performance_discussion"],
+  "detected_signals": [
+    "low_back_channel_rate",
+    "silence_from_team_detected",
+    "hedging_language_in_others",
+    "low_challenge_rate"
+  ],
+  "problem_it_solves": "Creating a conversational environment where people self-censor, withhold concerns, and perform agreement rather than contributing their genuine perspectives — making meetings feel productive while being informationally empty.",
+  "description": "Psychological safety is the belief that speaking up — with ideas, questions, concerns, or dissent — will not result in punishment or humiliation. Edmondson's research across hospitals, manufacturing plants, and technology companies found that psychological safety is the strongest predictor of team learning and performance, particularly in complex, uncertain, or high-stakes environments. Teams with high psychological safety catch errors earlier, learn faster, and outperform on almost every metric.\n\nPsychological safety is not about being nice or conflict-free — high-performing teams disagree vigorously. It's about believing that disagreement will be heard and considered, not penalized. The leader's behavior is the primary driver of psychological safety. Three specific leader behaviors consistently build it: (1) Framing work as a learning problem rather than an execution problem — signaling that uncertainty is expected and questions are welcome. (2) Modeling fallibility — admitting your own uncertainty, mistakes, and limitations openly, which signals that not-knowing is safe. (3) Actively inviting input — not just tolerating questions but specifically asking for dissenting views, alternative perspectives, and concerns.\n\nIn one-on-one conversations, psychological safety is built through the same signals: non-defensive responses to pushback, genuine curiosity about the other person's perspective, and visible change in your position when you hear something that affects your view. People watch whether their input has any effect. If it never does, they stop offering it.",
+  "when_to_use": "When preparing for conversations where you need honest input from others — a manager speaking with a team member, someone conducting a debrief, or anyone who needs the other person to tell them things they might be afraid to say. The system detects low psychological safety in a conversation when back-channel signals are low, when hedging language is very high in the other party, or when the conversation shows a flat, agreement-dominant pattern.",
+  "practice_drill": "In your next team meeting or one-on-one, run the 'silence audit': notice who speaks, who doesn't, and what topics seem to generate quiet. At the end, directly ask one person who was quiet: 'I noticed you haven't weighed in on this — I'm genuinely curious what you think.' Then practice the hardest part: if what they say contradicts your view, respond with 'that's a useful challenge, tell me more' rather than an immediate rebuttal.",
+  "common_mistakes": "Believing you've created psychological safety because you've said 'my door is always open' — invitation without demonstrated follow-through creates no safety. Treating psychological safety as eliminating all conflict or negative feedback — the goal is safety to speak, not safety from consequences of poor work. Establishing safety in individual conversations but behaving differently in group settings, where the stakes and visibility are higher.",
+  "language": "en"
+}

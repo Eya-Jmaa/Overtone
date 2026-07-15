@@ -1,0 +1,22 @@
+{
+  "id": "sport_anx_002",
+  "technique": "Centering Technique",
+  "source_framework": "Sport Psychology",
+  "source_citation": "Nideffer — The Inner Athlete (1976); attentional control and centering in sport psychology",
+  "mode": "sport",
+  "topics": ["pre_competition_anxiety", "anxiety_regulation", "concentration", "pre_performance"],
+  "applicable_scenarios": ["pre_competition", "mid_performance_reset", "anxiety_regulation", "high_pressure_moment"],
+  "detected_signals": [
+    "anxiety_emotion_detected",
+    "pitch_elevation_sustained",
+    "speaking_rate_spike",
+    "energy_level_erratic",
+    "concentration_lapse_detected"
+  ],
+  "problem_it_solves": "Entering a high-pressure moment with scattered attention, elevated arousal, and an inability to narrow focus to the relevant task — the attentional state that causes unforced errors.",
+  "description": "Centering is a brief, structured pre-performance routine developed by Nideffer that shifts attention from broad external awareness (crowd, opponent, consequences) to narrow internal focus (body position, breathing, task cue) in preparation for skill execution. It is designed to be completed in 5-10 seconds, making it deployable between points, before free throws, in the moments before a penalty kick, or at the start line.\n\nThe classic centering sequence: (1) Awareness — acknowledge where your attention is right now, without judgment. (2) Posture — set your body: feet shoulder-width, knees soft, weight balanced. This physical anchor both signals readiness to your nervous system and gives your attention somewhere concrete to go. (3) Breath — take a deliberate breath from the diaphragm, initiating a slow exhale. (4) Cue — on the exhale, think your performance cue word (your one technical or attentional word for this action). (5) Execute — begin the performance action while attention is on the cue.\n\nNideffer's attentional control theory identifies the attentional style required for optimal performance in any given sport action (broad-external for field awareness, narrow-internal for a free throw) and centering as the mechanism for moving between attentional modes deliberately. The value of having a specific, practiced centering routine is that it creates an attentional reset point — a reliable way back to optimal focus when you notice your attention has been pulled away.",
+  "when_to_use": "Immediately before any discrete skill execution event — any action that has a brief pause or setup period. Also useful as a reset tool at natural breaks in play: change of ends, timeout, between points. The system would detect the need for centering when arousal markers are high and concentration signals suggest broad, unfocused attention in a moment requiring narrow focus.",
+  "practice_drill": "Design your personal centering sequence using all five steps. Make it specific to your sport and your critical skill: what physical posture makes sense? What breath timing works? What cue word will you use? Write it out step by step. Then practice it 10 times at home until it takes exactly the time you have in competition (5 seconds, 10 seconds, whatever is realistic). Then practice it in training before every single discrete skill execution for one month, until it becomes automatic.",
+  "common_mistakes": "Making the centering routine too long to use in real competition — it must fit the actual time available between actions. Performing the routine mechanically without engaging in the attentional shift — going through the motions of centering without actually redirecting attention produces no benefit. Not practicing the routine enough for it to become automatic — centering under pressure only works if the routine itself requires no conscious effort, which requires hundreds of practice repetitions.",
+  "language": "en"
+}

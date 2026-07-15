@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>WebSocket Test</title>
+</head>
+<body>
+    <h1>WebSocket Connection Test</h1>
+    <div>
+        <label>Conversation ID: <input type="number" id="convId" value="1"></label>
+    </div>
+    <div>
+        <label>JWT Token: <input type="text" id="token" placeholder="Paste access token here" style="width: 400px;"></label>
+    </div>
+    <div>
+        <button onclick="connect()">Connect</button>
+        <button onclick="disconnect()">Disconnect</button>
+        <button onclick="sendStartTurn()">Send start_turn</button>
+        <button onclick="sendEndTurn()">Send end_turn</button>
+    </div>
+    <div>
+        <h3>Messages:</h3>
+        <pre id="messages" style="background: #f0f0f0; padding: 10px; min-height: 200px;"></pre>
+    </div>
+
+    <script>
+        let ws = null;
+
+        function log(msg) {
+            const el = document.getElementById('messages');
+            el.textContent += new Date().toISOString() + ' - ' + msg + '\n';
+        }
+
+        function connect() {
+            const convId = document.getElementById('convId').value;
+            const token = document.getElementById('token').value;
+            
+            if (!token) {
+                alert('Please enter a JWT token');
+                return;
+            }
+
+            const url = `ws://localhost:8000/ws/conversation/${convId}?token=${encodeURIComponent(token)}`;
+            log(`Connecting to ${url}`);
+            
+            ws = new WebSocket(url);
+            
+            ws.onopen = () => {
+                log('Connected');
+            };
+            
+            ws.onmessage = (event) => {
+                log(`Received: ${event.data}`);
+            };
+            
+            ws.onerror = (error) => {
+                log(`Error: ${error}`);
+            };
+            
+            ws.onclose = () => {
+                log('Disconnected');
+            };
+        }
+
+        function disconnect() {
+            if (ws) {
+                ws.close();
+                ws = null;
+            }
+        }
+
+        function sendStartTurn() {
+            if (ws && ws.readyState === WebSocket.OPEN) {
+                ws.send(JSON.stringify({ type: 'start_turn' }));
+                log('Sent: start_turn');
+            } else {
+                log('Not connected');
+            }
+        }
+
+        function sendEndTurn() {
+            if (ws && ws.readyState === WebSocket.OPEN) {
+                ws.send(JSON.stringify({ type: 'end_turn' }));
+                log('Sent: end_turn');
+            } else {
+                log('Not connected');
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+{
+  "pmid": "37028796",
+  "doi": "10.1016/j.neuropsychologia.2023.108560",
+  "title": "TMS-EEG signatures of facilitated cognitive reappraisal in emotion regulation by left ventrolateral prefrontal cortex stimulation.",
+  "authors": [
+    "Li Wenjie",
+    "Li Yingjie",
+    "Cao Dan",
+    "Qian Zhenying",
+    "Tang Yingying"
+  ],
+  "year": "2023",
+  "journal": "Neuropsychologia",
+  "abstract": "OBJECTIVE: Left ventrolateral prefrontal cortex (VLPFC) has been demonstrated to be a crucial region involved in the down-regulation of negative affect by cognitive reappraisal. However, the neural evidence of causality is still lacking. The current study was to investigate the contribution of left VLPFC in cognitive reappraisal by using single-pulse transcranial magnetic stimulation (spTMS) and electroencephalogram (EEG). METHODS: Fifteen participants repeated the cognitive reappraisal task at different TMS settings: no stimulation, spTMS applied at 300 ms after image onset to the left VLPFC, and to the vertex as a control site. EEG and behavioral data were concurrently recorded. TMS-evoked potential (TEP) and late positive potential (LPP) were investigated. RESULTS: In cognitive reappraisal, left VLPFC stimulation elicited stronger TEPs than vertex stimulation at 180 ms after TMS onset. Increased source activation of TEPs was identified in the precentral gyrus. Emotion regulation by reappraisal enlarged the trough of TEP at stimulation site. The left VLPFC stimulation led to enhanced LPP in cognitive reappraisal, which was negatively correlated with self-reported arousal. CONCLUSIONS: The TMS stimulation over left VLPFC influences the cognitive reappraisal process by potentiating the neural responses. Accordingly, the cortical region responsible for the execution of cognitive reappraisal is activated. The modulated neural activity is related to the behavioral response. The present study provided neural signatures for the facilitated execution of emotion regulation by left VLPFC stimulation, potentially contributing to the therapeutic protocols for mood disorders.",
+  "pubmed_url": "https://pubmed.ncbi.nlm.nih.gov/37028796/",
+  "mode": "psy",
+  "topic": "emotion_regulation",
+  "content_type": "research_abstract"
+}

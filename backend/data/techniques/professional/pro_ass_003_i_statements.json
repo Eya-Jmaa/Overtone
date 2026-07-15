@@ -1,0 +1,21 @@
+{
+  "id": "pro_ass_003",
+  "technique": "Assertive I-Statements",
+  "source_framework": "Assertiveness Training / CBT",
+  "source_citation": "Gordon — Teacher Effectiveness Training (1970); assertiveness CBT literature",
+  "mode": "professional",
+  "topics": ["assertiveness", "conflict_resolution", "boundary_setting"],
+  "applicable_scenarios": ["difficult_conversation", "conflict_resolution", "boundary_setting", "difficult_feedback"],
+  "detected_signals": [
+    "high_you_statement_ratio",
+    "accusatory_language_detected",
+    "passive_voice_overuse",
+    "hedging_language_detected"
+  ],
+  "problem_it_solves": "Expressing concerns and needs either too aggressively (blaming 'you' statements) or too passively (hedging, hinting), both of which fail to communicate clearly or generate the change you need.",
+  "description": "An assertive I-statement has three components: the situation or behavior (stated factually, not as an accusation), your emotional response to it, and the impact or the need it creates. The classic structure is: 'When [specific observable situation], I feel/felt [emotion], because [impact or unmet need].' Optional fourth element: 'What I need is [specific request].' This structure keeps the speaker in the first person throughout, which avoids triggering the other person's defenses while communicating the full weight of the impact.\n\nAssertive I-statements occupy the center of what therapist and writer Susan Heitler calls the 'resolution triangle' — between the aggressive extreme (attacking the other person) and the passive extreme (suppressing your own needs). They are different from passive I-statements ('I was wondering if you might possibly have time...') and from aggressive statements disguised as I-statements ('I feel that you're a bully'). A true assertive I-statement contains a genuine emotion (not a judgment) and a factual situational description (not an evaluation).\n\nIn professional settings, assertive I-statements are particularly valuable because they provide information about impact without assigning blame. 'When meetings overrun by 30 minutes, I lose my preparation time for the next session and feel frustrated' communicates the problem and the impact clearly enough for the other person to consider changing the behavior — without framing them as inconsiderate or disrespectful, which would trigger defensiveness.",
+  "when_to_use": "Any time you need to raise a concern, set a limit, or express a need in a context where the relationship matters and you want the other person to be able to receive what you're saying rather than defend against it. The system would flag the need for I-statements when accusatory 'you' language is high, when passive-voice constructions ('it would be nice if...') dominate instead of direct expression, or when hedging language suggests the user is underselling the impact of something that genuinely matters.",
+  "practice_drill": "Take three concerns you have at work or at home. Write each one as a 'you' blame statement first. Then rewrite each using the I-statement structure: behavior + feeling + impact + request. Read both versions aloud. Compare how you feel saying each one — which feels more centered? Which are you more likely to actually use? Then rate the specificity of each element: is the behavior described in observable terms? Is the feeling a genuine emotion word? Is the impact concrete?",
+  "common_mistakes": "Using 'I feel that...' or 'I feel like...' which are disguised opinions rather than emotions. Making the behavior description an evaluation ('when you're disrespectful in meetings') rather than an observation ('when you respond to my questions in a very brief way and then move on'). Over-scripting to the point that the statement sounds prepared and clinical rather than genuine. Omitting the need or request — an I-statement without a request is a complaint without direction.",
+  "language": "en"
+}

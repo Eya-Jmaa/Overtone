@@ -1,0 +1,21 @@
+{
+  "id": "psy_nvc_005",
+  "technique": "Making Requests, Not Demands",
+  "source_framework": "Nonviolent Communication",
+  "source_citation": "Marshall Rosenberg — Center for Nonviolent Communication",
+  "mode": "psy",
+  "topics": ["conflict_resolution", "assertiveness", "emotional_expression"],
+  "applicable_scenarios": ["conflict_resolution", "boundary_setting", "partner_conflict"],
+  "detected_signals": [
+    "demanding_tone_detected",
+    "pitch_elevation_sustained",
+    "speaking_rate_spike",
+    "ultimatum_language_detected"
+  ],
+  "problem_it_solves": "Framing desires as demands that leave the other person no real choice, triggering resistance and resentment even when they comply.",
+  "description": "A request is a genuine invitation that fully allows the other person to say no. A demand is a statement that carries punishment (explicit or implicit) for non-compliance. The difference is not always in the words, but in your internal stance and your follow-through when the person declines. If you ask 'Would you be willing to call me when you'll be late?' and when they say 'I sometimes forget and that's not something I can commit to' you respond with understanding and seek alternatives — that was a request. If you respond with withdrawal, guilt-tripping, or anger — that was a demand dressed as a request.\n\nRequests must be specific, positive (what you want rather than what you don't want), and immediately feasible. 'Can you be more present?' is not a request — it's vague and the person doesn't know what action to take. 'Would you be willing to put your phone away during dinner?' is a request. The specificity matters because it gives the other person a clear, actionable thing to consider saying yes or no to. Vague requests generate vague responses and rarely lead to change. Good requests also include a brief connection between the request and the need it serves — 'I'd love to feel more connected during dinner, would you be willing to put your phone away?' — so the other person understands the spirit behind the ask.",
+  "when_to_use": "When the system detects demanding vocal tone (elevated pitch combined with slowed, emphatic delivery), ultimatum language ('you have to,' 'you need to,' 'you must'), or when your requests are consistently met with compliance but growing resentment. This often shows up in scenarios where the user has gotten what they asked for but the relationship has deteriorated.",
+  "practice_drill": "Write three requests you have of people in your life. Check each one: (1) Is it specific and doable right now? (2) Does it say what you want rather than what you don't want? (3) Could you genuinely accept a 'no' without punishing the person? If any answer is no, rewrite the request until all three pass. Practice saying each request with a genuinely open voice — record yourself and listen for any edge of demand in your tone.",
+  "common_mistakes": "Adding 'okay?' or 'right?' at the end of a demand as though it converts it to a request. Making requests that are only nominally open to refusal — 'you don't mind, do you?' Asking for feelings or internal states ('I need you to want to help me') rather than observable actions. Burying the real request inside a long complaint, making it easy for the other person to miss what you're actually asking for.",
+  "language": "en"
+}

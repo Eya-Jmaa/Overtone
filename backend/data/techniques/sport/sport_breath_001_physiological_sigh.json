@@ -1,0 +1,21 @@
+{
+  "id": "sport_breath_001",
+  "technique": "Physiological Sigh",
+  "source_framework": "Stress Physiology / Stanford Research",
+  "source_citation": "Balban et al. (2023) — Cell Reports Medicine; popularized by Andrew Huberman",
+  "mode": "sport",
+  "topics": ["physiological_regulation", "pre_competition_anxiety", "stress_management"],
+  "applicable_scenarios": ["pre_competition", "mid_performance_reset", "anxiety_regulation"],
+  "detected_signals": [
+    "anxiety_emotion_detected",
+    "speaking_rate_spike",
+    "pitch_elevation_sustained",
+    "energy_level_erratic"
+  ],
+  "problem_it_solves": "Acute anxiety or physiological arousal that interferes with performance — racing heart, shallow breathing, inability to focus, voice shaking.",
+  "description": "Take two quick inhales through the nose (the second inhale is shorter, filling the lungs completely by reinflating collapsed alveoli), followed by one long, slow exhale through the mouth. The double inhale maximizes the surface area of the lungs, which accelerates CO2 offloading during the extended exhale. This shifts the autonomic nervous system toward parasympathetic dominance faster than any other single-breath technique tested. Unlike box breathing (which takes 4+ cycles to work), the physiological sigh produces measurable heart rate reduction in a single breath. In Balban et al.'s 2023 controlled study, 5 minutes of cyclic sighing produced greater positive mood improvement and reduced respiratory rate compared to meditation or other breathing protocols.",
+  "when_to_use": "Immediately before a high-pressure moment — stepping up to serve, entering a negotiation room, starting a presentation. Also useful mid-performance when you notice anxiety spiking: the system would detect sustained pitch elevation, erratic energy levels, or vocal tremor. Can be done silently without anyone noticing.",
+  "practice_drill": "Set a timer for 2 minutes. Do one physiological sigh every 20 seconds (6 total). Notice your heart rate and mental state before vs after. Then practice doing a single sigh right before speaking — the goal is to make it automatic so you can deploy it in 3 seconds flat during actual performance situations. Record yourself speaking a sentence before and after the sigh — the system will show the pitch and energy difference.",
+  "common_mistakes": "Making the exhale too short — it should be at least twice as long as the combined inhales. Doing it too forcefully (it should feel natural, not dramatic). Trying to do it during speech instead of in the brief pause before speaking. Confusing it with box breathing — this is specifically double-inhale then long exhale, not equal-phase breathing.",
+  "language": "en"
+}

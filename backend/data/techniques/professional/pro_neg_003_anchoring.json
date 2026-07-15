@@ -1,0 +1,21 @@
+{
+  "id": "pro_neg_003",
+  "technique": "Anchoring — Making the First Offer Strategically",
+  "source_framework": "Behavioral Economics / Negotiation Research",
+  "source_citation": "Tversky & Kahneman — Judgment Under Uncertainty (1974); Galinsky & Mussweiler — Journal of Personality and Social Psychology (2001)",
+  "mode": "professional",
+  "topics": ["negotiation", "salary", "influence"],
+  "applicable_scenarios": ["salary_negotiation", "business_deal", "vendor_negotiation"],
+  "detected_signals": [
+    "reactive_anchoring_detected",
+    "low_confidence_markers",
+    "concession_language_early_detected",
+    "pitch_drop_during_number_statement"
+  ],
+  "problem_it_solves": "Letting the other party set the anchor and spend the entire negotiation adjusting from their starting point rather than yours.",
+  "description": "Anchoring is one of the most robust phenomena in behavioral economics. When a number is introduced into a negotiation — even an arbitrary one — subsequent estimates and final outcomes cluster around it. The first number stated disproportionately influences where the conversation ends up. This is why 'make the first offer' is often sound advice when you've done your research: you set the gravitational center of the negotiation.\n\nEffective anchoring has three requirements. First, your anchor must be ambitious but defensible — not so extreme that it destroys credibility and invites the other party to simply walk away, but above (or below, if you're a buyer) your target outcome. Research suggests anchoring in the 10-25% above target range for most salary negotiations. Second, your anchor should feel confident, not apologetic — stating a number with a qualifier ('I was thinking maybe around...') weakens the anchor effect. State the number clearly and follow it with the power pause. Third, your anchor should be precise rather than round when possible. Research by Janiszewski and Uy (2008) found that precise numbers ($87,500 vs. $90,000) create a perception of careful calculation and result in smaller counter-adjustments by the other party.\n\nThe counter-anchoring strategy is equally important: when the other party anchors first and you're caught off guard, do not immediately counter. Express that the anchor doesn't work for you, provide your own range information, or buy time to recalibrate before presenting your number.",
+  "when_to_use": "In any negotiation involving a specific number — salary, project budget, vendor price, equity percentage. The system detects passive anchoring patterns when the user responds to the other party's first offer without challenging it or providing a counter-anchor, or when the user's own first number is stated with low vocal confidence.",
+  "practice_drill": "Research the market rate for whatever you're negotiating. Set your anchor 15-20% above your target (for salary, for instance). Say it out loud: '[Name], based on my research and the value I bring to [specific things], I'm looking for [specific precise number].' Practice stating this without adding qualifiers, softeners, or immediate justifications after the number. Time yourself — any speech within 3 seconds of your anchor is a qualifier. Practice silence instead.",
+  "common_mistakes": "Anchoring without research — an aggressive anchor without justification reads as ignorant rather than confident. Counter-proposing immediately when the other party gives an extreme anchor — this treats their anchor as a legitimate starting point. Using round numbers that feel like guesses rather than precise numbers that signal calculation. Abandoning your anchor after pushback without requiring a substantive counter rather than just emotional pressure.",
+  "language": "en"
+}

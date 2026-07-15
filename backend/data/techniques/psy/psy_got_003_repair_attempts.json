@@ -1,0 +1,22 @@
+{
+  "id": "psy_got_003",
+  "technique": "Repair Attempts",
+  "source_framework": "Gottman Method",
+  "source_citation": "John Gottman — The Seven Principles for Making Marriage Work; Gottman Institute",
+  "mode": "psy",
+  "topics": ["conflict_resolution", "relationships", "de_escalation"],
+  "applicable_scenarios": ["conflict_resolution", "partner_conflict", "difficult_conversation"],
+  "detected_signals": [
+    "emotional_flooding_detected",
+    "escalating_conflict_pattern",
+    "anger_emotion_detected",
+    "speaking_rate_spike",
+    "pitch_elevation_sustained"
+  ],
+  "problem_it_solves": "Letting a heated conversation spiral past the point of productive discussion without knowing how to de-escalate without abandoning the conversation entirely.",
+  "description": "A repair attempt is any verbal or nonverbal action that reduces the emotional temperature during conflict and prevents further escalation. Gottman's research found that what distinguishes successful couples from unsuccessful ones is not the absence of conflict — it's the ratio of successful repair attempts. In stable relationships, repairs work because both parties are willing to receive them. In distressed relationships, the sentiment override (the accumulated emotional debt of unresolved conflict) is so negative that even legitimate repairs get rejected or ignored.\n\nRepairs can be explicit: 'I'm getting overwhelmed, can we take a 5-minute break?' 'I'm sorry, that came out wrong.' 'I don't want to fight about this, I care about you.' They can also be tonal and nonverbal — a touch on the shoulder, a slight smile, a softened voice, or slowing down the pace. The content matters less than the signal: 'I am trying to stay connected to you even while we're in conflict.' Gottman has documented that repairs as simple as 'I need a moment' or 'Can we start over?' consistently halt escalation when received by a willing partner.\n\nThe critical skill is being able to deploy a repair attempt even when you feel justified in your position and angry at the other person. This requires catching yourself before you cross the flooding threshold — the point at which heart rate exceeds roughly 100 BPM and the cortex goes offline.",
+  "when_to_use": "When the system detects escalating conflict patterns — both parties' speaking rate increasing, pitch elevation on both sides, shortening of turn length (the 'rapid fire' exchange pattern), or emotion signals shifting from sadness/frustration to anger. This is the moment to insert a repair, not after the conversation has already derailed.",
+  "practice_drill": "With your partner or a trusted friend, create a personal list of 5-10 repair phrases that feel natural to you — not scripted, but phrases you could actually say without it sounding performative. Include at least one humor-based repair ('okay, we're being a bit ridiculous right now'), one needs-statement repair ('I really want to resolve this, can we slow down?'), and one physiological break request ('my brain is flooding, I need 20 minutes'). Review this list before any conversation you anticipate will get heated.",
+  "common_mistakes": "Using repairs as an escape hatch from accountability — 'I'm sorry you feel that way' shuts down the conversation without repairing anything. Demanding that your repair be accepted — if the other person isn't ready to receive it, pushing them to respond is counterproductive. Attempting repairs after the flooding point rather than before — learn to recognize your personal physiological escalation signals and act before you cross the threshold.",
+  "language": "en"
+}

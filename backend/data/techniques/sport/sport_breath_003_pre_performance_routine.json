@@ -1,0 +1,21 @@
+{
+  "id": "sport_breath_003",
+  "technique": "Pre-Performance Breathing Routine",
+  "source_framework": "Sport Psychology / Applied Physiology",
+  "source_citation": "Cotterill — pre-performance routines in sport Journal of Sport Sciences (2010); breathing and performance research",
+  "mode": "sport",
+  "topics": ["physiological_regulation", "pre_performance", "concentration", "anxiety_regulation"],
+  "applicable_scenarios": ["pre_competition", "mid_performance_reset", "high_pressure_moment"],
+  "detected_signals": [
+    "anxiety_emotion_detected",
+    "energy_level_erratic",
+    "concentration_lapse_detected",
+    "speaking_rate_spike"
+  ],
+  "problem_it_solves": "Entering each performance action with inconsistent physiological and attentional states — not having a reliable, brief breathing sequence that you can deploy in the specific time window available between actions.",
+  "description": "A pre-performance breathing routine is a personalized, sport-specific breathing sequence that fits the exact time window available before a critical performance action and produces the physiological and attentional state required for that action. It is not a generic breathing technique borrowed from another context — it is designed around three parameters: (1) the time window available (5 seconds at a free throw, 30 seconds at a serve, 10 minutes in a locker room); (2) the optimal arousal level for the action (a deadlift requires high arousal, a putting stroke requires low arousal); (3) the specific transition from the previous action to this one (recovering from an error requires different regulation than preparing a routine action).\n\nA well-designed pre-performance breathing routine chains a breathing technique with an attentional cue and a physical posture: the three elements work together to create a complete state-setting package. Example for a tennis serve: (1) Bounce the ball three times (physical routine, slows pace). (2) One slow exhale through the mouth (physiological reset). (3) Look at the service box target (visual attentional cue). (4) Say service cue word internally (attentional concentration trigger). (5) Begin the serve. The breathing component (the exhale) is embedded in a broader behavioral sequence that makes it automatic and contextually appropriate.\n\nCotterill's research on pre-performance routines in sport found that consistent routines improve performance consistency under pressure, with the breathing component being particularly important for managing arousal between actions.",
+  "when_to_use": "For any discrete, set-piece performance action where there is a preparation window. Different routines for different situations: a longer routine for the start of a competition, a brief reset breath between points, and a specific recovery breath sequence after an error. The system would help design a personalized routine based on the user's sport, the specific actions they're preparing, and their typical arousal patterns.",
+  "practice_drill": "Map the specific performance actions in your sport that have discrete preparation windows. Choose one to start with. Time the window: exactly how many seconds do you have? Design a 3-step routine that fits in that window, includes a breathing component, and ends with a concentration trigger. Use it in every practice repetition of that action for two weeks. Measure performance consistency in that action before and after the routine implementation.",
+  "common_mistakes": "Designing a routine that takes longer than the time window available in competition. Creating a routine that you only use before important performance and not in routine training — the routine must be practiced thousands of times before it becomes a reliable state-setter. Including too many steps that require conscious monitoring — a routine with more than 4-5 steps typically becomes a source of distraction rather than an attentional anchor.",
+  "language": "en"
+}

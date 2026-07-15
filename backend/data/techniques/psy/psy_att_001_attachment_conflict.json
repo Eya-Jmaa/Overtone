@@ -1,0 +1,22 @@
+{
+  "id": "psy_att_001",
+  "technique": "Identifying Your Attachment Style in Conflict",
+  "source_framework": "Attachment Theory",
+  "source_citation": "John Bowlby — Attachment and Loss; Mary Ainsworth; Sue Johnson — Emotionally Focused Therapy",
+  "mode": "psy",
+  "topics": ["attachment", "self_awareness", "conflict_resolution", "relationships"],
+  "applicable_scenarios": ["partner_conflict", "conflict_resolution", "difficult_conversation"],
+  "detected_signals": [
+    "anxiety_emotion_detected",
+    "protest_behavior_detected",
+    "withdrawal_pattern_detected",
+    "emotional_reactivity_voice",
+    "stonewalling_detected"
+  ],
+  "problem_it_solves": "Reacting to conflict from automatic attachment-driven patterns — pursuing, withdrawing, or collapsing — without recognizing that these patterns are responses to perceived threat to the relationship bond, not rational responses to the surface issue.",
+  "description": "Attachment theory, developed by Bowlby and extended by Ainsworth and Johnson, describes how early relationships shape our default strategies for managing emotional closeness and distance under stress. In adulthood, three primary styles emerge in conflict. Secure attachment: comfortable with both closeness and distance, able to raise issues without fear that the relationship will break. Anxious (preoccupied) attachment: heightened sensitivity to perceived rejection; tends to escalate, pursue, and protest in conflict to restore connection — what looks like aggression is often fear of abandonment. Avoidant (dismissing) attachment: discomfort with emotional closeness and vulnerability; tends to withdraw, intellectualize, and stonewall in conflict — what looks like coldness is often an overwhelm response.\n\nKnowing your style doesn't excuse the behaviors that come with it — it explains them, which is the first requirement for changing them. If you're anxious, the real fear underneath your anger or pursuit is often 'Am I still loved? Will you leave?' If you're avoidant, the real experience underneath your withdrawal is often overwhelm and a belief that engagement will only make things worse. Sue Johnson's Emotionally Focused Therapy (EFT) is built on helping couples recognize this pursue-withdraw dance as a mutual trap, driven by shared attachment fears — not a fundamental character difference between a 'needy' partner and a 'cold' one.\n\nThe practical intervention is to recognize your attachment activation early — the moment your nervous system reads the conflict as a threat to the relationship bond — and to surface the underlying fear rather than the surface behavior.",
+  "when_to_use": "When the system detects patterns across multiple sessions that suggest attachment-driven dynamics: consistent pursuit-escalation from one party, consistent withdrawal-shutdown from another, or the classic demand-withdraw cycle. Also valuable as a self-reflection exercise before any relationship conflict, to help the user understand what need is actually driving their communication pattern.",
+  "practice_drill": "Reflect on your last three significant conflicts in close relationships. Did you tend to escalate, pursue, and increase contact? Or did you tend to withdraw, go quiet, and need space? Write one sentence naming your dominant pattern. Then write what you believe the deepest fear underneath that pattern is. ('When I escalate, my deepest fear is that they don't care about me.' 'When I withdraw, my deepest fear is that being vulnerable will make things worse.') Practice naming this fear out loud — to yourself in a mirror, then eventually in a conversation.",
+  "common_mistakes": "Using attachment theory to pathologize one style and idealize another — all three styles are adaptive responses to early environments. Believing your style is fixed — it is not; secure attachment is achievable in adulthood through therapeutic relationships, secure romantic partnerships, and conscious practice. Identifying your style but using it as an explanation rather than taking responsibility for how your automatic pattern affects others ('I'm just avoidant, that's why I shut down' — true, and you can work on it).",
+  "language": "en"
+}

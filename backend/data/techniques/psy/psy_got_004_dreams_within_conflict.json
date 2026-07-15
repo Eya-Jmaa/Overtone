@@ -1,0 +1,21 @@
+{
+  "id": "psy_got_004",
+  "technique": "Dreams Within Conflict",
+  "source_framework": "Gottman Method",
+  "source_citation": "John Gottman — The Seven Principles for Making Marriage Work; Gottman Institute",
+  "mode": "psy",
+  "topics": ["conflict_resolution", "relationships", "empathy"],
+  "applicable_scenarios": ["conflict_resolution", "partner_conflict", "difficult_conversation"],
+  "detected_signals": [
+    "circular_argument_pattern",
+    "gridlock_detected",
+    "positional_language_detected",
+    "emotional_reactivity_voice"
+  ],
+  "problem_it_solves": "Perpetual conflict over the same issue where both parties are locked into positions, unable to understand why the issue matters so deeply to the other person.",
+  "description": "Gottman distinguishes between solvable conflicts (practical disagreements with workable compromises) and perpetual conflicts (recurring disagreements rooted in fundamental differences in personality, values, or life dreams). He found that 69% of couple conflicts are perpetual — they don't get solved, they get managed. When a perpetual conflict is handled badly, it becomes gridlock: both parties feel disrespected and misunderstood, entrenched positions harden, and any compromise feels like defeat.\n\nThe Dreams Within Conflict technique addresses gridlock by shifting the conversation from 'who's right about the surface issue' to 'what underlying life dream, value, or need is each person trying to protect?' For example, a recurring conflict about how often to visit extended family is rarely about logistics. One person's insistence may be rooted in a dream about preserving family tradition and cultural identity. The other person's resistance may be rooted in a dream about protecting their autonomy and the primacy of their new family unit. Neither person is wrong — they have different dreams, and the conflict is the collision point.\n\nWhen you ask 'What does this issue mean to you? What would you lose if you couldn't have this?' you open the door to genuine understanding that makes creative compromise possible — not because you've solved the issue, but because you've understood each other.",
+  "when_to_use": "When the system detects gridlock patterns — the same argument appearing across multiple sessions without resolution, increasing emotional escalation each time the topic appears, or both parties using positional language ('I need it this way,' 'that's non-negotiable'). This is not a technique for every conflict, specifically for recurring ones where logic-based problem-solving has already failed.",
+  "practice_drill": "Pick one recurring conflict in your life. Separately from the other person, write answers to these questions about yourself: What does my position on this issue represent or symbolize to me? What am I afraid of losing if I don't get this? What childhood experience or core value is connected to this position? Then, in conversation, invite the other person to share their answers to the same questions — and listen without rebuttal. The goal is understanding, not resolution.",
+  "common_mistakes": "Using the technique as a therapy exercise and losing the other person's engagement — this needs to feel like genuine curiosity, not a structured intervention. Revealing your dream and then immediately using it as leverage in the negotiation, which undermines the vulnerability the other person just offered. Expecting resolution in one conversation — this technique builds understanding over time, not a single sitting.",
+  "language": "en"
+}

@@ -1,0 +1,19 @@
+{
+  "pmid": "29063521",
+  "doi": "10.3758/s13415-017-0544-6",
+  "title": "Blunted amygdala activity is associated with depression severity in treatment-resistant depression.",
+  "authors": [
+    "Ferri Jamie",
+    "Eisendrath Stuart J",
+    "Fryer Susanna L",
+    "Gillung Erin",
+    "Roach Brian J"
+  ],
+  "year": "2017",
+  "journal": "Cognitive, affective & behavioral neuroscience",
+  "abstract": "Up to 50% of individuals with major depressive disorder (MDD) do not recover after two antidepressant medication trials, and therefore meet the criteria for treatment-resistant depression (TRD). Mindfulness-based cognitive therapy (MBCT) is one promising treatment; however, the extent to which MBCT influences clinical outcomes relative to baseline neural activation remains unknown. In the present study we investigated baseline differences in amygdala activation between TRD patients and healthy controls (HCs), related amygdala activation to depression symptoms, and examined the impacts of MBCT and amygdala activation on longitudinal depression outcomes. At baseline, TRD patients (n = 80) and HCs (n = 37) participated in a functional magnetic resonance imaging task in which they identified either the emotion (affect labeling) or the gender (gender labeling) of faces, or passively viewed faces (observing). The TRD participants then completed eight weeks of MBCT or a health enhancement program (HEP). Relative to HCs, the TRD patients demonstrated less amygdala activation during affect labeling, and marginally less during gender labeling. Blunted amygdala activation in TRD patients during affect labeling was associated with greater depression severity. MBCT was associated with greater depression reductions than was HEP directly following treatment; however, at 52 weeks the treatment effect was not significant, and baseline amygdala activation across the task conditions predicted depression severity in both groups. TRD patients have blunted amygdala responses during affect labeling that are associated with greater concurrent depression. Furthermore, although MBCT produced greater short-term improvements in depression than did HEP, overall baseline amygdala reactivity was predictive of long-term clinical outcomes in both groups.",
+  "pubmed_url": "https://pubmed.ncbi.nlm.nih.gov/29063521/",
+  "mode": "psy",
+  "topic": "emotion_regulation",
+  "content_type": "research_abstract"
+}

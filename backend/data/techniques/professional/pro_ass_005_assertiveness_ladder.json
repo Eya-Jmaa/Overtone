@@ -1,0 +1,22 @@
+{
+  "id": "pro_ass_005",
+  "technique": "The Assertiveness Ladder",
+  "source_framework": "Assertiveness Training / CBT",
+  "source_citation": "Alberti & Emmons — Your Perfect Right (1970); assertiveness training CBT literature",
+  "mode": "professional",
+  "topics": ["assertiveness", "self_awareness", "communication_patterns"],
+  "applicable_scenarios": ["difficult_conversation", "conflict_resolution", "boundary_setting"],
+  "detected_signals": [
+    "passive_voice_overuse",
+    "hedging_language_detected",
+    "apology_over_density",
+    "speaking_rate_spike",
+    "accusatory_language_detected"
+  ],
+  "problem_it_solves": "Oscillating between passivity and aggression without a clear model of what assertive communication actually looks like in comparison — not knowing where you are on the spectrum or what a one-step improvement would feel like.",
+  "description": "The assertiveness ladder maps four communication styles on a spectrum from passive to aggressive, with assertive as the effective middle ground and passive-aggressive as an often-overlooked fourth style. Understanding where you tend to land, and what distinguishes each level, gives you a concrete target to aim for.\n\nPassive communication suppresses your own needs to avoid conflict: hints instead of requests, 'it's fine' when it isn't, disappearing into over-accommodation. The cost is resentment, invisible needs, and eventually either blowup or withdrawal. Passive-aggressive communication expresses resentment indirectly: sarcasm, deliberate underperformance, backhanded compliments, agreeing in person but undermining behind the scenes. The cost is destroyed trust and relationships that feel mysteriously tense. Aggressive communication meets your needs at the expense of the other person's: attacking, demanding, interrupting, dominating. It gets compliance in the short term but destroys willing collaboration. Assertive communication expresses your needs clearly and directly while respecting both your own boundaries and the other person's. It's honest without being cruel, firm without being domineering, open without being passive.\n\nThe practical use of the model is not as a judgment — all four styles make sense as adaptations to particular environments — but as a map. Most people who struggle with assertiveness tend toward one of the other three styles under stress. Knowing your default tells you what to watch for and what a corrective shift looks like.",
+  "when_to_use": "As a self-awareness framework that informs the system's coaching across multiple sessions. The system tracks signal patterns over time — hedging language + excessive qualification suggests passive; sarcasm detection + backhanded compliments suggests passive-aggressive; accusatory language + pitch elevation suggests aggressive. Naming the pattern explicitly helps the user recognize it in themselves.",
+  "practice_drill": "Think of a current interpersonal challenge at work. Write your passive response to it. Write your passive-aggressive response. Write your aggressive response. Now write the assertive response. Read all four aloud and notice how your body feels with each one. Which requires the most courage? That's the assertive one — and the courage is a signal that you're breaking a deeply conditioned pattern, not that you're doing something wrong.",
+  "common_mistakes": "Believing that assertiveness is just 'being nicer' than aggressive — it's actually structurally different, not just kinder in tone. Conflating assertiveness with extroversion — quiet, reserved people can be deeply assertive; volume and assertiveness are not the same thing. Using the ladder as a hierarchy where 'assertive' is always better — in genuinely threatening environments, strategic passivity or indirect approaches may be the only safe option. Aiming to be assertive in every situation rather than expanding your range so you can choose.",
+  "language": "en"
+}

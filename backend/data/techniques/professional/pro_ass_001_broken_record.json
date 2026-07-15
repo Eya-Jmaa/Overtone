@@ -1,0 +1,21 @@
+{
+  "id": "pro_ass_001",
+  "technique": "Broken Record",
+  "source_framework": "Assertiveness Training / CBT",
+  "source_citation": "Manuel Smith — When I Say No, I Feel Guilty (1975); assertiveness training CBT literature",
+  "mode": "professional",
+  "topics": ["assertiveness", "negotiation", "boundary_setting"],
+  "applicable_scenarios": ["salary_negotiation", "boundary_setting", "difficult_conversation", "conflict_resolution"],
+  "detected_signals": [
+    "concession_language_under_pressure",
+    "hedging_language_detected",
+    "qualification_language_detected",
+    "apology_over_density"
+  ],
+  "problem_it_solves": "Giving up your position under social pressure, manipulation, or repeated pushback — abandoning what you actually want because the other person is persistent, emotional, or critical.",
+  "description": "The Broken Record technique involves calmly, persistently repeating your core message or request without escalating, defending, or elaborating — every time the other person deflects, attacks, or applies pressure. The name comes from the era of vinyl records: when scratched, they repeat the same phrase endlessly. This technique uses that repetition as a feature, not a bug.\n\nThe key discipline is to acknowledge what the other person has said without being deflected by it. 'I understand that's a budget concern. I'm still requesting a salary of $85,000.' 'I hear that you're frustrated. I'm still unable to take on this project by Friday.' This acknowledgment-plus-restatement structure is important: pure repetition without acknowledgment sounds robotic and can escalate the situation. The acknowledgment shows that you've heard the other party; the restatement shows that you haven't been moved.\n\nBroken Record is most valuable against manipulation tactics: guilt, anger escalation, excessive flattery followed by demands, shifting the subject, and wearing-down through repetition. These tactics are designed to disorient you and make you feel that maintaining your position is unreasonable or unkind. The broken record anchors you in your actual position while the social pressure swirls around it. It requires a particular combination of firmness and calm — raised voice or visible annoyance signals that the pressure is working.",
+  "when_to_use": "When you're being subjected to persistent pressure to change a position that you've already thoughtfully established — not legitimate new information that would reasonably change your mind, but emotional pressure, repetition, or manipulation designed to wear you down. The system would detect this when speaking rate drops, hedging language appears after a period of assertive speech, or concession language emerges following the other party's escalation.",
+  "practice_drill": "Role-play a scenario where a friend, colleague, or the system applies escalating pressure to get you to change a stated position (a salary request, a 'no' to an extra project, a boundary). Each time pressure is applied, practice: (1) Acknowledge briefly. (2) Restate your position, unchanged, in a calm tone. Repeat this 5 times in the same conversation without giving ground. Notice how the urge to concede builds. The goal is to become comfortable with that discomfort — to learn that you can hold a position even when the other person is unhappy.",
+  "common_mistakes": "Repeating without acknowledging — this sounds robotic and can make the other person angrier. Raising the stakes with each repetition — the whole point is that your tone stays level while your position stays fixed. Using broken record on a position that you shouldn't actually hold — this is a persistence tool, not a rightness tool; make sure your position is one you've thought through before defending it mechanically. Confusing broken record with stonewalling — you remain engaged and responsive, you just don't move.",
+  "language": "en"
+}

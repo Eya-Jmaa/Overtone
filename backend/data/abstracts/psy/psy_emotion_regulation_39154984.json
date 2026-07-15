@@ -1,0 +1,19 @@
+{
+  "pmid": "39154984",
+  "doi": "10.1016/j.jad.2024.08.087",
+  "title": "Fast depressive symptoms improvement in bipolar I disorder after Stanford Accelerated Intelligent Neuromodulation Therapy (SAINT): A two-site feasibility and safety open-label trial.",
+  "authors": [
+    "Li Kevin",
+    "Bichlmeier Amy",
+    "DuPont Caitlin",
+    "Siegel-Ramsay Jennifer E",
+    "Comfort Alexa"
+  ],
+  "year": "2024",
+  "journal": "Journal of affective disorders",
+  "abstract": "BACKGROUND: Although there are a few first-line treatment options for bipolar depression, none are rapid-acting. A new rTMS protocol, Stanford Accelerated Intelligent Neuromodulation Therapy (SAINT®), has been shown to have a rapid antidepressant effect in major depressive disorder (MDD). We examined the preliminary safety, tolerability, and efficacy of SAINT for the treatment of depression in a small sample of persons with treatment-resistant bipolar I disorder. METHODS: Participants with treatment-resistant bipolar I disorder currently experiencing moderate to severe depression were treated with open-label SAINT. Resting-state functional MRI (fMRI) was used to generate individualized treatment targets for each participant based on the region of the left dorsolateral prefrontal cortex most anticorrelated with the subgenual anterior cingulate cortex. Participants were treated with 10 iTBS sessions daily, with 50-min intersession intervals, for up to 5 consecutive days. The primary outcome was change in Montgomery-Åsberg Depression Rating Scale (MADRS) from baseline to immediate follow-up after treatment. RESULTS: We treated 10 participants and found a mean reduction of 16.9 in MADRS scores, with a 50 % response rate and 40 % remission rate immediately following treatment. 60 % of participants met remission criteria within the 1-month period following treatment. No serious adverse events, manic episodes, or cognitive side effects were observed. LIMITATIONS: Our study has a limited sample size and larger samples are needed to confirm safety and efficacy. CONCLUSIONS: SAINT has shown preliminary feasibility, safety, tolerability, and efficacy in treating treatment-resistant bipolar I depression. Double-blinded sham-controlled trials with larger samples are needed to confirm safety and efficacy.",
+  "pubmed_url": "https://pubmed.ncbi.nlm.nih.gov/39154984/",
+  "mode": "psy",
+  "topic": "emotion_regulation",
+  "content_type": "research_abstract"
+}

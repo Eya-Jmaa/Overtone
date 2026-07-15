@@ -1,0 +1,8 @@
+requests
+pypdf
+tqdm
+pyyaml
+chromadb
+sentence-transformers
+tiktoken
+lxml

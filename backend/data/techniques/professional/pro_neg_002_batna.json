@@ -1,0 +1,21 @@
+{
+  "id": "pro_neg_002",
+  "technique": "BATNA — Know Your Walkaway",
+  "source_framework": "Harvard Negotiation Project",
+  "source_citation": "Fisher, Ury & Patton — Getting to Yes (1981); Harvard Program on Negotiation",
+  "mode": "professional",
+  "topics": ["negotiation", "preparation", "assertiveness"],
+  "applicable_scenarios": ["salary_negotiation", "business_deal", "vendor_negotiation", "job_offer"],
+  "detected_signals": [
+    "low_confidence_markers",
+    "concession_language_early_detected",
+    "hedging_language_detected",
+    "speaking_rate_spike_during_negotiation"
+  ],
+  "problem_it_solves": "Entering a negotiation without knowing your alternative to a negotiated agreement, which leaves you vulnerable to pressure and unable to make clear decisions about when to accept and when to walk.",
+  "description": "BATNA stands for Best Alternative to a Negotiated Agreement. It is the most important concept in negotiation, not because it determines what you ask for, but because it determines what you can credibly walk away from. If you know your BATNA clearly, you know your reservation point — the minimum acceptable outcome below which you are better off walking away. Without a clear BATNA, you are negotiating from a position of undefined need, which skilled negotiators will detect and exploit.\n\nYour BATNA must be concrete and honest, not aspirational. If you're negotiating a salary and your BATNA is 'stay in my current job,' that's one thing. If your BATNA is 'take the other offer I received last week,' that's a much stronger position — and you should say so explicitly if the opportunity arises. The power in a negotiation flows toward the party with the stronger BATNA. The practical work before any negotiation is: (1) List everything you would do if this negotiation fails. (2) Develop the most attractive of those alternatives as concretely as possible. (3) Determine your reservation point — the worst deal you'd accept before your BATNA looks better. (4) Consider what the other party's BATNA is — understanding their alternatives gives you insight into how much pressure they're under.\n\nImproving your BATNA before the negotiation (getting other offers, securing alternative vendors) is one of the most powerful moves available to you. Every alternative you develop genuinely changes your position at the table.",
+  "when_to_use": "In preparation for any negotiation. The system would detect a weak-BATNA presentation when the user is making early concessions without counter-offers, showing strong need signals (speaking rate spikes, hedging about alternatives), or accepting the first offer. Clarifying the BATNA is the first preparation intervention.",
+  "practice_drill": "Before your next negotiation, complete this exercise: (1) Write your BATNA in one sentence — what will you actually do if this doesn't work out? (2) Rate how attractive that BATNA genuinely is, 1-10. (3) Write one concrete thing you can do this week to improve your BATNA (make another call, get another bid, apply for another position). (4) Write your reservation point — the worst deal you would accept before walking. Now negotiate from that clarity.",
+  "common_mistakes": "Confusing BATNA with your opening position — your opening position should be higher than your reservation point, which is determined by your BATNA. Overestimating your BATNA to feel better — if your only alternative is genuinely poor, admit it to yourself; self-deception makes you a worse negotiator. Revealing your BATNA to the other party when it's weak — you can reference a BATNA without being specific about how good it actually is.",
+  "language": "en"
+}

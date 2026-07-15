@@ -1,0 +1,21 @@
+{
+  "id": "sport_res_001",
+  "technique": "Growth Mindset in Competition",
+  "source_framework": "Positive Psychology / Mindset Theory",
+  "source_citation": "Carol Dweck — Mindset: The New Psychology of Success (2006); Dweck & Leggett — Journal of Personality and Social Psychology (1988)",
+  "mode": "sport",
+  "topics": ["resilience", "mindset", "self_awareness", "performance_under_pressure"],
+  "applicable_scenarios": ["performance_slump", "post_failure", "skill_acquisition", "competition_pressure"],
+  "detected_signals": [
+    "fixed_mindset_language_detected",
+    "self_limiting_beliefs_detected",
+    "catastrophizing_language_detected",
+    "energy_drop_post_error"
+  ],
+  "problem_it_solves": "Interpreting errors, losses, and performance slumps as evidence of fixed ability ('I'm just not good enough at this') rather than as information about what to develop — triggering disengagement, avoidance, and premature performance ceiling.",
+  "description": "Dweck's research distinguishes two implicit theories about ability. Fixed mindset treats ability as a fixed trait — you either have it or you don't. In sport, fixed mindset athletes avoid challenges where they might fail (because failure reveals the trait), give up more easily when challenged, experience errors as identity threats, and interpret feedback as judgment rather than information. Growth mindset treats ability as developable — effort, strategy, and learning change it. Growth mindset athletes seek challenges, persist through difficulty, treat errors as data, and respond to setbacks with curiosity about what they can learn.\n\nThe critical arena for mindset in sport is the adversity moment: losing a match, making a critical error, facing a skill plateau. Fixed mindset responses sound like: 'I'm just not a clutch player,' 'I don't have the talent for this level,' 'I should have known I couldn't do it.' Growth mindset responses sound like: 'What specifically failed there? What do I need to work on? What can I adjust?' The difference is not between feeling good and feeling bad about adversity — growth mindset athletes are also disappointed by failure. The difference is what they do with that disappointment.\n\nDweck's research has been widely replicated and has influenced sport psychology training at the elite level. Applied to competition, it translates most directly into how athletes talk to themselves after errors and losses — which is why this technique integrates strongly with the negative self-talk replacement card.",
+  "when_to_use": "When the system detects fixed mindset language — ability-attributions for failure, catastrophizing after errors, self-limiting beliefs about ceiling ('I'm just not that kind of player'), or avoidance of challenging practice contexts. Also as a foundational orientation that should inform the interpretation of all other coaching feedback.",
+  "practice_drill": "For your next three errors or disappointing performances, run a deliberate growth mindset debrief within 24 hours. Write: (1) What specifically happened? (2) What does it tell me about what needs to develop? (3) What is one concrete practice target that addresses what I learned? The goal is to convert every adversity experience into a development signal rather than a judgment. Track how this debrief practice changes your emotional response to setbacks over 4-6 weeks.",
+  "common_mistakes": "Confusing growth mindset with toxic positivity ('everything is fine, I just need to believe in myself') — growth mindset is about honest assessment and specific development, not denial. Applying growth mindset language without changing the underlying approach ('I can grow' while continuing to avoid challenging practice). Believing that mindset alone is sufficient without genuine investment in deliberate practice — mindset is the orientation that makes development possible, not a substitute for it.",
+  "language": "en"
+}

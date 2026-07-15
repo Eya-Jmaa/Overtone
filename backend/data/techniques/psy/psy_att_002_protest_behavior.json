@@ -1,0 +1,22 @@
+{
+  "id": "psy_att_002",
+  "technique": "Protest Behavior Recognition",
+  "source_framework": "Attachment Theory / Emotionally Focused Therapy",
+  "source_citation": "Sue Johnson — Hold Me Tight; Amir Levine & Rachel Heller — Attached",
+  "mode": "psy",
+  "topics": ["attachment", "self_awareness", "conflict_resolution", "relationships"],
+  "applicable_scenarios": ["partner_conflict", "conflict_resolution", "difficult_conversation"],
+  "detected_signals": [
+    "protest_behavior_detected",
+    "anxiety_emotion_detected",
+    "accusatory_language_detected",
+    "speaking_rate_spike",
+    "emotional_reactivity_voice"
+  ],
+  "problem_it_solves": "Engaging in escalating behaviors that are unconsciously designed to force reconnection with an unavailable partner, but that instead drive them further away.",
+  "description": "Protest behaviors are actions — often activated in anxious attachment — that are fundamentally attempts to restore connection with a partner who feels emotionally unavailable. They look like anger, but underneath they are attempts to get a response: any response, even a negative one, feels better than the silence and distance. Common protest behaviors include: calling and texting repeatedly, threatening to leave the relationship, picking fights over unrelated issues, acting cold or indifferent to see if the partner notices, displaying exaggerated distress to compel a response, and escalating conflict intensity in an attempt to break through the partner's emotional withdrawal.\n\nLevine and Heller identify protest behaviors as one of the key patterns that destabilizes anxiously-attached people's relationships — not because the underlying need (for connection and reassurance) is unreasonable, but because the strategy backfires. The avoidant partner, overwhelmed by the intensity of the protest, withdraws further, which activates more protest, in a self-reinforcing cycle that Gottman calls the demand-withdraw spiral.\n\nRecognizing your own protest behaviors is the first step to substituting them with direct communication of the underlying need. 'I've been calling you multiple times and you haven't responded' (protest) vs. 'I'm feeling anxious and disconnected from you and I really need to hear your voice' (direct need statement). The second version addresses the real issue; the first often triggers the exact response you most fear.",
+  "when_to_use": "When the system detects escalating contact attempts, threats to withdraw from the relationship, sudden topic changes to more charged issues, or patterns of picking fights that don't align with the ostensible subject. Also relevant when a user describes confusing anger at a partner that seems disproportionate — this is often attachment anxiety in disguise.",
+  "practice_drill": "List your three most common protest behaviors — the specific things you do when you feel disconnected from someone close to you. For each, write the underlying need it's trying to meet. Then write a direct statement of that need: not the protest, but the fear behind it. Practice saying that direct statement out loud until it feels less vulnerable and more natural. The goal is to replace the automatic protest with a genuine bid for connection.",
+  "common_mistakes": "Confusing naming your protest behavior with accepting bad treatment — understanding the attachment dynamic doesn't mean tolerating unavailability. Stopping protest behaviors without replacing them with direct bids, which leaves the underlying need unmet and builds resentment. Identifying protest behaviors in yourself but not recognizing them in what looks like 'reasonable anger' — protest behaviors are often well-disguised.",
+  "language": "en"
+}

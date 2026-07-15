@@ -1,0 +1,21 @@
+{
+  "id": "pro_neg_004",
+  "technique": "Interest-Based Negotiation",
+  "source_framework": "Harvard Negotiation Project",
+  "source_citation": "Fisher, Ury & Patton — Getting to Yes (1981); Harvard Program on Negotiation",
+  "mode": "professional",
+  "topics": ["negotiation", "conflict_resolution", "communication_clarity"],
+  "applicable_scenarios": ["salary_negotiation", "business_deal", "vendor_negotiation", "conflict_resolution"],
+  "detected_signals": [
+    "positional_language_detected",
+    "circular_argument_pattern",
+    "stonewalling_detected",
+    "escalating_conflict_pattern"
+  ],
+  "problem_it_solves": "Getting stuck in positional bargaining — each party defending a stated position — where the only movement is compromise that leaves both sides partially dissatisfied.",
+  "description": "Positional bargaining is the default mode: you want X, I want Y, we split the difference at Z. Fisher, Ury and Patton's breakthrough insight in Getting to Yes is that positions are what people say they want; interests are why they want it. Positions are incompatible — both parties can't have 100% of the same thing. Interests are often compatible, even when the positions aren't. The famous orange example: two people want the same orange. Splitting it in half is the positional solution. But if one person wants the juice and the other wants the rind for baking, there's a 100%/100% solution — if they'd only asked why the other person wanted the orange.\n\nInterest-based negotiation requires you to do two things that don't come naturally in adversarial situations: (1) Understand and articulate your own interests rather than defending a stated position. What are you actually trying to achieve? What need are you trying to meet? (2) Genuinely explore the other party's interests. What do they care about beyond the stated position? What pressures are they under? What would a great outcome look like for them?\n\nThe practical skill is asking 'why' and 'what matters most' questions at the right moments — 'What's driving that for you?' 'What would an ideal outcome look like?' — and listening for interest information that reveals possibilities outside the positional bargain. This doesn't require that you reveal all your own interests; selective transparency is legitimate. But it does require genuine curiosity about what the other party actually needs.",
+  "when_to_use": "When a negotiation has reached an impasse, when positional language is dominating the conversation, or when both parties are repeating their positions in escalating ways without making progress. The system would detect circular argument patterns, both parties returning to the same position repeatedly, as the signal to shift to interest exploration.",
+  "practice_drill": "Before your next negotiation, complete a two-column exercise. Column A: Your position (what you're asking for). Column B: Your underlying interests (why you want it — what problem it solves, what value it serves, what fear it addresses). Then do the same exercise imagining you are the other party — what is their likely position, and what interests might be driving it? Bring this interests map to the negotiation and test your hypotheses with genuine questions.",
+  "common_mistakes": "Confusing interests with positions — 'I want a 10% raise' is a position. 'I want to feel that my compensation reflects my market value and my recent contributions' is an interest. Revealing all your interests upfront when the other party is playing positionally — you can explore their interests without fully exposing your own. Treating interest-based negotiation as a cooperative strategy that requires the other party to play the same way — you can operate from interests even when the other party is being positional.",
+  "language": "en"
+}

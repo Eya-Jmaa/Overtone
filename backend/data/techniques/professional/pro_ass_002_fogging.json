@@ -1,0 +1,21 @@
+{
+  "id": "pro_ass_002",
+  "technique": "Fogging",
+  "source_framework": "Assertiveness Training / CBT",
+  "source_citation": "Manuel Smith — When I Say No, I Feel Guilty (1975)",
+  "mode": "professional",
+  "topics": ["assertiveness", "conflict_resolution", "criticism_response"],
+  "applicable_scenarios": ["difficult_conversation", "conflict_resolution", "criticism_response"],
+  "detected_signals": [
+    "defensiveness_detected",
+    "counter_attack_detected",
+    "emotional_reactivity_voice",
+    "speaking_rate_spike_after_criticism"
+  ],
+  "problem_it_solves": "Becoming defensive or counter-attacking when criticized, which escalates conflict and often concedes legitimate points in the rush to defend yourself.",
+  "description": "Fogging is a technique for responding to criticism without becoming defensive, without fully agreeing, and without attacking back. The name comes from a fog bank: you can throw things at fog and they pass through without generating resistance. You acknowledge what is true or possibly true in the criticism without conceding the parts you don't agree with, and without generating the conflict that pure denial creates.\n\nThere are three fogging variations. Fogging truth: find the grain of truth in the criticism and agree with only that. 'You're right that I didn't meet the original deadline.' (Without agreeing that you're irresponsible, lazy, or that the criticism explains the full picture.) Fogging probability: agree that the criticism might have some merit. 'It's possible that I could have communicated better in that meeting.' Fogging in principle: agree that the principle is valid, without agreeing that it applies to this specific case. 'I agree that deadlines are important, and I should have flagged earlier that this one was at risk.'\n\nThe power of fogging is that it disarms the escalation dynamic. When someone criticizes you and you respond with pure denial or counter-attack, their system detects resistance and escalates. When you partially acknowledge, the escalation circuit breaks — there's nothing to fight against. You've validated enough to reduce the other person's activation, without capitulating on the parts of the criticism that aren't accurate or aren't yours to own.",
+  "when_to_use": "When you're receiving criticism that is partly valid and partly not — which describes most real-world criticism. Also when you're receiving unfair criticism but the relationship context makes full pushback costly. The system would detect a fogging opportunity when a defensive or counter-attack response pattern appears after criticism is delivered, with associated vocal activation.",
+  "practice_drill": "Think of the last piece of criticism you received that felt unfair or mixed. Write out a pure defensive response (what you wanted to say). Then identify the grain of truth in the criticism. Write three fogging responses using each variation. Practice saying each one without tension in your voice — the goal is genuine calmness, not suppressed irritation. The test: can you fog something without the other person hearing contempt in your tone?",
+  "common_mistakes": "Fogging sarcastically — 'Oh, I suppose I could have done it better' drips with contempt and is worse than honest pushback. Fogging everything, including things that aren't true at all — fogging requires there to be a grain of truth to acknowledge. Using fogging as a way to appear to engage without ever actually engaging — if the criticism has merit that requires action, fogging without follow-through is a form of dishonesty.",
+  "language": "en"
+}

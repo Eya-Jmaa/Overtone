@@ -1,0 +1,21 @@
+{
+  "id": "sport_res_002",
+  "technique": "Process Goals vs Outcome Goals",
+  "source_framework": "Sport Psychology / Goal Setting Theory",
+  "source_citation": "Locke & Latham — goal setting theory; Kingston & Hardy — process goals in sport Journal of Sport Sciences (1997)",
+  "mode": "sport",
+  "topics": ["resilience", "goal_setting", "performance_optimization", "concentration"],
+  "applicable_scenarios": ["competition_planning", "performance_preparation", "performance_slump", "anxiety_regulation"],
+  "detected_signals": [
+    "outcome_focus_detected",
+    "anxiety_emotion_detected",
+    "low_confidence_markers",
+    "worry_language_detected"
+  ],
+  "problem_it_solves": "Focusing exclusively on outcomes (winning, the final score, ranking) during performance — which creates anxiety about uncontrollable variables and removes focus from the controllable process factors that actually determine quality.",
+  "description": "Goal setting in sport is most effective when goals are organized in a hierarchy: outcome goals (winning, placing, achieving a ranking) give meaning and direction but are only partially under the athlete's control. Performance goals (achieving a personal standard — 80% first serve, sub-10 second 100m) are more controllable but still subject to day-to-day variability. Process goals (specific behaviors and actions to execute — 'watch the ball until it crosses the net,' 'attack the first short ball') are almost entirely within the athlete's control in any given moment.\n\nKingston and Hardy's research with golfers showed that process goals produced superior performance outcomes compared to outcome or performance goals under pressure conditions, precisely because process goals keep attention on controllable, present-tense actions rather than future results. This is consistent with the anxiety literature: outcome thinking increases anxiety (because outcomes are uncertain) while process thinking reduces it (because process is certain — you can commit to the process regardless of what happens).\n\nFor competition use, the prescription is: hold the outcome goal as motivation and as a long-term target, but switch attention entirely to process goals during performance. The outcome goal answers 'why am I here?' The process goal answers 'what am I doing right now?' Both are necessary, but only the process goal should be active during execution.",
+  "when_to_use": "In competition preparation planning and as a real-time attentional tool during performance. The system would detect outcome-focus as the primary competition mentality and suggest process goal development when analysis shows anxiety correlated with result references, or when performance quality degrades when competition significance increases — a pattern suggesting outcome pressure is disrupting process focus.",
+  "practice_drill": "For your next competition, complete a pre-competition goal sheet: (1) Outcome goal — what do you want the final result to be? (2) Performance goal — what personal standard would constitute a good performance regardless of result? (3) Three process goals — three specific behaviors you will execute, which are entirely within your control regardless of opponent or conditions. During competition, check your attention: are you thinking about the scoreboard, or about the next process goal? When you notice outcome thinking, redirect to the nearest process goal.",
+  "common_mistakes": "Treating process goals as a substitute for caring about the outcome — the outcome still matters; process goals are an attentional strategy during performance, not a denial of wanting to win. Setting process goals that are too abstract ('play confidently' is a process? — 'move forward on first opportunity in the last third' is a process). Abandoning process focus when the score is very close or very far apart — these are exactly the moments when it matters most.",
+  "language": "en"
+}

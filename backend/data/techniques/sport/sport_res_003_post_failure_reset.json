@@ -1,0 +1,22 @@
+{
+  "id": "sport_res_003",
+  "technique": "Post-Failure Reset Protocol",
+  "source_framework": "Sport Psychology",
+  "source_citation": "Gould et al. — Mental toughness in sport research; Deci & Ryan — self-determination theory applied to resilience",
+  "mode": "sport",
+  "topics": ["resilience", "emotion_regulation", "post_error", "mental_preparation"],
+  "applicable_scenarios": ["post_error", "performance_slump", "post_failure", "competition_pressure"],
+  "detected_signals": [
+    "energy_drop_post_error",
+    "anger_emotion_detected",
+    "sadness_emotion_detected",
+    "self_critical_language_detected",
+    "concentration_lapse_detected"
+  ],
+  "problem_it_solves": "Cascading failures after a significant error or defeat — the psychological spiral where one bad play leads to a second, then a third, because the initial failure disrupts concentration, increases anxiety, and activates negative self-talk that impairs the next action.",
+  "description": "The 30 seconds following a significant error or setback are among the most consequential in sport psychology. What an athlete does in this window — both physically and mentally — largely determines whether the error remains isolated or cascades into a performance collapse. Elite athletes are distinguished not by the absence of errors, but by the speed and quality of their recovery from them.\n\nA post-failure reset protocol is a personalized 3-step sequence designed to fit within the time available between actions: (1) Acknowledgment — a brief, contained acknowledgment of the error, typically using a physical gesture (a fist clench, a brief pause, looking down). This acknowledgment is real — not bypassed — but it is brief and contained. Failing to acknowledge at all tends to suppress the emotion, which resurfaces. Over-acknowledging (extended visible distress) carries the experience into the next action. The acknowledgment takes 2-3 seconds. (2) Reset — a physical and verbal reset signal: the concentration trigger or breathing cue that marks the end of the error experience and the return to present focus. This is the boundary between the past action and the next one. (3) Process cue — the first process goal or task cue for the next action. This immediately occupies the attention that was just freed from the error.\n\nThe protocol works because it gives the athlete a behavioral script for a moment when scripted behavior matters most. Without a script, the automatic response to a major error is continued error-thinking, which produces exactly the cascade you want to prevent.",
+  "when_to_use": "Immediately following any significant error during competition. The system would detect the need for reset protocol development when performance patterns show error cascades — multiple consecutive errors or performance drops following a significant first error — or when a user describes being 'unable to let it go' during performance.",
+  "practice_drill": "Design your personal 3-step reset protocol. Step 1: Choose your acknowledgment gesture (brief, physical, 2-3 seconds). Step 2: Choose your reset signal — the physical/verbal trigger that marks 'over, next.' Step 3: Choose your immediate process cue — the first task-focused thought for the next action. Write it out. Practice it in deliberate failure conditions during training: have someone create a situation where you make an error, then immediately run your reset protocol. Repeat 20 times so the protocol is automatic before competition.",
+  "common_mistakes": "Making the acknowledgment too long — you cannot afford to be distressed for 15 seconds between actions. Skipping the acknowledgment entirely and going straight to positivity — this tends to suppress rather than process the emotional response, and suppressed emotions surface at worse moments. Using a reset protocol you haven't practiced under simulated pressure — it will be unavailable under actual competition pressure when you need it most. Expecting the reset to make you feel good — the goal is functional re-engagement, not emotional recovery.",
+  "language": "en"
+}
