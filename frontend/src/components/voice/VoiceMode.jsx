@@ -181,9 +181,11 @@ export default function VoiceMode({
       recorder.ondataavailable = (e) => {
         if (e.data.size > 0) {
           chunksRef.current.push(e.data);
-          if (client && !coachSpeakingRef.current) {
-            e.data.arrayBuffer().then((buffer) => client.sendAudioChunk(buffer));
-          }
+          // Send the Blob directly. WebSocket.send preserves call order, so the
+          // webm header chunk stays first. Going via e.data.arrayBuffer().then()
+          // could reorder chunks and corrupt the stream (whisper then fails with
+          // "Invalid data found when processing input").
+          if (client && !coachSpeakingRef.current) client.sendAudioChunk(e.data);
         }
       };
       recorder.start(250);
@@ -193,11 +195,16 @@ export default function VoiceMode({
     }
   }, [wsClient]);
 
-  const stopRecording = useCallback(() => {
+  // Resolves only AFTER the recorder flushes its final chunk (onstop fires after
+  // the last ondataavailable), so end_turn is sent once the complete webm has
+  // been transmitted — otherwise the server transcribes a truncated stream.
+  const stopRecording = useCallback(() => new Promise((resolve) => {
     const recorder = recorderRef.current;
-    if (recorder && recorder.state !== 'inactive') recorder.stop();
     recorderRef.current = null;
-  }, []);
+    if (!recorder || recorder.state === 'inactive') { resolve(); return; }
+    recorder.onstop = () => resolve();
+    try { recorder.stop(); } catch (e) { resolve(); }
+  }), []);
 
   // ---- push-to-talk ---------------------------------------------------------
   const startTalking = useCallback(() => {
@@ -208,16 +215,20 @@ export default function VoiceMode({
     getOutputPlayer().stop();
     coachSpeakingRef.current = false;
     setCoachSpeaking(false);
+    talkingRef.current = true;   // set synchronously so a stray stop can't race
     wsClient.sendControlMessage('start_turn');
     startRecording();
     setTalking(true);
   }, [wsClient, startRecording]);
 
-  const stopTalking = useCallback(() => {
+  const stopTalking = useCallback(async () => {
     if (!wsClient || !talkingRef.current) return;
-    stopRecording();
-    wsClient.sendControlMessage('end_turn');
+    talkingRef.current = false;  // guard against double stop (mouseup + mouseleave)
     setTalking(false);
+    // Wait for the recorder to flush its final chunk BEFORE end_turn, so the
+    // server transcribes the complete utterance rather than a truncated webm.
+    await stopRecording();
+    wsClient.sendControlMessage('end_turn');
   }, [wsClient, stopRecording]);
 
   // ---- controls -------------------------------------------------------------
