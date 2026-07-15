@@ -123,6 +123,10 @@ async def process_user_turn_stream(
 
     def _produce():
         try:
+            # TODO(language): the coach replies in English by default. To honor the
+            # session language, add a `language` column to Conversation (set at
+            # creation like `mode`) and pass `language=conv.language` here. See the
+            # note in services/llm_service.py.
             for delta in get_coach_response_stream(conv.mode, history, user_text):
                 loop.call_soon_threadsafe(queue.put_nowait, delta)
         except Exception as exc:  # surface LLM errors to the consumer
@@ -238,6 +242,8 @@ def process_user_turn(
     history = [{"role": m.role, "content": m.content} for m in history_rows]
 
     # 3. Call LLM (batch version - streaming variant added in Step 5)
+    # TODO(language): defaults to English. Pass `language=conv.language` once a
+    # language column exists on Conversation (see services/llm_service.py).
     try:
         assistant_text = get_coach_response(conv.mode, history, user_text)
     except Exception as e:

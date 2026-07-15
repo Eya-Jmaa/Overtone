@@ -20,7 +20,18 @@ class Settings(BaseSettings):
 
     hf_token: str = ""
 
-    llm_api_key: str = ""          # Token Factory key
+    llm_api_key: str = ""          # Token Factory key (legacy — unused since the
+                                   # LLM provider migrated to Gemini; see below)
+
+    # LLM provider: Google Gemini (via the google-genai SDK, in llm_service.py).
+    # Model name lives here on purpose — Google retires model names (2.0 Flash
+    # was retired June 2026), so a swap must be a one-line config change, never
+    # a code edit at a call site.
+    gemini_api_key: str            # required, no default — fill in .env manually
+    gemini_model: str = "gemini-2.5-flash"
+    gemini_temperature: float = 0.7
+    gemini_top_p: float = 0.9
+    gemini_max_tokens: int = 512
 
     # Kokoro TTS settings
     kokoro_base_url: str = "http://kokoro:8880/v1"  # Internal Docker network

@@ -10,7 +10,8 @@ onnxruntime
 mediapipe
 chromadb
 sentence-transformers
-openai>=1.0.0
+openai>=1.0.0          # still used by tts_service.py (AsyncOpenAI -> Kokoro)
+google-genai          # coaching LLM provider (Gemini) — see services/llm_service.py
 edge-tts
 spacy
 sqlalchemy
