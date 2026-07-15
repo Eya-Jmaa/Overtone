@@ -202,6 +202,12 @@ export default function VoiceMode({
   // ---- push-to-talk ---------------------------------------------------------
   const startTalking = useCallback(() => {
     if (!wsClient || !canTalkRef.current || talkingRef.current) return;
+    // Barge-in: if the coach is speaking, silence it instantly and stop
+    // suppressing our mic chunks so this interrupting speech is captured. The
+    // server also cancels the coach turn on receiving start_turn.
+    getOutputPlayer().stop();
+    coachSpeakingRef.current = false;
+    setCoachSpeaking(false);
     wsClient.sendControlMessage('start_turn');
     startRecording();
     setTalking(true);

@@ -106,6 +106,15 @@ def get_websocket_router():
             pass
         
         finally:
+            # Cancel any in-flight coach turn before closing the shared db
+            # session, so it can't keep using a session that's being torn down.
+            task = session_state.turn_task
+            if task is not None and not task.done():
+                task.cancel()
+                try:
+                    await task
+                except BaseException:
+                    pass
             session_store.delete(connection_id)
             db.close()
     
@@ -118,6 +127,11 @@ async def send_state(websocket: WebSocket, state: str) -> None:
 
 async def send_error(websocket: WebSocket, message: str) -> None:
     await websocket.send_json({"type": "error", "message": message})
+
+
+async def send_stop_audio(websocket: WebSocket) -> None:
+    """Tell the client to immediately stop/flush coach audio (barge-in)."""
+    await websocket.send_json({"type": "stop_audio"})
 
 
 def get_timestamp_ms(session_state: SessionState) -> int:
@@ -224,6 +238,117 @@ def transcribe_audio_buffer(audio_bytes: bytes, beam_size: int = 5) -> str:
                 pass
 
 
+async def cancel_active_turn(
+    websocket: WebSocket,
+    session_state: SessionState,
+    *,
+    notify_client: bool,
+) -> None:
+    """Cancel an in-flight coach turn (barge-in) and wait for it to unwind.
+
+    Waiting matters: the turn holds the connection's single shared DB session,
+    so the next turn must not start until this one has rolled back and released
+    it. When `notify_client` is set we also tell the client to flush any audio
+    it's still playing, so the coach falls silent the instant the user speaks.
+    """
+    task = session_state.turn_task
+    if task is not None and not task.done():
+        task.cancel()
+        try:
+            await task
+        except (asyncio.CancelledError, Exception):
+            pass  # cancellation is expected; run_turn already rolled back
+        if notify_client:
+            try:
+                await send_stop_audio(websocket)
+            except Exception:
+                pass
+    session_state.turn_task = None
+
+
+async def run_turn(
+    websocket: WebSocket,
+    session_state: SessionState,
+    db: Session,
+    user_text: str,
+) -> None:
+    """Stream one coach reply (text + spoken audio) for `user_text`.
+
+    Runs as a cancellable background task so the receive loop stays free to
+    accept the next start_turn mid-reply (barge-in). Ordered TTS pipeline: the
+    producer streams LLM sentences and kicks off TTS for each one IMMEDIATELY
+    (concurrently, bounded), pushing the synth task onto an ordered queue; the
+    consumer awaits those tasks in order and sends audio the instant each is
+    ready. This overlaps LLM generation with TTS + network, so the coach starts
+    speaking on sentence 1 while sentence 2 is still being written/synthesized.
+    """
+    first_audio_sent = False
+    audio_q: asyncio.Queue = asyncio.Queue()
+    tts_sem = asyncio.Semaphore(3)  # cap concurrent TTS calls to Kokoro
+
+    async def _synth(text: str):
+        async with tts_sem:
+            try:
+                return await tts_synthesize(text)
+            except Exception as tts_error:
+                print(f"TTS error for sentence: {tts_error}")
+                return None
+
+    async def _produce_sentences():
+        try:
+            async for sentence in sentences_from_deltas(
+                process_user_turn_stream(
+                    db,
+                    session_state.conversation_id,
+                    user_text,
+                )
+            ):
+                await websocket.send_json({"type": "assistant_delta", "text": sentence})
+                await audio_q.put(asyncio.create_task(_synth(sentence)))
+        finally:
+            await audio_q.put(None)  # sentinel (even on error) so consumer exits
+
+    async def _send_audio():
+        nonlocal first_audio_sent
+        while True:
+            task = await audio_q.get()
+            if task is None:
+                break
+            audio_bytes = await task
+            if audio_bytes:
+                if not first_audio_sent:
+                    session_state.vad_state = "speaking"
+                    await send_state(websocket, "speaking")
+                    first_audio_sent = True
+                await websocket.send_bytes(audio_bytes)
+
+    try:
+        await asyncio.gather(_produce_sentences(), _send_audio())
+        await websocket.send_json({"type": "assistant_done"})
+        session_state.vad_state = "listening"
+        await send_state(websocket, "listening")
+
+    except asyncio.CancelledError:
+        # Barge-in: the user interrupted. process_user_turn_stream() may have
+        # opened (but not committed) a write; `db` is held open for the WHOLE
+        # connection, so roll back immediately to release SQLite's single writer
+        # lock instead of letting it linger. Re-raise so the canceller knows
+        # we've stopped. Deliberately do NOT send assistant_done here.
+        db.rollback()
+        raise
+
+    except Exception as e:
+        # Same rollback rationale as above for a genuine error.
+        db.rollback()
+        print(f"Turn processing error: {e}")
+        await send_error(websocket, f"Assistant error: {str(e)}")
+        session_state.vad_state = "listening"
+        await send_state(websocket, "listening")
+
+    finally:
+        session_state.turn_task = None
+
+
 async def handle_control_message(
     websocket: WebSocket,
     connection_id: str,
@@ -236,15 +361,21 @@ async def handle_control_message(
     try:
         message = json.loads(message_text)
         msg_type = message.get("type")
-        
+
         if msg_type == "start_turn":
+            # Barge-in: if the coach is mid-reply, cancel it and silence the
+            # client so the user can talk over it.
+            await cancel_active_turn(websocket, session_state, notify_client=True)
             session_state.vad_state = "listening"
             await send_state(websocket, "listening")
-        
+
         elif msg_type == "end_turn":
+            # Defensive: never run two turns on the shared db session at once.
+            await cancel_active_turn(websocket, session_state, notify_client=False)
+
             session_state.vad_state = "processing"
             await send_state(websocket, "processing")
-            
+
             # Transcribe the FULL accumulated audio for the user message
             final_transcript = ""
             if session_state.audio_buffer and len(session_state.audio_buffer) >= MIN_AUDIO_BYTES:
@@ -252,84 +383,32 @@ async def handle_control_message(
                     transcribe_audio_buffer,
                     session_state.audio_buffer,
                 )
-            
+
             # Reset buffers for next turn
             session_state.audio_buffer = bytes()
             session_state.audio_chunks = []
             session_state.recent_chunks.clear()
             session_state.partial_transcript = ""
             session_state.last_transcription_ms = 0
-            
-            first_audio_sent = False
-            # Ordered TTS pipeline: the producer streams LLM sentences and kicks
-            # off TTS for each one IMMEDIATELY (concurrently, bounded), pushing the
-            # synth task onto an ordered queue. The consumer awaits those tasks in
-            # order and sends audio the instant each is ready. This overlaps LLM
-            # generation with TTS + network, so the coach starts speaking on
-            # sentence 1 while sentence 2 is still being written/synthesized.
-            audio_q: asyncio.Queue = asyncio.Queue()
-            tts_sem = asyncio.Semaphore(3)  # cap concurrent TTS calls to Kokoro
 
-            async def _synth(text: str):
-                async with tts_sem:
-                    try:
-                        return await tts_synthesize(text)
-                    except Exception as tts_error:
-                        print(f"TTS error for sentence: {tts_error}")
-                        return None
-
-            async def _produce_sentences():
-                try:
-                    async for sentence in sentences_from_deltas(
-                        process_user_turn_stream(
-                            db,
-                            session_state.conversation_id,
-                            final_transcript or "User spoke",
-                        )
-                    ):
-                        await websocket.send_json({"type": "assistant_delta", "text": sentence})
-                        await audio_q.put(asyncio.create_task(_synth(sentence)))
-                finally:
-                    await audio_q.put(None)  # sentinel (even on error) so consumer exits
-
-            async def _send_audio():
-                nonlocal first_audio_sent
-                while True:
-                    task = await audio_q.get()
-                    if task is None:
-                        break
-                    audio_bytes = await task
-                    if audio_bytes:
-                        if not first_audio_sent:
-                            await send_state(websocket, "speaking")
-                            first_audio_sent = True
-                        await websocket.send_bytes(audio_bytes)
-
-            try:
-                await asyncio.gather(_produce_sentences(), _send_audio())
-
-                await websocket.send_json({"type": "assistant_done"})
+            # Nothing intelligible was captured (silence, a stray VAD trigger, or
+            # a quick tap). Do NOT fabricate a "User spoke" message - that made
+            # the coach reply to nothing, on a loop. Just return to listening.
+            user_text = (final_transcript or "").strip()
+            if not user_text:
+                session_state.vad_state = "listening"
                 await send_state(websocket, "listening")
+                return
 
-            except Exception as e:
-                # process_user_turn_stream() may have already flushed (but not
-                # committed) the user message before failing. `db` is held open
-                # for this WHOLE websocket connection (not per-request like the
-                # HTTP routes), so an un-rolled-back transaction here keeps
-                # holding SQLite's single writer lock for as long as the socket
-                # stays open - blocking every other write (e.g. creating or
-                # deleting a conversation from any tab) with "database is
-                # locked" until this connection eventually closes. Roll back
-                # immediately so the lock is released as soon as the error
-                # happens instead of lingering.
-                db.rollback()
-                print(f"Turn processing error: {e}")
-                await send_error(websocket, f"Assistant error: {str(e)}")
-                await send_state(websocket, "listening")
-        
+            # Run the reply as a cancellable background task so the receive loop
+            # stays free to accept the next start_turn (barge-in).
+            session_state.turn_task = asyncio.create_task(
+                run_turn(websocket, session_state, db, user_text)
+            )
+
         else:
             await send_error(websocket, f"Unknown message type: {msg_type}")
-    
+
     except json.JSONDecodeError:
         await send_error(websocket, "Invalid JSON message")
 

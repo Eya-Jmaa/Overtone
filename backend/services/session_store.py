@@ -5,7 +5,7 @@ Single-worker in-memory implementation with Redis swap point for future multi-wo
 """
 from collections import deque
 from dataclasses import dataclass, field
-from typing import Optional
+from typing import Optional, Any
 import time
 
 # How many recent chunks to keep for windowed (partial) transcription.
@@ -30,6 +30,9 @@ class SessionState:
     user_id: str = ""
     transcribing: bool = False  # guards against overlapping windowed transcriptions
     last_transcription_ms: float = 0
+    # In-flight coach turn (asyncio.Task) so a new start_turn can cancel it
+    # mid-reply for barge-in. Typed as Any to keep this module asyncio-free.
+    turn_task: Optional[Any] = None
 
 
 class SessionStore:
