@@ -45,6 +45,7 @@ export default function VoiceMode({
   onEnd,              // close the full-screen mode
 }) {
   const [videoMode, setVideoMode] = useState(false);
+  const [cameraError, setCameraError] = useState(false);
   const [micOn, setMicOn] = useState(true);
   const [talking, setTalking] = useState(false);   // push-to-talk held
 
@@ -65,9 +66,11 @@ export default function VoiceMode({
   const heldMicRef = useRef(false);
   const disposedRef = useRef(false);
   const talkingRef = useRef(false);
+  const videoModeRef = useRef(false);
 
   useEffect(() => { micOnRef.current = micOn; }, [micOn]);
   useEffect(() => { talkingRef.current = talking; }, [talking]);
+  useEffect(() => { videoModeRef.current = videoMode; }, [videoMode]);
 
   // ---- derive the single phase ---------------------------------------------
   const phase = useMemo(() => {
@@ -241,16 +244,36 @@ export default function VoiceMode({
   }, []);
 
   const toggleVideo = useCallback(async () => {
-    setVideoMode((prev) => {
-      const next = !prev;
-      if (next) {
-        enableVideoTrack().then((s) => { if (s && videoRef.current) videoRef.current.srcObject = s; });
-      } else {
-        disableVideoTrack();
-      }
-      return next;
-    });
+    if (videoModeRef.current) {
+      disableVideoTrack();
+      setVideoMode(false);
+      return;
+    }
+    // Mount the self-view first, THEN acquire the camera. enableVideoTrack adds
+    // a camera track to the shared mic stream (no second mic getUserMedia).
+    setCameraError(false);
+    setVideoMode(true);
+    const s = await enableVideoTrack();
+    const hasVideo = !!s && s.getVideoTracks().length > 0;
+    if (!hasVideo) { setCameraError(true); return; }
+    // Attach now if the <video> is already mounted; the effect below is the
+    // fallback for the mount race (element not ready when this resolves).
+    if (videoRef.current) {
+      videoRef.current.srcObject = s;
+      videoRef.current.play?.().catch(() => {});
+    }
   }, []);
+
+  // Attach the shared stream to the self-view whenever video is on and the
+  // <video> is mounted. Assigning the live MediaStream is enough — the camera
+  // track added by enableVideoTrack shows up on it even if attached slightly
+  // before the track lands.
+  useEffect(() => {
+    if (videoMode && videoRef.current && streamRef.current) {
+      videoRef.current.srcObject = streamRef.current;
+      videoRef.current.play?.().catch(() => {});
+    }
+  }, [videoMode]);
 
   const endSession = useCallback(() => {
     getOutputPlayer().stop();
@@ -386,6 +409,13 @@ export default function VoiceMode({
         }}>
           <video ref={videoRef} autoPlay playsInline muted
             style={{ width: '100%', height: '100%', objectFit: 'cover', transform: 'scaleX(-1)' }} />
+          {cameraError && (
+            <div style={{
+              position: 'absolute', inset: 0, display: 'flex', alignItems: 'center',
+              justifyContent: 'center', textAlign: 'center', padding: 12, fontSize: 11,
+              color: 'var(--rose)', fontFamily: "'Inter', system-ui, sans-serif",
+            }}>Camera unavailable</div>
+          )}
           <div style={{
             position: 'absolute', bottom: 8, left: 10, fontSize: 10, color: 'var(--text-muted)',
             fontFamily: "'JetBrains Mono', monospace", letterSpacing: 1,
