@@ -33,6 +33,17 @@ class Settings(BaseSettings):
     gemini_top_p: float = 0.9
     gemini_max_tokens: int = 512
 
+    # RAG (retrieval-augmented coaching) — ChromaDB knowledge base at
+    # backend/data/chroma_db (collection "coaching_kb", 603 chunks embedded with
+    # intfloat/multilingual-e5-base, dim 768). Retrieval fails OPEN: if disabled
+    # or anything errors, a coaching turn proceeds with no injected context.
+    rag_enabled: bool = True
+    rag_db_path: str = ""          # empty -> backend/data/chroma_db
+    rag_collection: str = "coaching_kb"
+    rag_embed_model: str = "intfloat/multilingual-e5-base"
+    rag_top_k: int = 4
+    rag_max_context_chars: int = 2400   # cap the injected grounding block
+
     # Kokoro TTS settings
     kokoro_base_url: str = "http://kokoro:8880/v1"  # Internal Docker network
     kokoro_voice: str = "af_bella"  # Warm American female voice

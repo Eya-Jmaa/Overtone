@@ -17,6 +17,7 @@ from google.genai import types
 from google.genai import errors as genai_errors
 
 from config import settings
+from services import rag_engine
 
 # One shared client for the whole app. The google-genai Client is thread-safe,
 # which matters because get_coach_response_stream runs on a worker thread.
@@ -70,6 +71,23 @@ def _build_system_instruction(mode: str, language: str) -> str:
     base = SYSTEM_PROMPTS.get(mode, SYSTEM_PROMPTS["professional"])
     lang_name = _LANGUAGE_NAMES.get((language or "en").lower(), "English")
     return f"{base}\n\nAlways reply in {lang_name}, regardless of the language the user writes in."
+
+
+def _grounded_system_instruction(mode: str, language: str, user_message: str) -> str:
+    """System instruction + (optional) RAG grounding from the coaching KB.
+
+    Retrieval is filtered to the session's mode and fails open: if RAG is
+    disabled or errors, this is just the plain persona/language instruction.
+    Runs inline here so, on the streaming path, it happens on turn_service's
+    worker thread and never blocks the event loop.
+    """
+    si = _build_system_instruction(mode, language)
+    try:
+        context = rag_engine.context_for(user_message, mode)
+    except Exception as exc:  # defensive — rag_engine already fails open
+        print(f"[rag] skipped: {exc}")
+        context = ""
+    return f"{si}\n\n{context}" if context else si
 
 
 def _to_gemini_contents(history: list[dict], user_message: str) -> list[types.Content]:
@@ -126,7 +144,7 @@ def get_coach_response(
     language: session language (en/fr/ar); defaults to English.
     """
     config = types.GenerateContentConfig(
-        system_instruction=_build_system_instruction(mode, language),
+        system_instruction=_grounded_system_instruction(mode, language, user_message),
         temperature=settings.gemini_temperature,
         top_p=settings.gemini_top_p,
         max_output_tokens=settings.gemini_max_tokens,
@@ -161,7 +179,7 @@ def get_coach_response_stream(
     Yields: str (text chunks)
     """
     config = types.GenerateContentConfig(
-        system_instruction=_build_system_instruction(mode, language),
+        system_instruction=_grounded_system_instruction(mode, language, user_message),
         temperature=settings.gemini_temperature,
         top_p=settings.gemini_top_p,
         max_output_tokens=settings.gemini_max_tokens,

@@ -7,6 +7,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from database import Base, engine
 from services import db_models  # noqa: F401
 from services.kokoro_launcher import ensure_kokoro_running
+from services import rag_engine
 from routers import auth, conversations, messages, transcribe, audio, ws
 from config import settings
 
@@ -18,6 +19,9 @@ async def lifespan(app: FastAPI):
     # Auto-start the Kokoro TTS server on a background thread so a first-run
     # image pull never blocks uvicorn startup.
     threading.Thread(target=ensure_kokoro_running, daemon=True).start()
+    # Warm the RAG embedding model + Chroma collection off the request path so
+    # the first coaching turn doesn't pay the (multi-second) model-load cost.
+    threading.Thread(target=rag_engine.warmup, daemon=True).start()
     yield
 
 
