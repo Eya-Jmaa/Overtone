@@ -6,7 +6,9 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
 from database import get_db
+from services import report_service
 from services.db_models import Conversation, Message, CoachingReport
+from services.llm_service import LLMError
 from services.schemas import (
     ConversationCreate,
     ConversationOut,
@@ -26,15 +28,8 @@ VALID_MODES = {"psy", "professional", "sport"}
 SCENARIOS_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), "data", "scenarios")
 
 
-# ── Placeholder helpers (TODO: wire to llm_service.py & rag_engine.py) ──
-
 def _get_ai_response(mode: str, history: list[dict], scenario_id: Optional[str] = None) -> str:
-    """
-    TODO: Replace with real call to llm_service.get_coach_response()
-    or a scenario-aware system prompt from rag_engine.py.
-
-    Currently returns a dummy placeholder.
-    """
+    """TODO: Replace with real call to llm_service.get_coach_response() or a scenario-aware system prompt from rag_engine.py."""
     return (
         f"This is a placeholder AI response for mode='{mode}', "
         f"scenario='{scenario_id or 'none'}'. "
@@ -43,50 +38,15 @@ def _get_ai_response(mode: str, history: list[dict], scenario_id: Optional[str] 
 
 
 def _generate_coaching_report(conversation_id: int, db: Session) -> CoachingReport:
-    """
-    TODO: Replace with real analysis pipeline.
-    Currently generates a dummy report so the flow works end-to-end.
-    """
-    conv = db.query(Conversation).filter(Conversation.id == conversation_id).first()
-    if not conv:
-        raise HTTPException(status_code=404, detail="Conversation not found")
+    """Generate + persist the real coaching report (see services/report_service)."""
+    try:
+        return report_service.generate_report(conversation_id, db)
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    except LLMError as e:
+        db.rollback()
+        raise HTTPException(status_code=502, detail=str(e))
 
-    user_messages = (
-        db.query(Message)
-        .filter(Message.conversation_id == conversation_id, Message.role == "user")
-        .count()
-    )
-    assistant_messages = (
-        db.query(Message)
-        .filter(Message.conversation_id == conversation_id, Message.role == "assistant")
-        .count()
-    )
-
-    report = CoachingReport(
-        conversation_id=conversation_id,
-        user_id=conv.user_id,
-        summary=f"Practice session completed. {user_messages} user exchanges with the AI.",
-        strengths=json.dumps([
-            "Completed the full conversation",
-            "Engaged with the scenario constructively",
-        ]),
-        areas_for_growth=json.dumps([
-            "Response will improve when AI pipeline is wired",
-            "Voice metrics will be available in M4",
-        ]),
-        metrics=json.dumps({
-            "user_message_count": user_messages,
-            "assistant_message_count": assistant_messages,
-            "total_exchanges": user_messages + assistant_messages,
-        }),
-    )
-    db.add(report)
-    db.commit()
-    db.refresh(report)
-    return report
-
-
-# ── Scenario helpers ──
 
 def _load_scenario(scenario_id: str) -> Optional[dict]:
     """Load a single scenario by its ID."""
@@ -108,9 +68,6 @@ def _list_scenarios() -> list[dict]:
             with open(path, encoding="utf-8") as f:
                 scenarios.append(json.load(f))
     return scenarios
-
-
-# ── Endpoints ──
 
 
 @router.get("/", response_model=list[ConversationOutWithPreview])
@@ -211,8 +168,6 @@ def delete_conversation(
     return {"message": "Conversation deleted"}
 
 
-
-
 @router.post("/{conv_id}/end", response_model=EndSessionOut)
 def end_session(
     conv_id: int,
@@ -228,7 +183,6 @@ def end_session(
     if not conv:
         raise HTTPException(status_code=404, detail="Conversation not found")
 
-    # Check if report already exists
     existing = (
         db.query(CoachingReport)
         .filter(CoachingReport.conversation_id == conv_id)
@@ -272,8 +226,6 @@ def get_report(
 
     return report
 
-
-# ── Scenario endpoints ──
 
 @router.get("/scenarios/list", response_model=list[ScenarioOut])
 def list_scenarios():

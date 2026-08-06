@@ -14,9 +14,8 @@ export default function ConvItem({ conv }) {
   const token = useAuthStore((s) => s.accessToken);
   const deleteConversation = useConvStore((s) => s.deleteConversation);
 
-  // Check if this conversation is currently displayed in the conversation panel
   const isCurrentlyOpen = location.pathname === `/app/${conv.id}`;
-  const hasUnread = false; // TODO: wire when backend supports read tracking
+  const hasUnread = false;
 
   const handleDelete = async (e) => {
     e.preventDefault();
@@ -39,18 +38,22 @@ export default function ConvItem({ conv }) {
         style={({ isActive }) => ({
           display: "block",
           padding: "9px 12px 9px 10px",
-          borderRadius: 6,
-          marginBottom: 2,
-          borderLeft: `2px solid ${isActive ? "var(--gold)" : "transparent"}`,
+          borderRadius: 8,
+          marginBottom: 3,
+          borderLeft: `2px solid ${isActive ? "var(--accent)" : "transparent"}`,
+          border: `1px solid ${isActive ? "var(--border)" : "transparent"}`,
+          borderLeftWidth: 2,
+          borderLeftColor: isActive ? "var(--accent)" : "transparent",
           background: isActive
-            ? "var(--gold-soft)"
+            ? "var(--bg-elevated)"
             : hovered
-            ? "rgba(212,165,116,0.05)"
+            ? "var(--bg-surface)"
             : "transparent",
+          boxShadow: isActive ? "var(--edge-light), var(--shadow-sm)" : "none",
           textDecoration: "none",
           color: "inherit",
-          transition: "background 180ms cubic-bezier(.2,.7,.2,1), border-color 180ms cubic-bezier(.2,.7,.2,1), transform 180ms cubic-bezier(.2,.7,.2,1)",
-          transform: hovered && !isActive ? "translateX(2px)" : "translateX(0)",
+          transition: "background 180ms var(--ease), border-color 180ms var(--ease), transform 180ms var(--ease), box-shadow 180ms",
+          transform: hovered && !isActive ? "translateX(3px)" : "translateX(0)",
         })}
       >
         {({ isActive }) => (
@@ -76,48 +79,51 @@ export default function ConvItem({ conv }) {
                 {conv.title}
               </span>
 
-              {/* Delete button — visible on hover */}
-              {hovered && (
-                <button
-                  onClick={(e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    setShowConfirm(true);
-                  }}
-                  title="Delete conversation"
-                  style={{
-                    flexShrink: 0,
-                    width: 22,
-                    height: 22,
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    border: "none",
-                    borderRadius: 4,
-                    background: "transparent",
-                    color: "var(--bone-faint)",
-                    fontSize: 13,
-                    lineHeight: 1,
-                    cursor: "pointer",
-                    opacity: 0.6,
-                    transition: "opacity 150ms, color 150ms, background 150ms",
-                    padding: 0,
-                    fontFamily: "inherit",
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.opacity = "1";
-                    e.currentTarget.style.color = "#ef4444";
-                    e.currentTarget.style.background = "rgba(239,68,68,0.1)";
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.opacity = "0.6";
-                    e.currentTarget.style.color = "var(--bone-faint)";
-                    e.currentTarget.style.background = "transparent";
-                  }}
-                >
-                  ✕
-                </button>
-              )}
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  setShowConfirm(true);
+                }}
+                title="Delete conversation"
+                aria-label={`Delete conversation ${conv.title}`}
+                tabIndex={hovered ? 0 : -1}
+                style={{
+                  flexShrink: 0,
+                  width: 22,
+                  height: 22,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  border: "none",
+                  borderRadius: 5,
+                  background: "transparent",
+                  color: "var(--text-faint)",
+                  lineHeight: 1,
+                  cursor: "pointer",
+                  opacity: hovered ? 0.75 : 0,
+                  pointerEvents: hovered ? "auto" : "none",
+                  transform: hovered ? "scale(1)" : "scale(.8)",
+                  transition: "opacity 160ms, color 150ms, background 150ms, transform 180ms var(--ease-back)",
+                  padding: 0,
+                  fontFamily: "inherit",
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.opacity = "1";
+                  e.currentTarget.style.color = "var(--rose)";
+                  e.currentTarget.style.background = "color-mix(in srgb, var(--rose) 16%, transparent)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.opacity = "0.75";
+                  e.currentTarget.style.color = "var(--text-faint)";
+                  e.currentTarget.style.background = "transparent";
+                }}
+              >
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  strokeWidth="2" strokeLinecap="round" aria-hidden="true">
+                  <path d="M3 6h18M8 6V4a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2M19 6l-1 14a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1L5 6" />
+                </svg>
+              </button>
             </div>
 
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
@@ -145,7 +151,6 @@ export default function ConvItem({ conv }) {
         )}
       </NavLink>
 
-      {/* Confirmation overlay */}
       {showConfirm && (
         <div
           onClick={(e) => {

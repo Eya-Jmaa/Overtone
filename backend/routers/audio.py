@@ -38,7 +38,6 @@ async def upload_audio(
             detail=f"Unsupported audio format: {audio.content_type}",
         )
 
-    # Determine extension
     ext = ".webm"
     if audio.filename and "." in audio.filename:
         orig_ext = audio.filename.rsplit(".", 1)[-1].lower()
@@ -52,7 +51,6 @@ async def upload_audio(
     with open(filepath, "wb") as f:
         f.write(content)
 
-    # Try to get duration using ffprobe if available (optional)
     duration = None
     try:
         import subprocess
@@ -75,7 +73,6 @@ async def upload_audio(
 @router.get("/{filename}")
 async def serve_audio(filename: str):
     """Serve uploaded audio files."""
-    # Basic security: prevent path traversal
     if ".." in filename or "/" in filename:
         raise HTTPException(status_code=400, detail="Invalid filename")
 

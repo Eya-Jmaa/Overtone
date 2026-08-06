@@ -1,7 +1,3 @@
-/**
- * Skeleton loader for chat message bubbles.
- * Shows a pulsing placeholder matching the shape of a message bubble.
- */
 export default function SkeletonMessage({ align = "left" }) {
   const width = 40 + Math.random() * 30;
 

@@ -13,7 +13,7 @@ class WebSocketClient {
     this.state = WS_STATES.CLOSED;
     this.reconnectAttempts = 0;
     this.maxReconnectAttempts = 5;
-    this.reconnectDelay = 1000; // Start with 1s
+    this.reconnectDelay = 1000; 
     this.reconnectTimer = null;
     this.messageHandlers = {};
     this.binaryHandlers = {};
@@ -46,7 +46,6 @@ class WebSocketClient {
       this.state = WS_STATES.CLOSED;
       this.emit("state", WS_STATES.CLOSED);
 
-      // Auto-reconnect with exponential backoff
       if (this.reconnectAttempts < this.maxReconnectAttempts) {
         this.reconnectAttempts++;
         const delay = this.reconnectDelay * Math.pow(2, this.reconnectAttempts - 1);
@@ -63,7 +62,6 @@ class WebSocketClient {
     };
 
     this.ws.onmessage = (event) => {
-      // Handle binary audio data
       if (event.data instanceof Blob || event.data instanceof ArrayBuffer) {
         this.handleBinary(event.data);
         return;
@@ -73,7 +71,6 @@ class WebSocketClient {
         const message = JSON.parse(event.data);
         this.handleMessage(message);
       } catch (e) {
-        // Handle binary data that came as string (unlikely but possible)
         if (typeof event.data === "string" && event.data.includes("[object Blob")) {
           return;
         }
@@ -112,13 +109,17 @@ class WebSocketClient {
     this.ws.send(chunk);
   }
 
+  sendVideoFrame(dataUrl) {
+    if (this.state !== WS_STATES.OPEN || !this.ws) return;
+    this.ws.send(JSON.stringify({ type: "video_frame", data: dataUrl }));
+  }
+
   handleMessage(message) {
     const { type, ...data } = message;
     this.emit(type, data);
   }
 
   handleBinary(data) {
-    // Convert to ArrayBuffer for audio processing
     if (data instanceof Blob) {
       data.arrayBuffer().then(buffer => {
         this.emit("audio_frame", buffer);
@@ -150,7 +151,6 @@ class WebSocketClient {
   }
 }
 
-// Singleton instance
 let wsClientInstance = null;
 
 export function getWebSocketClient() {

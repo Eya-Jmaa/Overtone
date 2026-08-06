@@ -8,22 +8,32 @@ torch
 torchvision
 onnxruntime
 mediapipe
+opencv-python          # face_analyzer.py — frame decode (JPEG -> ndarray)
+emotiefflib             # face_analyzer.py — facial expression (ONNX, EfficientNet-B0)
+# tensorflow            # OPTIONAL: only needed for face_analyzer's engagement
+                        # classifier (config.face_engagement_enabled, off by
+                        # default). Uncomment + pip install to turn it on.
 chromadb
 sentence-transformers
 openai>=1.0.0          # still used by tts_service.py (AsyncOpenAI -> Kokoro)
 google-genai          # coaching LLM provider (Gemini) — see services/llm_service.py
 edge-tts
+vosk                   # Tunisian Derja STT (linagora/linto-asr-ar-tn-0.1) — see services/linto_stt.py
+langdetect             # text-chat reply language detection — see services/language_service.py
+f5-tts                  # local Tunisian Derja TTS (Eya-Jmaa/silma-tts-derja fine-tune)
+                        # — see services/tts_service.py. Heavy transitive deps (gradio,
+                        # wandb, bitsandbytes, datasets) come along for the ride; this is
+                        # a research-repo package, not a lean inference-only one.
 spacy
 sqlalchemy
 python-jose[cryptography]
-passlib[bcrypt]
-bcrypt<4.1
+bcrypt
 redis
 boto3
 numpy
 httpx
-resend
 pydantic-settings
+email-validator        # required by pydantic EmailStr — email format validation
 python-dotenv
 # RAG collection pipeline
 requests

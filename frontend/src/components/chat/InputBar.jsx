@@ -1,15 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import ModeSelector from "./ModeSelector.jsx";
 
-/**
- * Premium adaptive composer.
- * - variant="hero"   → larger, centered (empty-conversation state)
- * - variant="docked" → compact, bottom-docked (active conversation)
- *
- * Left: coaching-mode pill (locks after first message).
- * Center: auto-growing textarea (shows live transcription while recording).
- * Right: mic, video, send — SVG icons, gold accents, shimmer on send.
- */
 export default function InputBar({
   mode = "professional",
   onModeChange,
@@ -25,6 +16,7 @@ export default function InputBar({
   variant = "docked",
   placeholder,
   autoFocus = false,
+  focusKey,
 }) {
   const isControlled = value !== undefined && onChange !== undefined;
   const [internalText, setInternalText] = useState("");
@@ -35,7 +27,6 @@ export default function InputBar({
 
   const hero = variant === "hero";
 
-  // Auto-resize textarea
   useEffect(() => {
     if (textareaRef.current) {
       textareaRef.current.style.height = "auto";
@@ -45,8 +36,9 @@ export default function InputBar({
   }, [text, hero]);
 
   useEffect(() => {
+    if (disabled) return;
     if (autoFocus && textareaRef.current) textareaRef.current.focus();
-  }, [autoFocus]);
+  }, [autoFocus, focusKey, disabled]);
 
   const handleKeyDown = (e) => {
     if (e.key === "Enter" && !e.shiftKey) {
@@ -76,7 +68,6 @@ export default function InputBar({
         margin: "0 auto",
       }}
     >
-      {/* Inline mode selector — chosen before the first message, then locked */}
       {hero && !modeLocked && (
         <div style={{ display: "flex", justifyContent: "center", marginBottom: 18, animation: "fadeUp 500ms cubic-bezier(.2,.7,.2,1) both" }}>
           <ModeSelector value={mode} onChange={onModeChange} />
@@ -100,7 +91,6 @@ export default function InputBar({
           position: "relative",
         }}
       >
-        {/* Center: textarea */}
         <textarea
           ref={textareaRef}
           value={text}
@@ -127,7 +117,6 @@ export default function InputBar({
           }}
         />
 
-        {/* Right cluster */}
         <div style={{ display: "flex", alignItems: "center", gap: 6, alignSelf: hero ? "flex-end" : "center" }}>
           <IconButton
             onClick={onMicToggle}
@@ -149,7 +138,6 @@ export default function InputBar({
             <VideoGlyph />
           </IconButton>
 
-          {/* Send */}
           <button
             className="conv-send-btn"
             onClick={handleSend}
@@ -191,7 +179,6 @@ export default function InputBar({
         </div>
       </div>
 
-      {/* Hint line */}
       {hero && (
         <div
           style={{

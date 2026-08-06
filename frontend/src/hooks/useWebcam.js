@@ -1,17 +1,15 @@
 import { useState, useRef, useEffect, useCallback } from "react";
+import { captureFrameDataUrl } from "../utils/frameCapture.js";
 
-/**
- * Webcam hook for real-time video capture.
- * Provides stream management and frame capture capability.
- * MediaPipe processing can be added later.
- */
-export function useWebcam() {
+const DEFAULT_FPS = 2;
+
+export function useWebcam({ onFrame, fps = DEFAULT_FPS } = {}) {
   const [active, setActive] = useState(false);
   const [error, setError] = useState(null);
   const streamRef = useRef(null);
   const videoRef = useRef(null);
+  const canvasRef = useRef(null); 
 
-  // When stream is available and video element is ready, attach the stream
   useEffect(() => {
     if (active && streamRef.current && videoRef.current) {
       videoRef.current.srcObject = streamRef.current;
@@ -25,12 +23,10 @@ export function useWebcam() {
     if (active) return;
     try {
       const stream = await navigator.mediaDevices.getUserMedia({
-        video: { width: 320, height: 240, facingMode: "user" },
+        video: { width: 640, height: 480, facingMode: "user" },
       });
       streamRef.current = stream;
 
-      // Don't try to set srcObject here - the useEffect will handle it
-      // when the video element mounts
 
       setActive(true);
       setError(null);
@@ -51,21 +47,21 @@ export function useWebcam() {
     setActive(false);
   }, []);
 
-  /**
-   * Capture a single frame as a blob.
-   * Returns null if webcam is not active.
-   */
   const captureFrame = useCallback(() => {
     if (!videoRef.current || !active) return null;
-    const canvas = document.createElement("canvas");
-    canvas.width = videoRef.current.videoWidth || 320;
-    canvas.height = videoRef.current.videoHeight || 240;
-    const ctx = canvas.getContext("2d");
-    ctx.drawImage(videoRef.current, 0, 0);
-    return new Promise((resolve) => {
-      canvas.toBlob((blob) => resolve(blob), "image/jpeg", 0.7);
-    });
+    if (!canvasRef.current) canvasRef.current = document.createElement("canvas");
+    return captureFrameDataUrl(videoRef.current, canvasRef.current);
   }, [active]);
+
+  useEffect(() => {
+    if (!active || !onFrame) return;
+    const intervalMs = Math.max(200, Math.round(1000 / fps));
+    const id = setInterval(() => {
+      const frame = captureFrame();
+      if (frame) onFrame(frame);
+    }, intervalMs);
+    return () => clearInterval(id);
+  }, [active, onFrame, fps, captureFrame]);
 
   return { start, stop, active, error, videoRef, captureFrame, stream: streamRef.current };
 }

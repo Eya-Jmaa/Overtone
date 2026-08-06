@@ -1,17 +1,4 @@
-"""
-Auto-start the Kokoro TTS server (Kokoro-FastAPI) as a Docker container when the
-backend boots, so voice replies work without a separate manual step.
-
-Behaviour (all idempotent + best-effort — never fatal to the backend):
-  - If Kokoro is already reachable on its port, do nothing.
-  - Else, if a container named `kokoro_container_name` exists, `docker start` it.
-  - Else, `docker run -d` a fresh one from `kokoro_docker_image`.
-  - If Docker isn't installed/running, log and continue (TTS just stays off).
-
-The first `docker run` pulls the image (large) — this runs on a background
-thread so it never blocks uvicorn startup; TTS calls before it's ready simply
-return no audio.
-"""
+"""Auto-start the Kokoro TTS server (Kokoro-FastAPI) as a Docker container when the backend boots, so voice replies work without a separate manual step."""
 import shutil
 import socket
 import subprocess
@@ -23,7 +10,6 @@ from config import settings
 def _host_port() -> tuple[str, int]:
     parsed = urlparse(settings.kokoro_base_url)
     host = parsed.hostname or "localhost"
-    # The docker-internal hostname isn't resolvable from a locally-run backend.
     if host == "kokoro":
         host = "localhost"
     return host, (parsed.port or 8880)
@@ -63,7 +49,6 @@ def ensure_kokoro_running() -> None:
     image = settings.kokoro_docker_image
 
     try:
-        # Is the Docker daemon up? (also surfaces a helpful error if not)
         ping = _docker("ps", "-q", timeout=15)
         if ping.returncode != 0:
             print(f"[kokoro] docker not available: {ping.stderr.strip()} — TTS audio disabled")
@@ -77,7 +62,7 @@ def ensure_kokoro_running() -> None:
             run = _docker(
                 "run", "-d", "--name", name,
                 "-p", f"{port}:8880", image,
-                timeout=900,  # first run pulls the image; can take a while
+                timeout=900,
             )
             if run.returncode == 0:
                 print(f"[kokoro] launched '{name}' from {image} on port {port}")
@@ -85,5 +70,5 @@ def ensure_kokoro_running() -> None:
                 print(f"[kokoro] failed to launch: {run.stderr.strip()}")
     except subprocess.TimeoutExpired:
         print("[kokoro] docker command timed out (image may still be pulling)")
-    except Exception as e:  # never let TTS setup crash the backend
+    except Exception as e:
         print(f"[kokoro] auto-start error: {e}")

@@ -1,15 +1,4 @@
-"""
-PubMed Abstract Collector for EchoCoach RAG
-============================================
-Searches PubMed by keyword, downloads structured abstracts.
-No DOI hunting needed — just provide search queries per mode.
-
-Usage:
-    python collect_abstracts.py --out ./data/abstracts
-
-Requires: requests, lxml
-    pip install requests lxml
-"""
+"""PubMed Abstract Collector for EchoCoach RAG — Searches PubMed by keyword, downloads structured abstracts."""
 
 import requests
 import json
@@ -19,8 +8,6 @@ import argparse
 from xml.etree import ElementTree as ET
 from pathlib import Path
 
-
-# —— Search queries per mode ——————————————————————————————————————————————
 
 QUERIES = {
     "psy": [

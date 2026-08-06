@@ -1,9 +1,5 @@
 import { create } from "zustand";
 
-/**
- * Global toast notification store.
- * Each toast has: id, message, type (success|error|info), duration
- */
 export const useToastStore = create((set, get) => ({
   toasts: [],
 
@@ -12,7 +8,6 @@ export const useToastStore = create((set, get) => ({
     set((s) => ({
       toasts: [...s.toasts, { id, message, type, duration }],
     }));
-    // Auto-remove after duration
     if (duration > 0) {
       setTimeout(() => {
         get().remove(id);

@@ -17,16 +17,29 @@ export const useThemeStore = create((set, get) => ({
       localStorage.setItem("coach-theme", next);
     } catch {}
     set({ theme: next });
-    applyTheme(next);
+    applyTheme(next, { animate: true });
   },
 
   init: () => {
-    const t = get().theme;
-    applyTheme(t);
+    applyTheme(get().theme);
   },
 }));
 
-function applyTheme(theme) {
-  document.documentElement.classList.toggle("light", theme === "light");
-  document.documentElement.classList.toggle("dark", theme === "dark");
+let _transitionTimer = null;
+
+function applyTheme(theme, { animate = false } = {}) {
+  const el = document.documentElement;
+
+  if (animate) {
+    el.classList.add("theme-transition");
+    clearTimeout(_transitionTimer);
+    _transitionTimer = setTimeout(() => {
+      el.classList.remove("theme-transition");
+    }, 320); 
+  }
+
+  el.classList.toggle("light", theme === "light");
+  el.classList.toggle("dark", theme === "dark");
+  el.setAttribute("data-theme", theme);
+  el.style.colorScheme = theme;
 }

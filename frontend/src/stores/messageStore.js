@@ -1,12 +1,18 @@
 import { create } from "zustand";
 import { getMessages, sendMessage } from "../services/messageApi.js";
+import { useAuthStore } from "./authStore.js";
+import { useToastStore } from "./toastStore.js";
+
+function isOfflineError(e) {
+  return (typeof navigator !== "undefined" && !navigator.onLine) || e instanceof TypeError;
+}
 
 export const useMessageStore = create((set, get) => ({
   messages: [],
   loading: false,
   sending: false,
   error: null,
-  currentConvId: null, // tracks which conversation's messages are loaded
+  currentConvId: null, 
 
   loadMessages: async (token, convId) => {
     set({ loading: true, error: null });
@@ -19,9 +25,6 @@ export const useMessageStore = create((set, get) => ({
   },
 
   send: async (token, convId, content, audioUrl = null, audioDuration = null) => {
-    // Optimistically show the user's own message immediately instead of
-    // waiting for the LLM round-trip - the "thinking" indicator (driven by
-    // `sending`) then covers only the assistant's reply latency.
     const tempId = `temp-${Date.now()}`;
     const optimisticMsg = {
       id: tempId,
@@ -31,10 +34,6 @@ export const useMessageStore = create((set, get) => ({
       audio_duration: audioDuration,
       created_at: new Date().toISOString(),
     };
-    // Guard against cross-conversation bleed: this store is a singleton, so if
-    // we're sending into a different conversation than the one currently
-    // loaded, start from an empty list instead of appending onto the previous
-    // conversation's messages.
     set((s) => {
       const startingFresh = String(s.currentConvId) !== String(convId);
       const base = startingFresh ? [] : s.messages;
@@ -53,23 +52,60 @@ export const useMessageStore = create((set, get) => ({
         currentConvId: convId,
       }));
     } catch (e) {
-      set((s) => ({
-        messages: s.messages.filter((m) => m.id !== tempId),
-        error: e.message,
-        sending: false,
-      }));
+      if (isOfflineError(e)) {
+        set((s) => ({
+          messages: s.messages.map((m) => (m.id === tempId ? { ...m, pending: true } : m)),
+          sending: false,
+        }));
+        useToastStore.getState().info("You're offline — this message will send once you're back online.");
+      } else {
+        set((s) => ({
+          messages: s.messages.filter((m) => m.id !== tempId),
+          error: e.message,
+          sending: false,
+        }));
+      }
     }
   },
 
-  // Add messages from WebSocket (for live streaming path)
+  retryPending: async (token) => {
+    const { messages, currentConvId } = get();
+    if (!token || !currentConvId) return;
+    const pending = messages.filter((m) => m.role === "user" && m.pending);
+    for (const msg of pending) {
+      set({ sending: true });
+      try {
+        const [userMsg, assistantMsg] = await sendMessage(
+          token,
+          currentConvId,
+          msg.content,
+          msg.audio_url,
+          msg.audio_duration,
+        );
+        set((s) => ({
+          messages: [...s.messages.filter((m) => m.id !== msg.id), userMsg, assistantMsg],
+          sending: false,
+        }));
+      } catch (e) {
+        set({ sending: false });
+        if (isOfflineError(e)) {
+          break;
+        }
+        set((s) => ({
+          messages: s.messages.map((m) => (m.id === msg.id ? { ...m, pending: false } : m)),
+          error: e.message,
+        }));
+        useToastStore.getState().error(`Failed to send queued message: ${e.message}`);
+      }
+    }
+  },
+
   addMessages: (newMessages) => {
     set((s) => ({
       messages: [...s.messages, ...newMessages],
     }));
   },
 
-  // Replace optimistic temp messages with the real server messages.
-  // Uses String(m.id) because real messages have numeric ids (no .startsWith).
   replaceOptimisticMessages: (realMessages) => {
     set((s) => ({
       messages: [...s.messages.filter((m) => !String(m.id).startsWith("temp-")), ...realMessages],
@@ -77,10 +113,16 @@ export const useMessageStore = create((set, get) => ({
     }));
   },
 
-  // Set sending state (for optimistic audio uploads)
   setSending: (state) => {
     set({ sending: state });
   },
 
   clear: () => set({ messages: [], loading: false, sending: false, error: null, currentConvId: null }),
 }));
+
+if (typeof window !== "undefined") {
+  window.addEventListener("online", () => {
+    const token = useAuthStore.getState().accessToken;
+    if (token) useMessageStore.getState().retryPending(token);
+  });
+}

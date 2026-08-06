@@ -10,6 +10,7 @@ import { MODE_CONFIG } from "../components/topbar/ModeTag.jsx";
 import MessageList from "../components/chat/MessageList.jsx";
 import InputBar from "../components/chat/InputBar.jsx";
 import { uploadAudio } from "../services/messageApi.js";
+import { getAudioContext } from "../services/audioEngine.js";
 
 const MODE_LABELS = {
   psy: "psychology",
@@ -51,12 +52,10 @@ export default function NewConversationPage() {
   const createConversation = useConvStore((s) => s.createConversation);
   const clearMessages = useMessageStore((s) => s.clear);
   const toast = useToastStore((s) => s.add);
-  const [mode, setMode] = useState("professional"); // chosen inline, before first msg
+  const [mode, setMode] = useState("professional");
   const [input, setInput] = useState("");
   const [sending, setSending] = useState(false);
   const navigatedRef = useRef(false);
-  // Holds a conversation created by a send attempt that then failed, so a retry
-  // reuses it instead of creating an orphaned empty conversation each time.
   const createdConvRef = useRef(null);
 
   const { start, stop, recording, transcribing, audioBlob, duration: audioDuration } = useAudioRecorder(
@@ -69,8 +68,6 @@ export default function NewConversationPage() {
     setSending(true);
 
     try {
-      // Create conversation in DB with the inline-selected mode (reuse one from
-      // a prior failed attempt).
       let conv = createdConvRef.current;
       if (!conv) {
         conv = await createConversation({ mode, title: null }, token);
@@ -78,13 +75,8 @@ export default function NewConversationPage() {
         createdConvRef.current = conv;
       }
 
-      // Navigate to the conversation IMMEDIATELY and hand the first message off
-      // via router state. ConversationPage sends it there, so the user sees
-      // their message + a "thinking" indicator right away instead of staring at
-      // a frozen screen for the whole LLM round-trip.
-      // (createConversation already prepended the conv to the sidebar list.)
       navigatedRef.current = true;
-      clearMessages();          // fresh store so nothing bleeds from a prior convo
+      clearMessages();
       navigate(`/app/${conv.id}`, {
         replace: true,
         state: { pendingMessage: text.trim() },
@@ -97,7 +89,6 @@ export default function NewConversationPage() {
     }
   }, [mode, sending, token, createConversation, clearMessages, navigate, toast]);
 
-  // `result` comes from useAudioRecorder.stop() = { blob, transcript, duration }.
   const handleAudioSend = useCallback(async (result) => {
     const blob = result?.blob || audioBlob;
     const dur = result?.duration ?? audioDuration;
@@ -105,8 +96,6 @@ export default function NewConversationPage() {
     setSending(true);
 
     try {
-      // Upload the recording first so ConversationPage can send with a real
-      // audio_url (blobs don't survive navigation cleanly).
       const { audio_url } = await uploadAudio(token, blob);
 
       let conv = createdConvRef.current;
@@ -116,12 +105,9 @@ export default function NewConversationPage() {
         createdConvRef.current = conv;
       }
 
-      // The spoken transcription is the message text.
       const transcript = (result?.transcript || "").trim();
       const content = transcript || input.trim() || "Voice message";
 
-      // Navigate immediately; ConversationPage performs the actual send so the
-      // LLM wait shows the thinking indicator there (see handleSend rationale).
       navigatedRef.current = true;
       clearMessages();
       navigate(`/app/${conv.id}`, {
@@ -145,6 +131,34 @@ export default function NewConversationPage() {
     }
   };
 
+  const handleStartLive = useCallback(async (withVideo) => {
+    if (sending || navigatedRef.current) return;
+    setSending(true);
+
+    getAudioContext();
+
+    try {
+      let conv = createdConvRef.current;
+      if (!conv) {
+        conv = await createConversation({ mode, title: null }, token);
+        if (!conv) throw new Error("Failed to create conversation");
+        createdConvRef.current = conv;
+      }
+
+      navigatedRef.current = true;
+      clearMessages();
+      navigate(`/app/${conv.id}`, {
+        replace: true,
+        state: { startLive: { video: withVideo } },
+      });
+    } catch (e) {
+      console.error("Start live session error:", e);
+      navigatedRef.current = false;
+      setSending(false);
+      toast(e.message || "Failed to start the session", "error");
+    }
+  }, [sending, mode, token, createConversation, clearMessages, navigate, toast]);
+
   const modeColor = MODE_CONFIG[mode]?.color || "var(--gold)";
 
   return (
@@ -159,7 +173,6 @@ export default function NewConversationPage() {
         position: "relative",
       }}
     >
-      {/* Minimal topbar */}
       <div
         style={{
           height: 52,
@@ -194,7 +207,6 @@ export default function NewConversationPage() {
         </span>
       </div>
 
-      {/* Centered hero composer (starts in the middle) */}
       <div
         style={{
           flex: 1,
@@ -269,9 +281,86 @@ export default function NewConversationPage() {
               </SuggestionChip>
             ))}
           </div>
+
+          <div style={{
+            display: "flex", alignItems: "center", gap: 12,
+            margin: "30px auto 0", maxWidth: 420,
+          }}>
+            <div style={{ flex: 1, height: 1, background: "var(--whisper-2)" }} />
+            <span style={{
+              fontFamily: "'JetBrains Mono', monospace", fontSize: 10,
+              letterSpacing: 2, color: "var(--bone-faint)", textTransform: "uppercase",
+            }}>or talk instead</span>
+            <div style={{ flex: 1, height: 1, background: "var(--whisper-2)" }} />
+          </div>
+
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 12, justifyContent: "center", marginTop: 18 }}>
+            <LiveButton
+              onClick={() => handleStartLive(false)}
+              disabled={sending || transcribing}
+              accent={modeColor}
+              icon={LiveMicIcon}
+              label="Start voice conversation"
+            />
+            <LiveButton
+              onClick={() => handleStartLive(true)}
+              disabled={sending || transcribing}
+              accent={modeColor}
+              icon={LiveVideoIcon}
+              label="Start video conversation"
+            />
+          </div>
         </div>
       </div>
     </div>
+  );
+}
+
+const LiveMicIcon = (
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z" />
+    <path d="M19 10v2a7 7 0 0 1-14 0v-2M12 19v4" />
+  </svg>
+);
+
+const LiveVideoIcon = (
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <path d="M23 7l-7 5 7 5V7z" />
+    <rect x="1" y="5" width="15" height="14" rx="2" />
+  </svg>
+);
+
+function LiveButton({ onClick, disabled, accent, icon, label }) {
+  return (
+    <button
+      onClick={onClick}
+      disabled={disabled}
+      style={{
+        display: "inline-flex", alignItems: "center", gap: 9,
+        padding: "12px 20px", borderRadius: 999,
+        border: `1px solid ${accent}`,
+        background: `color-mix(in srgb, ${accent} 12%, transparent)`,
+        color: accent,
+        fontSize: 13.5, fontWeight: 500,
+        fontFamily: "'Inter', system-ui, sans-serif",
+        cursor: disabled ? "not-allowed" : "pointer",
+        opacity: disabled ? 0.5 : 1,
+        transition: "all 200ms cubic-bezier(.2,.7,.2,1)",
+        whiteSpace: "nowrap",
+      }}
+      onMouseEnter={(e) => {
+        if (disabled) return;
+        e.currentTarget.style.background = `color-mix(in srgb, ${accent} 22%, transparent)`;
+        e.currentTarget.style.transform = "translateY(-1px)";
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.background = `color-mix(in srgb, ${accent} 12%, transparent)`;
+        e.currentTarget.style.transform = "none";
+      }}
+    >
+      {icon}
+      {label}
+    </button>
   );
 }
 

@@ -1,13 +1,4 @@
-"""
-Read-only audit of the `coaching_kb` ChromaDB collection.
-
-Fetches all documents + metadata via collection.get() and prints a
-distribution report (tier, mode, source, language, metadata health,
-chunk size stats, and known-gap checks). Does not write to the collection.
-
-Usage:
-    python audit_collection.py
-"""
+"""Read-only audit of the `coaching_kb` ChromaDB collection."""
 import json
 import os
 import statistics
@@ -63,7 +54,6 @@ def main():
     print("=" * 60)
     print(f"Total document count: {total} (expected ~257 based on last upsert)")
 
-    # ---- BY TIER ----
     tier_counts = Counter()
     missing_tier = 0
     for md in metadatas:
@@ -84,7 +74,6 @@ def main():
     else:
         print("  No documents missing 'tier' field.")
 
-    # ---- BY MODE ----
     mode_counts = Counter()
     missing_mode = 0
     for md in metadatas:
@@ -105,7 +94,6 @@ def main():
     else:
         print("  No documents missing 'mode' field.")
 
-    # ---- TIER x MODE MATRIX ----
     matrix = defaultdict(Counter)
     all_tiers = set()
     all_modes = set()
@@ -145,7 +133,6 @@ def main():
     print("-" * len(header))
     print(footer)
 
-    # ---- BY SOURCE ----
     source_counts = Counter()
     missing_source = 0
     for md in metadatas:
@@ -166,7 +153,6 @@ def main():
     else:
         print("  No documents missing 'source' field.")
 
-    # ---- BY LANGUAGE ----
     lang_counts = Counter()
     for md in metadatas:
         lang = bucket_value((md or {}).get("language"), KNOWN_LANGUAGES)
@@ -178,14 +164,12 @@ def main():
     for lang, count in sorted(lang_counts.items(), key=lambda x: -x[1]):
         print(f"  {lang:20s} {count:5d}  ({pct(count, total)}%)")
 
-    # ---- METADATA HEALTH CHECK ----
     key_counts = Counter()
     for md in metadatas:
         md = md or {}
         for k, v in md.items():
             if v not in (None, ""):
                 key_counts[k] += 1
-        # also record keys present but empty, so they still show up
         for k in md.keys():
             key_counts.setdefault(k, key_counts[k])
 
@@ -209,7 +193,6 @@ def main():
     if not inconsistent_keys:
         print("  All metadata keys populated on 100% of documents.")
 
-    # ---- CHUNK SIZE DISTRIBUTION ----
     lengths = [len(d) for d in documents if d is not None]
     print("\n" + "=" * 60)
     print("CHUNK SIZE DISTRIBUTION (character count)")
@@ -235,7 +218,6 @@ def main():
     else:
         print("  No documents with text content found.")
 
-    # ---- GAPS ----
     print("\n" + "=" * 60)
     print("GAPS")
     print("=" * 60)
@@ -285,7 +267,6 @@ def main():
     if not gaps["low_document_modes"] and not gaps["zero_document_tiers"] and not gaps["empty_mode_tier_combos"]:
         print("  No significant gaps detected.")
 
-    # ---- Assemble + save JSON report ----
     report.update({
         "tier_counts": dict(tier_counts),
         "missing_tier_count": missing_tier,

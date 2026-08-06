@@ -2,72 +2,129 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ── Dark theme (default) ─────────────────────────── */
+/* ── Dark theme (default) ─────────────────────────────────────────────
+   The ramp below is deliberately WIDER than a "flat black" theme. Each
+   step is ~6-9 points of luminance apart, and every surface is paired
+   with a border that is lighter than the surface ABOVE it — that pairing
+   is what makes a card read as a card instead of a slightly different
+   black. Surfaces alone can never carry the separation on a dark UI:
+   the visible edge does the work.                                      */
 :root {
-  --ink:        #0a0b10;
-  --ink-2:      #13151c;
-  --ink-3:      #1c1f2a;
-  --ink-4:      #252836;
-  --whisper:    #3d4458;
-  --whisper-2:  #2a2e3d;
+  --ink:        #07080d;   /* page base — the floor everything sits on   */
+  --ink-2:      #10131b;   /* rails / sunken chrome                      */
+  --ink-3:      #171b26;   /* card surface                               */
+  --ink-4:      #212636;   /* elevated / hover                           */
+  --ink-5:      #2b3145;   /* popovers, the top of the stack             */
+  /* Borders carry the separation, so they are measured, not eyeballed:
+     --whisper-2 is 2.6:1 against a card and 3.1:1 against the page;
+     --whisper clears 3:1 against every surface in the ramp, and is what
+     anything load-bearing (focus, active, meaningful dividers) uses. */
+  --whisper:    #6b7694;   /* strong border / disabled ink               */
+  --whisper-2:  #525d7c;   /* default border                             */
   --bone:       #f5f1e8;
   --bone-dim:   #a8a294;
-  --bone-faint: #6b6759;
-  --gold:       #d4a574;
-  --gold-soft:  rgba(212, 165, 116, 0.12);
-  --gold-glow:  rgba(212, 165, 116, 0.35);
-  --rose:       #c97f6a;
-  --sage:       #8fa896;
+  --bone-faint: #7b776a;
+  --gold:       #e0b183;
+  --gold-soft:  rgba(224, 177, 131, 0.14);
+  --gold-glow:  rgba(224, 177, 131, 0.40);
+  --rose:       #dd8b74;
+  --sage:       #9dbba6;
+  --azure:      #7fa8d8;   /* second accent — keeps state colour legible */
 
   --bg-base:     var(--ink);
-  --bg-surface:  var(--ink-2);
-  --bg-elevated: var(--ink-3);
-  --border:      var(--whisper-2);
+  --bg-sunken:   var(--ink-2);
+  --bg-surface:  var(--ink-3);
+  --bg-elevated: var(--ink-4);
+  --bg-overlay:  var(--ink-5);
+  --bg-hover:    var(--ink-4);
+  --border:        var(--whisper-2);
+  --border-strong: var(--whisper);
+  --border-soft:   rgba(255, 255, 255, 0.055);
+  /* Inner top highlight — the 1px of "light from above" that gives a
+     dark card an edge without adding another background colour. */
+  --edge-light:  inset 0 1px 0 rgba(255, 255, 255, 0.06);
   --text-base:   var(--bone);
   --text-muted:  var(--bone-dim);
   --text-faint:  var(--bone-faint);
   --accent:      var(--gold);
   --accent-soft: var(--gold-soft);
   --accent-text: var(--gold);
+
+  --shadow-sm: 0 1px 2px rgba(0,0,0,.5), 0 2px 8px -4px rgba(0,0,0,.6);
+  --shadow-md: 0 4px 14px -6px rgba(0,0,0,.65), 0 12px 32px -18px rgba(0,0,0,.8);
+  --shadow-lg: 0 18px 48px -20px rgba(0,0,0,.85), 0 4px 12px -6px rgba(0,0,0,.6);
+  --glass:     rgba(22, 25, 35, 0.72);
+
+  --ease:      cubic-bezier(.2, .7, .2, 1);
+  --ease-out:  cubic-bezier(.16, 1, .3, 1);
+  --ease-back: cubic-bezier(.34, 1.56, .64, 1);
 }
 
 /* ── Light theme ──────────────────────────────────── */
 :root.light {
-  --ink:        #f5f0e8;
-  --ink-2:      #ebe4d8;
-  --ink-3:      #ddd5c6;
-  --ink-4:      #d0c7b6;
-  --whisper:    #b8ae9a;
-  --whisper-2:  #cdc3af;
+  --ink:        #f7f3ea;
+  --ink-2:      #efe8db;
+  --ink-3:      #fbf8f2;   /* cards go LIGHTER than the page, not darker */
+  --ink-4:      #ffffff;
+  --ink-5:      #ffffff;
+  /* Same measured targets as dark: 2.6:1 default, >3:1 for load-bearing. */
+  --whisper:    #9a8a6b;
+  --whisper-2:  #ab9a79;
   --bone:       #1e1b16;
   --bone-dim:   #5c5548;
   --bone-faint: #8a8273;
-  --gold:       #b8844f;
-  --gold-soft:  rgba(184, 132, 79, 0.10);
-  --gold-glow:  rgba(184, 132, 79, 0.25);
-  --rose:       #a86b58;
-  --sage:       #6f8e7c;
+  --gold:       #a8712f;
+  --gold-soft:  rgba(168, 113, 47, 0.10);
+  --gold-glow:  rgba(168, 113, 47, 0.25);
+  --rose:       #a5533c;
+  --sage:       #4f7862;
+  --azure:      #2f6ba8;
 
   --bg-base:     var(--ink);
-  --bg-surface:  var(--ink-2);
-  --bg-elevated: var(--ink-3);
-  --border:      var(--whisper-2);
+  --bg-sunken:   var(--ink-2);
+  --bg-surface:  var(--ink-3);
+  --bg-elevated: var(--ink-4);
+  --bg-overlay:  var(--ink-5);
+  --bg-hover:    #ffffff;
+  --border:        var(--whisper-2);
+  --border-strong: var(--whisper);
+  --border-soft:   rgba(0, 0, 0, 0.06);
+  --edge-light:  inset 0 1px 0 rgba(255, 255, 255, 0.9);
   --text-base:   var(--bone);
   --text-muted:  var(--bone-dim);
   --text-faint:  var(--bone-faint);
   --accent:      var(--gold);
   --accent-soft: var(--gold-soft);
   --accent-text: var(--gold);
+
+  --shadow-sm: 0 1px 2px rgba(60,48,30,.08), 0 2px 8px -4px rgba(60,48,30,.10);
+  --shadow-md: 0 4px 14px -6px rgba(60,48,30,.14), 0 12px 32px -18px rgba(60,48,30,.18);
+  --shadow-lg: 0 18px 48px -20px rgba(60,48,30,.22), 0 4px 12px -6px rgba(60,48,30,.12);
+  --glass:     rgba(251, 248, 242, 0.78);
 }
 
 * { box-sizing: border-box; }
 
-/* ── Smooth theme transitions ─────────────────────────── */
-* {
-  transition: background-color 300ms ease, border-color 300ms ease, color 200ms ease, box-shadow 200ms ease;
+/* ── Smooth theme transitions ─────────────────────────────────────────
+   This USED to be an unconditional `* { transition: ... }`. That put four
+   animatable properties on every node in the document, so any class or
+   inline-style change anywhere made the compositor evaluate transitions on
+   elements that were never meant to animate — and it fought every component
+   that declares its own `transition`, since the universal rule and the local
+   one both applied.
+
+   The transition is only actually wanted for ONE event: flipping the theme.
+   So it is applied for exactly that, for exactly as long as it takes:
+   themeStore stamps `.theme-transition` on <html>, then removes it.          */
+.theme-transition,
+.theme-transition *,
+.theme-transition *::before,
+.theme-transition *::after {
+  transition: background-color 300ms ease, border-color 300ms ease,
+              color 200ms ease, box-shadow 200ms ease !important;
 }
 @media (prefers-reduced-motion: reduce) {
-  * { transition-duration: 0.01ms !important; }
+  .theme-transition, .theme-transition * { transition-duration: 0.01ms !important; }
 }
 
 html, body, #root {
@@ -428,4 +485,152 @@ html, body, #root {
 }
 @keyframes waveBar {
   0% { transform: scaleY(.4); } 100% { transform: scaleY(1); }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   MOTION + SURFACE LAYER
+   Everything below is opt-in via a class, so nothing here can change
+   the layout of a component that doesn't ask for it.
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* ── Keyframes ───────────────────────────────────────────────────── */
+@keyframes riseIn      { from { opacity: 0; transform: translateY(14px) scale(.985); } to { opacity: 1; transform: none; } }
+@keyframes slideInLeft { from { opacity: 0; transform: translateX(-14px); }            to { opacity: 1; transform: none; } }
+@keyframes popIn       { from { opacity: 0; transform: scale(.86); }                   to { opacity: 1; transform: scale(1); } }
+@keyframes floatY      { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-7px); } }
+@keyframes spinSlow    { to { transform: rotate(360deg); } }
+@keyframes pulseRing {
+  0%   { transform: scale(.82); opacity: .75; }
+  70%  { transform: scale(1.5);  opacity: 0; }
+  100% { transform: scale(1.5);  opacity: 0; }
+}
+@keyframes gradientPan { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+@keyframes auroraDrift {
+  0%   { transform: translate3d(-6%, -4%, 0) scale(1);    }
+  33%  { transform: translate3d( 7%,  5%, 0) scale(1.14); }
+  66%  { transform: translate3d(-3%,  8%, 0) scale(.94);  }
+  100% { transform: translate3d(-6%, -4%, 0) scale(1);    }
+}
+@keyframes sheen      { 0% { transform: translateX(-120%) skewX(-18deg); } 100% { transform: translateX(220%) skewX(-18deg); } }
+@keyframes countUp    { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+@keyframes drawLine   { from { stroke-dashoffset: var(--dash, 400); } to { stroke-dashoffset: 0; } }
+@keyframes skeletonPan{ 0% { background-position: -160% 0; } 100% { background-position: 260% 0; } }
+
+/* ── Entrance helpers ────────────────────────────────────────────── */
+.anim-rise  { animation: riseIn 520ms var(--ease-out) both; }
+.anim-pop   { animation: popIn 320ms var(--ease-back) both; }
+.anim-fade  { animation: fadeIn 380ms ease both; }
+.anim-float { animation: floatY 6s ease-in-out infinite; }
+
+/* Cascade children in. Depth is capped at 12; anything past that just
+   lands with the 12th delay rather than never animating in. */
+.stagger > * { animation: riseIn 520ms var(--ease-out) both; }
+.stagger > *:nth-child(1)  { animation-delay:  40ms; }
+.stagger > *:nth-child(2)  { animation-delay:  90ms; }
+.stagger > *:nth-child(3)  { animation-delay: 140ms; }
+.stagger > *:nth-child(4)  { animation-delay: 190ms; }
+.stagger > *:nth-child(5)  { animation-delay: 240ms; }
+.stagger > *:nth-child(6)  { animation-delay: 290ms; }
+.stagger > *:nth-child(7)  { animation-delay: 340ms; }
+.stagger > *:nth-child(8)  { animation-delay: 390ms; }
+.stagger > *:nth-child(9)  { animation-delay: 440ms; }
+.stagger > *:nth-child(10) { animation-delay: 490ms; }
+.stagger > *:nth-child(n+11) { animation-delay: 540ms; }
+
+/* ── Surfaces ────────────────────────────────────────────────────── */
+/* The separation recipe: surface + visible border + top edge-light +
+   a shadow that lifts it off the page. Any one alone is not enough. */
+.surface {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  box-shadow: var(--edge-light), var(--shadow-sm);
+}
+.surface-raised {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  box-shadow: var(--edge-light), var(--shadow-md);
+}
+.glass {
+  background: var(--glass);
+  border: 1px solid var(--border);
+  box-shadow: var(--edge-light), var(--shadow-md);
+}
+@supports (backdrop-filter: blur(8px)) {
+  .glass { backdrop-filter: blur(16px) saturate(1.4); -webkit-backdrop-filter: blur(16px) saturate(1.4); }
+}
+
+/* Hairline gold seam along the top of a card — cheap, quiet hierarchy. */
+.seam-top { position: relative; }
+.seam-top::before {
+  content: '';
+  position: absolute; inset: 0 0 auto 0; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  opacity: .5;
+  border-radius: inherit;
+}
+
+.hover-lift { transition: transform 260ms var(--ease), box-shadow 260ms var(--ease), border-color 200ms; }
+.hover-lift:hover {
+  transform: translateY(-3px);
+  border-color: var(--border-strong);
+  box-shadow: var(--edge-light), var(--shadow-lg);
+}
+
+/* Sheen sweep on hover — needs `position:relative; overflow:hidden`. */
+.sheen { position: relative; overflow: hidden; }
+.sheen::after {
+  content: '';
+  position: absolute; top: 0; bottom: 0; left: 0; width: 45%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.10), transparent);
+  transform: translateX(-120%) skewX(-18deg);
+  pointer-events: none;
+}
+.sheen:hover::after { animation: sheen 800ms var(--ease-out); }
+
+/* ── Ambient aurora background ───────────────────────────────────── */
+/* Two slow, offset colour clouds. The whole point is to give a dark
+   page some depth so flat panels have something to sit against. */
+.aurora { position: relative; isolation: isolate; }
+.aurora::before,
+.aurora::after {
+  content: '';
+  position: absolute; z-index: -1; pointer-events: none;
+  width: 62vmax; height: 62vmax; border-radius: 50%;
+  filter: blur(90px);
+  opacity: .5;
+}
+.aurora::before {
+  top: -26vmax; left: -18vmax;
+  background: radial-gradient(circle, var(--gold-glow), transparent 66%);
+  animation: auroraDrift 34s ease-in-out infinite;
+}
+.aurora::after {
+  bottom: -30vmax; right: -20vmax;
+  background: radial-gradient(circle, color-mix(in srgb, var(--azure) 34%, transparent), transparent 66%);
+  animation: auroraDrift 46s ease-in-out infinite reverse;
+  opacity: .38;
+}
+:root.light .aurora::before,
+:root.light .aurora::after { opacity: .3; }
+
+/* ── Shimmer skeleton ────────────────────────────────────────────── */
+.shimmer {
+  background: linear-gradient(90deg,
+    var(--bg-elevated) 0%,
+    color-mix(in srgb, var(--bg-elevated) 55%, var(--border)) 45%,
+    var(--bg-elevated) 90%);
+  background-size: 220% 100%;
+  animation: skeletonPan 1.5s linear infinite;
+  border-radius: 8px;
+}
+
+/* ── Scrollbar, now that surfaces have real contrast ─────────────── */
+::-webkit-scrollbar-thumb { background: var(--border); }
+::-webkit-scrollbar-thumb:hover { background: var(--border-strong); }
+
+@media (prefers-reduced-motion: reduce) {
+  .anim-float, .aurora::before, .aurora::after, .shimmer { animation: none !important; }
+  .hover-lift:hover { transform: none; }
 }

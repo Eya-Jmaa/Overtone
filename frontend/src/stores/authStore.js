@@ -1,5 +1,3 @@
-// frontend/src/stores/authStore.js
-// REPLACE ENTIRELY
 
 import { create } from "zustand";
 import * as authApi from "../services/authApi.js";
@@ -8,21 +6,17 @@ export const useAuthStore = create((set, get) => ({
   user: null,
   accessToken: null,
   isLoading: false,
-  isBootstrapping: true, // true until initial session check completes
+  isBootstrapping: true, 
   error: null,
   registrationMessage: null,
 
-  // Called once on app mount — checks if the user has a valid refresh token cookie
-  // and restores their session without forcing a re-login.
   bootstrap: async () => {
     set({ isBootstrapping: true });
     try {
-      // /auth/refresh now returns { accessToken, user }
       const { accessToken, user } = await authApi.refreshToken();
       set({ accessToken, user, isBootstrapping: false });
       return true;
     } catch {
-      // No valid refresh token — user needs to log in
       set({ user: null, accessToken: null, isBootstrapping: false });
       return false;
     }
@@ -52,7 +46,6 @@ export const useAuthStore = create((set, get) => ({
     }
   },
 
-  // Manual refresh — also restores user data now
   refresh: async () => {
     try {
       const { accessToken, user } = await authApi.refreshToken();
@@ -64,8 +57,6 @@ export const useAuthStore = create((set, get) => ({
     }
   },
 
-  // Fetch the current user profile using the access token
-  // (used by OAuthSuccess after getting the token from the URL hash)
   fetchMe: async () => {
     const { accessToken } = get();
     if (!accessToken) return false;

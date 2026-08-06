@@ -1,10 +1,3 @@
-/**
- * AI status chip.
- * - "Listening..." with pulsing gold dot
- * - "Coach is thinking..." with breathing animation
- * - "Coach is speaking..." with waveform icon
- * Fades in/out with the same easing as auth page elements.
- */
 export default function AIStatus({ status = null }) {
   if (!status) return null;
 

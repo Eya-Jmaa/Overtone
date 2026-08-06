@@ -1,19 +1,4 @@
-"""
-embed_and_upsert.py
----------------------
-Reads every staged .jsonl file in ./staged_chunks/, validates each document's
-metadata and text, embeds the text with multilingual-e5-base, and upserts into
-your existing ChromaDB collection at backend/data/chroma_db.
-
-Validation is performed BEFORE upsert — no malformed document reaches the
-vector store.
-
-Requirements: chromadb sentence-transformers tqdm
-
-Usage:
-    python embed_and_upsert.py --db-path ../backend/data/chroma_db \
-                                --collection echocoach_knowledge
-"""
+"""embed_and_upsert.py — Reads every staged .jsonl file in ./staged_chunks/, validates each document's metadata and text, embeds the text with multilingual-e5-base, and upserts into your existing ChromaDB collection at backend/data/chroma_db."""
 
 import json
 import sys
@@ -30,27 +15,21 @@ DEFAULT_DB_PATH = BASE_DIR.parent / "chroma_db"
 EMBED_MODEL_NAME = "intfloat/multilingual-e5-base"
 BATCH_SIZE = 32
 
-# ── Valid values for required metadata fields ──────────────────────────────
 VALID_TIERS = {"technique", "article", "abstract", "session_guide", "signal_mapping"}
 VALID_MODES = {"psy", "professional", "sport", "all"}
 VALID_LANGUAGES = {"en", "fr", "ar"}
 
 MIN_TEXT_LENGTH = 100
-WARN_TEXT_LENGTH = 5000  # warn but don't block above this
+WARN_TEXT_LENGTH = 5000
 
 
 def validate_document(doc: dict) -> list[str]:
-    """
-    Validate a single staged document.
-
-    Returns a list of error messages (empty list = valid).
-    """
+    """Validate a single staged document."""
     errors: list[str] = []
     doc_id = doc.get("id", "<no-id>")
     metadata = doc.get("metadata", {})
     text = doc.get("text", "")
 
-    # ── text validation ────────────────────────────────────────────────────
     if not isinstance(text, str) or not text.strip():
         errors.append(f"[{doc_id}] text: empty or not a string")
     elif len(text.strip()) < MIN_TEXT_LENGTH:
@@ -59,13 +38,11 @@ def validate_document(doc: dict) -> list[str]:
             f"minimum {MIN_TEXT_LENGTH})"
         )
     elif len(text.strip()) > WARN_TEXT_LENGTH:
-        # warn but don't block — some legitimate chunks may be longer
         print(
             f"  [WARN] [{doc_id}] text: {len(text.strip())} chars "
             f"(exceeds {WARN_TEXT_LENGTH} — verify this is intentional)"
         )
 
-    # ── metadata validation ────────────────────────────────────────────────
     tier = metadata.get("tier")
     if not tier:
         errors.append(f"[{doc_id}] metadata.tier: missing or empty")
@@ -109,9 +86,6 @@ def load_staged_docs() -> list[dict]:
 
 
 def embed_texts(model: SentenceTransformer, texts: list[str]) -> list[list[float]]:
-    # e5 models expect a "passage: " prefix for documents being indexed
-    # (and "query: " prefix at retrieval time in rag_engine.py — make sure
-    # that's already the case there, since e5 embeddings are asymmetric).
     prefixed = [f"passage: {t}" for t in texts]
     embeddings = model.encode(prefixed, batch_size=BATCH_SIZE, show_progress_bar=False,
                                normalize_embeddings=True)
@@ -127,7 +101,6 @@ def run(db_path: str, collection_name: str):
 
     print(f"Loaded {len(docs)} staged documents across all tiers.")
 
-    # ── Step 1: Validate all documents before any upsert ───────────────────
     print("Validating documents...")
     valid_docs: list[dict] = []
     validation_failures: list[dict] = []
@@ -157,11 +130,9 @@ def run(db_path: str, collection_name: str):
         print("No valid documents to embed. Exiting with code 1.")
         sys.exit(1)
 
-    # ── Step 2: Load embedding model ───────────────────────────────────────
     print(f"Loading embedding model: {EMBED_MODEL_NAME} ...")
     model = SentenceTransformer(EMBED_MODEL_NAME)
 
-    # ── Step 3: Connect to ChromaDB ────────────────────────────────────────
     client = chromadb.PersistentClient(path=db_path)
     collection = client.get_or_create_collection(name=collection_name)
 
@@ -175,7 +146,6 @@ def run(db_path: str, collection_name: str):
         print("Nothing new to add.")
         return
 
-    # ── Step 4: Compute summary from validated data BEFORE upsert ──────────
     tier_counts = {}
     mode_counts = {}
 
@@ -185,7 +155,6 @@ def run(db_path: str, collection_name: str):
         tier_counts[t] = tier_counts.get(t, 0) + 1
         mode_counts[m] = mode_counts.get(m, 0) + 1
 
-    # ── Step 5: Embed and upsert in batches ────────────────────────────────
     for i in tqdm(range(0, len(new_docs), BATCH_SIZE), desc="Embedding + upserting"):
         batch = new_docs[i:i + BATCH_SIZE]
         texts = [d["text"] for d in batch]
@@ -201,7 +170,6 @@ def run(db_path: str, collection_name: str):
             metadatas=metadatas,
         )
 
-    # ── Step 6: Report ─────────────────────────────────────────────────────
     print("\n" + "=" * 60)
     print("UPSERT COMPLETE")
     print("=" * 60)

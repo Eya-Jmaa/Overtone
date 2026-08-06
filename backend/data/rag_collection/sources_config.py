@@ -1,12 +1,6 @@
-"""
-Central registry for session-layer RAG sources.
-
-Each source is downloaded or scraped by collect_session_sources.py and staged as
-JSONL for embed_and_upsert.py. Keep sources legally accessible and traceable.
-"""
+"""Central registry for session-layer RAG sources."""
 
 SOURCES = [
-    # ---------------- PSY MODE ----------------
     {
         "url": "https://casatondemand.org/wp-content/uploads/2019/07/tip.35.sma13-4212-3.pdf",
         "filename": "samhsa_tip35_full.pdf",
@@ -140,7 +134,6 @@ SOURCES = [
         "chunk_overlap": 100,
     },
 
-    # ---------------- PROFESSIONAL MODE ----------------
     {
         "url": "https://coachingfederation.org/wp-content/uploads/2025/09/icf-cs-core-competencies-2025.pdf",
         "filename": "icf_core_competencies_2025.pdf",
@@ -166,7 +159,6 @@ SOURCES = [
         "chunk_overlap": 100,
     },
 
-    # ---------------- SPORT MODE ----------------
     {
         "url": "https://www.marforres.marines.mil/Portals/116/Docs/WPT/Performance%20Imagery%20Script.pdf",
         "filename": "usmc_performance_imagery_script.pdf",

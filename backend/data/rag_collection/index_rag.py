@@ -1,22 +1,4 @@
-"""
-RAG Chunker & ChromaDB Indexer for EchoCoach
-==============================================
-Takes all three tiers of content and indexes them into ChromaDB.
-
-Tier 1: Technique cards (JSON) -> 1 card = 1 chunk (already right size)
-Tier 2: Blog articles (JSON with text field) -> 512 tokens, 64 overlap
-Tier 3: PubMed abstracts (JSON) -> 1 abstract = 1 chunk
-
-Usage:
-    python index_rag.py \
-        --techniques ./data/techniques \
-        --articles ./data/articles \
-        --abstracts ./data/abstracts \
-        --db ./data/chroma_db
-
-Requires:
-    pip install chromadb sentence-transformers tiktoken
-"""
+"""RAG Chunker & ChromaDB Indexer for EchoCoach — Takes all three tiers of content and indexes them into ChromaDB."""
 
 import json
 import argparse
@@ -34,8 +16,6 @@ except ImportError:
     def count_tokens(text: str) -> int:
         return len(text.split()) * 4 // 3
 
-
-# —— Chunking ——————————————————————————————————————————————————————————————
 
 def chunk_text(text: str, max_tokens: int = 512, overlap_tokens: int = 64) -> list[str]:
     """Split text into overlapping chunks of ~max_tokens."""
@@ -56,8 +36,6 @@ def chunk_text(text: str, max_tokens: int = 512, overlap_tokens: int = 64) -> li
 
     return chunks
 
-
-# —— Tier 1: Technique Cards ——————————————————————————————————————————————
 
 def index_techniques(collection, techniques_dir: Path) -> int:
     """Index technique cards. Each card = 1 chunk."""
@@ -103,8 +81,6 @@ def index_techniques(collection, techniques_dir: Path) -> int:
     return count
 
 
-# —— Tier 2: Blog Articles —————————————————————————————————————————————————
-
 def index_articles(collection, articles_dir: Path) -> int:
     """Index scraped articles. Chunked at 512 tokens."""
     count = 0
@@ -146,8 +122,6 @@ def index_articles(collection, articles_dir: Path) -> int:
 
     return count
 
-
-# —— Tier 3: PubMed Abstracts ———————————————————————————————————————————
 
 def index_abstracts(collection, abstracts_dir: Path) -> int:
     """Index PubMed abstracts. Each abstract = 1 chunk."""
@@ -193,8 +167,6 @@ def index_abstracts(collection, abstracts_dir: Path) -> int:
 
     return count
 
-
-# —— Main —————————————————————————————————————————————————————————————————
 
 def main():
     parser = argparse.ArgumentParser(description="Index RAG content into ChromaDB")

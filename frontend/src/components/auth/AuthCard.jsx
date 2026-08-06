@@ -40,7 +40,6 @@ export default function AuthCard({ variant = "login", title, eyebrow, children, 
       gridTemplateColumns: "minmax(0, 1.15fr) minmax(0, 1fr)",
       background: "var(--ink)",
     }}>
-      {/* LEFT — ambient + quote */}
       <div style={{
         position: "relative",
         overflow: "hidden",
@@ -52,12 +51,10 @@ export default function AuthCard({ variant = "login", title, eyebrow, children, 
       }}>
         <AmbientWave />
 
-        {/* Wordmark top-left */}
         <div style={{ position: "relative", zIndex: 2 }}>
-          <div className="wordmark">coach<span>.</span></div>
+          <div className="wordmark">Solace<span>.</span></div>
         </div>
 
-        {/* Centered headline + quote */}
         <div style={{
           position: "relative",
           zIndex: 2,
@@ -127,7 +124,6 @@ export default function AuthCard({ variant = "login", title, eyebrow, children, 
           </div>
         </div>
 
-        {/* Bottom hint */}
         <div style={{
           position: "relative",
           zIndex: 2,
@@ -141,7 +137,6 @@ export default function AuthCard({ variant = "login", title, eyebrow, children, 
         </div>
       </div>
 
-      {/* RIGHT — form */}
       <div style={{
         display: "flex",
         alignItems: "center",

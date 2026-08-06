@@ -4,6 +4,12 @@ import { useAuthStore } from "../stores/authStore.js";
 import AuthCard from "../components/auth/AuthCard.jsx";
 import FieldInput from "../components/auth/FieldInput.jsx";
 
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+
+function isValidEmail(value) {
+  return EMAIL_RE.test(value.trim());
+}
+
 function GoogleIcon() {
   return (
     <svg width="16" height="16" viewBox="0 0 48 48">
@@ -29,6 +35,7 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [toast, setToast] = useState(null);
+  const [emailError, setEmailError] = useState(null);
 
   useEffect(() => {
     if (accessToken) navigate("/app", { replace: true });
@@ -38,6 +45,14 @@ export default function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    clearError();
+
+    if (!isValidEmail(email)) {
+      setEmailError("Please enter a valid email address (e.g. name@example.com).");
+      return;
+    }
+    setEmailError(null);
+
     const ok = await login(email, password);
     if (ok) navigate("/app", { replace: true });
   };
@@ -72,8 +87,9 @@ export default function Login() {
             label="Email"
             type="email"
             value={email}
-            onChange={setEmail}
+            onChange={(v) => { setEmail(v); setEmailError(null); }}
             autoFocus
+            error={emailError}
           />
           <FieldInput
             label="Password"

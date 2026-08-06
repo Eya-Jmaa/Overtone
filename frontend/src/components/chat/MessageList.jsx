@@ -1,12 +1,6 @@
 import { useEffect, useRef } from "react";
 import MessageBubble from "./MessageBubble.jsx";
 
-/**
- * Scrollable message list.
- * - Auto-scrolls to bottom on new messages (unless user scrolled up)
- * - Shows scenario briefing card at top
- * - Shows typing indicator when AI is responding
- */
 export default function MessageList({
   messages = [],
   scenario = null,
@@ -18,7 +12,6 @@ export default function MessageList({
   const containerRef = useRef(null);
   const userScrolledRef = useRef(false);
 
-  // Detect if user scrolled up
   const handleScroll = () => {
     const el = containerRef.current;
     if (!el) return;
@@ -26,14 +19,12 @@ export default function MessageList({
     userScrolledRef.current = !atBottom;
   };
 
-  // Keep pinned to the bottom while a reply types out (called each Typewriter tick).
   const scrollToBottom = () => {
     if (!userScrolledRef.current && containerRef.current) {
       containerRef.current.scrollTop = containerRef.current.scrollHeight;
     }
   };
 
-  // Auto-scroll on new messages — scroll the container directly, not the page
   useEffect(() => {
     if (!userScrolledRef.current && containerRef.current) {
       containerRef.current.scrollTop = containerRef.current.scrollHeight;
@@ -63,7 +54,6 @@ export default function MessageList({
           gap: 12,
         }}
       >
-      {/* Personalized greeting (shown before any messages) */}
       {greeting && messages.length === 0 && (
         <div
           style={{
@@ -90,7 +80,6 @@ export default function MessageList({
         </div>
       )}
 
-      {/* Scenario briefing card */}
       {scenario && messages.length === 0 && !greeting && (
         <div
           style={{
@@ -127,7 +116,6 @@ export default function MessageList({
         </div>
       )}
 
-      {/* Collapsed briefing after first message */}
       {scenario && messages.length > 0 && (
         <div
           style={{
@@ -151,7 +139,6 @@ export default function MessageList({
         </div>
       )}
 
-      {/* Messages */}
       {messages.map((msg, i) => (
         <MessageBubble
           key={msg.id || i}
@@ -162,7 +149,6 @@ export default function MessageList({
         />
       ))}
 
-      {/* Streaming assistant response */}
       {streamingAssistantText && (
         <MessageBubble
           message={{
@@ -175,7 +161,6 @@ export default function MessageList({
         />
       )}
 
-      {/* Typing indicator */}
       {isAiTyping && (
         <div
           style={{

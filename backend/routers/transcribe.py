@@ -30,6 +30,11 @@ def _get_model() -> WhisperModel:
     return _model
 
 
+def warmup() -> None:
+    """Load Whisper at boot so the first spoken turn doesn't pay for it."""
+    _get_model()
+
+
 @router.post("/", response_model=TranscribeOut)
 async def transcribe_audio(
     audio: UploadFile = File(...),

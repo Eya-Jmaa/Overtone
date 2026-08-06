@@ -1,9 +1,4 @@
-"""
-Collect session-guide sources for EchoCoach RAG.
-
-Downloads PDF and HTML sources, validates/extracts text, chunks it, and stages
-JSONL documents for embed_and_upsert.py.
-"""
+"""Collect session-guide sources for EchoCoach RAG."""
 
 import hashlib
 import json

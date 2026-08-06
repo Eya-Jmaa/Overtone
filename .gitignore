@@ -3,12 +3,19 @@ __pycache__/
 *.py[cod]
 *.egg-info/
 .pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
 backend/venv/
 venv/
 .venv/
 
 # Secrets / local config
+# .env.example IS tracked — it is the template documenting every key.
 .env
+.env.*
+!.env.example
 backend/.env
 *.local
 
@@ -16,6 +23,8 @@ backend/.env
 *.db
 *.db-wal
 *.db-shm
+*.sqlite
+*.sqlite3
 
 # Node / frontend
 node_modules/
@@ -23,12 +32,66 @@ frontend/node_modules/
 frontend/dist/
 dist/
 build/
+*.log
+npm-debug.log*
+yarn-error.log*
 
 # Uploaded audio / runtime data
 backend/data/audio/
+backend/data/debug_audio/
+
+# Generated vector store — rebuilt by backend/data/rag_collection/index_rag.py
+# and embed_and_upsert.py. Chroma rewrites these binaries on every run, so
+# tracking it means a 20 MB diff of undiffable blobs on almost every commit.
+backend/data/chroma_db/
+
+# Intermediate output of the RAG collection pipeline — regenerated from
+# raw_pdfs/ by the collect_*.py scripts before embedding.
+backend/data/rag_collection/staged_chunks/
+
+# Local seeding bookkeeping: database row ids from THIS machine's dev data,
+# meaningless in anyone else's checkout.
+backend/data/seed_manifest.json
+
+# Model weights — large binaries git cannot diff. Fetch or retrain instead;
+# the setup scripts in backend/scripts/ pull the downloaded ones.
+*.pkl
+*.onnx
+*.pt
+*.pth
+*.safetensors
+*.ckpt
+backend/training/models/
+
+# Downloaded STT model weights (fetched by backend/scripts/setup_linto_model.py)
+backend/models/linto-asr-ar-tn/
+
+# Downloaded speech-emotion + Derja TTS weights (fetched by
+# backend/scripts/setup_emotion_model.py / setup_silma_tts.py)
+backend/models/emotion_xlsr/
+backend/models/silma-tts-derja/
+
+# Downloaded MediaPipe Task bundles (fetched by services/face_analyzer.py on
+# first use — see _cached_model_path)
+backend/models/mediapipe/
+
+# Editor / AI-assistant tooling config. Local developer setup, like .idea/ and
+# .vscode/ above — not part of the application.
+.claude/
+CLAUDE.md
+AGENTS.md
+.cursor/
+.cursorrules
+.cursorignore
+.aider*
+.continue/
+.codeium/
+.windsurfrules
+.github/copilot-instructions.md
 
 # OS / editor
 .DS_Store
 Thumbs.db
 .idea/
 .vscode/
+*.swp

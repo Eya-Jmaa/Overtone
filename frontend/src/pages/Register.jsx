@@ -6,6 +6,13 @@ import AuthCard from "../components/auth/AuthCard.jsx";
 import FieldInput from "../components/auth/FieldInput.jsx";
 import CodeInput from "../components/auth/CodeInput.jsx";
 
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+const CODE_RE = /^\d{6}$/;
+
+function isValidEmail(value) {
+  return EMAIL_RE.test(value.trim());
+}
+
 function GoogleIcon() {
   return (
     <svg width="16" height="16" viewBox="0 0 48 48">
@@ -21,7 +28,7 @@ export default function Register() {
   const navigate = useNavigate();
   const { accessToken, setSession } = useAuthStore();
 
-  const [step, setStep] = useState(1); // 1: email, 2: code, 3: name+password
+  const [step, setStep] = useState(1); 
   const [email, setEmail] = useState("");
   const [code, setCode] = useState("");
   const [signupToken, setSignupToken] = useState(null);
@@ -36,7 +43,6 @@ export default function Register() {
     if (accessToken) navigate("/app", { replace: true });
   }, [accessToken, navigate]);
 
-  // Resend cooldown ticker
   useEffect(() => {
     if (resendCooldown <= 0) return;
     const t = setTimeout(() => setResendCooldown((c) => c - 1), 1000);
@@ -47,10 +53,15 @@ export default function Register() {
     window.location.href = authApi.googleLoginUrl();
   };
 
-  // ── Step 1: send code ──
   const handleSendCode = async (e) => {
     e?.preventDefault();
     setError(null);
+
+    if (!isValidEmail(email)) {
+      setError("Please enter a valid email address (e.g. name@example.com).");
+      return;
+    }
+
     setLoading(true);
     try {
       await authApi.sendCode(email);
@@ -63,10 +74,9 @@ export default function Register() {
     }
   };
 
-  // ── Step 2: verify code ──
   const handleVerifyCode = async (e) => {
     e?.preventDefault();
-    if (code.length !== 6) {
+    if (!CODE_RE.test(code)) {
       setError("Enter all 6 digits.");
       return;
     }
@@ -83,7 +93,6 @@ export default function Register() {
     }
   };
 
-  // ── Step 3: complete signup ──
   const handleCompleteSignup = async (e) => {
     e?.preventDefault();
     setError(null);
@@ -99,7 +108,6 @@ export default function Register() {
     }
   };
 
-  // ── render helpers ──
   const eyebrowFor = (s) => `Step ${s} of 3`;
   const titleFor = (s) =>
     s === 1 ? "What's your email?" :
@@ -126,7 +134,6 @@ export default function Register() {
         </>
       }
     >
-      {/* ── STEP 1: email ── */}
       {step === 1 && (
         <>
           <form onSubmit={handleSendCode} noValidate>
@@ -138,7 +145,7 @@ export default function Register() {
               autoFocus
               error={error}
             />
-            <button type="submit" className="cta" disabled={loading || !email}>
+            <button type="submit" className="cta" disabled={loading || !email.trim()}>
               {loading ? "Sending code…" : "Send verification code"}
             </button>
           </form>
@@ -162,7 +169,6 @@ export default function Register() {
         </>
       )}
 
-      {/* ── STEP 2: code ── */}
       {step === 2 && (
         <form onSubmit={handleVerifyCode} noValidate>
           <p style={{
@@ -190,7 +196,7 @@ export default function Register() {
             <CodeInput value={code} onChange={setCode} autoFocus error={error} />
           </div>
 
-          <button type="submit" className="cta" disabled={loading || code.length !== 6}>
+          <button type="submit" className="cta" disabled={loading || !CODE_RE.test(code)}>
             {loading ? "Verifying…" : "Verify code"}
           </button>
 
@@ -217,7 +223,6 @@ export default function Register() {
         </form>
       )}
 
-      {/* ── STEP 3: name + password ── */}
       {step === 3 && (
         <form onSubmit={handleCompleteSignup} noValidate>
           <p style={{

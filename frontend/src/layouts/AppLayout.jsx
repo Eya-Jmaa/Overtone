@@ -20,7 +20,6 @@ export default function AppLayout() {
 
   return (
     <div style={{ display: "flex", height: "100vh", overflow: "hidden", background: "var(--ink)" }}>
-      {/* Collapsible sidebar (animated width) */}
       <div
         style={{
           width: open ? 260 : 0,
@@ -32,7 +31,6 @@ export default function AppLayout() {
         <Sidebar onCollapse={() => setOpen(false)} />
       </div>
 
-      {/* Floating reopen button when collapsed */}
       {!open && (
         <button
           onClick={() => setOpen(true)}

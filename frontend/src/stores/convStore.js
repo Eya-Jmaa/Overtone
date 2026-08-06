@@ -55,6 +55,18 @@ export const useConvStore = create((set, get) => ({
       set((s) => ({
         conversations: s.conversations.map((c) => (c.id === conv.id ? conv : c)),
       }));
-    } catch (_) {}
+      return conv;
+    } catch (_) {
+      return null;
+    }
+  },
+
+  pollConversationTitle: async (id, token, { attempts = 5, delayMs = 900 } = {}) => {
+    for (let i = 0; i < attempts; i++) {
+      const conv = await get().refreshConversation(id, token);
+      if (conv?.title) return conv;
+      if (i < attempts - 1) await new Promise((r) => setTimeout(r, delayMs));
+    }
+    return null;
   },
 }));

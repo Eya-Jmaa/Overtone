@@ -1,16 +1,4 @@
-"""
-load_signal_mappings.py
--------------------------
-Converts your hand-filled signal_mappings.yaml into staged JSONL docs,
-same format as the other collectors, so embed_and_upsert.py can treat
-all tiers uniformly.
-
-Requirements: pyyaml
-
-Usage:
-    python load_signal_mappings.py signal_mappings.yaml
-    # writes ./staged_chunks/signal_mappings.jsonl
-"""
+"""load_signal_mappings.py — Converts your hand-filled signal_mappings.yaml into staged JSONL docs, same format as the other collectors, so embed_and_upsert.py can treat all tiers uniformly."""
 
 import sys
 import json

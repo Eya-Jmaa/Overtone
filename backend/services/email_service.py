@@ -13,7 +13,7 @@ def send_code_email(to_email: str, code: str):
       <body style="margin:0;padding:40px 20px;background:#0a0b10;font-family:-apple-system,sans-serif;">
         <div style="max-width:440px;margin:0 auto;background:#13151c;border:1px solid #2a2e3d;border-radius:8px;padding:40px 32px;">
           <div style="font-family:Georgia,serif;font-size:24px;color:#f5f1e8;letter-spacing:-0.5px;margin-bottom:8px;">
-            coach<span style="color:#d4a574;">.</span>
+            Solace<span style="color:#d4a574;">.</span>
           </div>
           <p style="color:#a8a294;font-size:11px;margin:0 0 32px 0;letter-spacing:2px;text-transform:uppercase;font-family:monospace;">
             Your verification code
@@ -41,12 +41,15 @@ def send_code_email(to_email: str, code: str):
 
     msg = MIMEMultipart("alternative")
     msg["Subject"] = f"Your code: {formatted}"
-    msg["From"] = f"coach. <{sender}>"
+    msg["From"] = f"Solace <{sender}>"
     msg["To"] = to_email
     msg.attach(MIMEText(html, "html"))
 
     print(f"[email] Sending to: {to_email} | From: {sender}")
-    with smtplib.SMTP("smtp.gmail.com", 587) as server:
+    # Without a timeout a stalled connection to Gmail hangs the request thread
+    # indefinitely, and enough of those exhaust the threadpool serving every
+    # other sync endpoint.
+    with smtplib.SMTP("smtp.gmail.com", 587, timeout=settings.email_timeout_seconds) as server:
         server.ehlo()
         server.starttls()
         server.login(settings.gmail_user, settings.gmail_app_password)

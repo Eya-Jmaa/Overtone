@@ -1,23 +1,15 @@
 import { useState, useEffect } from "react";
 
-/**
- * Conversation-specific topbar.
- * - Scenario title in Fraunces serif (matching login display font)
- * - Locked mode badge
- * - Live session timer
- * - End session button with confirmation
- * - Thin gold bottom border
- */
 export default function ConvTopbar({
   scenario = null,
   mode = "professional",
   onEndSession,
   startTime = null,
+  canEnd = true,
 }) {
   const [elapsed, setElapsed] = useState("0:00");
   const [showConfirm, setShowConfirm] = useState(false);
 
-  // Session timer
   useEffect(() => {
     if (!startTime) return;
     const tick = () => {
@@ -51,7 +43,6 @@ export default function ConvTopbar({
           position: "relative",
         }}
       >
-        {/* Gold accent line at bottom */}
         <div
           style={{
             position: "absolute",
@@ -64,7 +55,6 @@ export default function ConvTopbar({
           }}
         />
 
-        {/* Left: title + mode badge */}
         <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
           <span
             style={{
@@ -95,9 +85,41 @@ export default function ConvTopbar({
           </span>
         </div>
 
+        <button
+          onClick={() => setShowConfirm(true)}
+          disabled={!canEnd}
+          title={canEnd ? "End session and get your report" : "Say something first"}
+          style={{
+            display: "inline-flex", alignItems: "center", gap: 7,
+            padding: "7px 14px", borderRadius: 8,
+            border: "1px solid var(--whisper-2)",
+            background: "transparent",
+            color: canEnd ? "var(--bone-dim)" : "var(--bone-faint)",
+            fontSize: 12.5, fontFamily: "inherit",
+            cursor: canEnd ? "pointer" : "not-allowed",
+            opacity: canEnd ? 1 : 0.5,
+            transition: "all 200ms",
+          }}
+          onMouseEnter={(e) => {
+            if (!canEnd) return;
+            e.currentTarget.style.borderColor = "var(--gold)";
+            e.currentTarget.style.color = "var(--bone)";
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.borderColor = "var(--whisper-2)";
+            e.currentTarget.style.color = canEnd ? "var(--bone-dim)" : "var(--bone-faint)";
+          }}
+        >
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+            <path d="M9 11l3 3L22 4" />
+            <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11" />
+          </svg>
+          End session
+        </button>
+
       </div>
 
-      {/* Confirmation overlay */}
       {showConfirm && (
         <div
           style={{

@@ -8,12 +8,6 @@ const TYPE_ICONS = {
   video: "📹",
 };
 
-/**
- * Chat message.
- * - Assistant: no container — plain text, left-aligned, with a write-out
- *   animation (Typewriter) for freshly-arrived replies.
- * - User: right-aligned bubble (gold tint); audio renders AudioBubble.
- */
 export default function MessageBubble({ message, index = 0, animate = false, onType }) {
   const [hovered, setHovered] = useState(false);
   const isUser = message.role === "user";
@@ -26,7 +20,6 @@ export default function MessageBubble({ message, index = 0, animate = false, onT
     return d.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
   };
 
-  // ── Assistant: containerless, plain prose with write-out animation ──
   if (!isUser) {
     return (
       <div
@@ -89,7 +82,6 @@ export default function MessageBubble({ message, index = 0, animate = false, onT
     );
   }
 
-  // ── User: right-aligned bubble ──
   return (
     <div
       onMouseEnter={() => setHovered(true)}
@@ -106,12 +98,17 @@ export default function MessageBubble({ message, index = 0, animate = false, onT
           padding: hasAudio ? "8px 10px" : "11px 15px",
           borderRadius: 18,
           borderBottomRightRadius: 5,
-          background: "var(--gold-soft)",
-          border: "1px solid rgba(212,165,116,0.18)",
+          background: "linear-gradient(160deg, color-mix(in srgb, var(--accent) 17%, var(--bg-elevated)), var(--bg-surface))",
+          border: "1px solid color-mix(in srgb, var(--accent) 30%, var(--border))",
+          boxShadow: hovered
+            ? "var(--edge-light), var(--shadow-md)"
+            : "var(--edge-light), var(--shadow-sm)",
           color: "var(--bone)",
           fontSize: 14.5,
           lineHeight: 1.6,
           position: "relative",
+          transform: hovered ? "translateY(-1px)" : "none",
+          transition: "transform 200ms var(--ease), box-shadow 200ms",
         }}
       >
         {hasAudio ? (
@@ -132,15 +129,23 @@ export default function MessageBubble({ message, index = 0, animate = false, onT
             gap: 6,
             marginTop: 4,
             height: 14,
-            opacity: hovered ? 1 : 0,
+            opacity: message.pending ? 1 : hovered ? 1 : 0,
             transition: "opacity 200ms",
           }}
         >
-          <span style={{ fontSize: 10, fontFamily: "'JetBrains Mono', monospace", color: "var(--bone-faint)" }}>
-            {formatTime(message.timestamp)}
-          </span>
-          {message.inputType && (
-            <span style={{ fontSize: 9, opacity: 0.5 }}>{TYPE_ICONS[message.inputType] || ""}</span>
+          {message.pending ? (
+            <span style={{ fontSize: 10, fontFamily: "'JetBrains Mono', monospace", color: "var(--gold)" }}>
+              queued — will send when back online
+            </span>
+          ) : (
+            <>
+              <span style={{ fontSize: 10, fontFamily: "'JetBrains Mono', monospace", color: "var(--bone-faint)" }}>
+                {formatTime(message.timestamp)}
+              </span>
+              {message.inputType && (
+                <span style={{ fontSize: 9, opacity: 0.5 }}>{TYPE_ICONS[message.inputType] || ""}</span>
+              )}
+            </>
           )}
         </div>
       </div>

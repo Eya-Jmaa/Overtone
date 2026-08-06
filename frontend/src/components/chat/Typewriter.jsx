@@ -1,10 +1,5 @@
 import { useState, useEffect, useRef } from "react";
 
-/**
- * Reveals `text` progressively (write-out animation) when `animate` is true.
- * When false (loaded history), shows the full text immediately.
- * Calls `onTick` as it reveals so the parent can keep the view scrolled.
- */
 export default function Typewriter({ text = "", animate = false, onTick }) {
   const [count, setCount] = useState(animate ? 0 : text.length);
   const rafRef = useRef(0);
@@ -16,7 +11,7 @@ export default function Typewriter({ text = "", animate = false, onTick }) {
     }
     let i = 0;
     let last = performance.now();
-    const CHARS_PER_SEC = 55; // pacing of the write-out
+    const CHARS_PER_SEC = 55;
 
     const step = (now) => {
       const dt = (now - last) / 1000;

@@ -6,6 +6,7 @@ import OAuthSuccess from "./pages/OAuthSuccess.jsx";
 import ConversationPage from "./pages/ConversationPage.jsx";
 import NewConversationPage from "./pages/NewConversationPage.jsx";
 import ReportPage from "./pages/ReportPage.jsx";
+import DashboardPage from "./pages/DashboardPage.jsx";
 import { useAuthStore } from "./stores/authStore.js";
 
 function ProtectedRoute() {
@@ -60,7 +61,7 @@ function EmptyState() {
           letterSpacing: -0.3,
         }}
       >
-        coach.
+        Solace.
       </span>
       <span style={{ fontSize: 13 }}>
         Select a conversation or start a new one
@@ -82,6 +83,7 @@ export const router = createBrowserRouter([
         children: [
           { index: true, element: <NewConversationPage /> },
           { path: "new", element: <NewConversationPage /> },
+          { path: "dashboard", element: <DashboardPage /> },
           { path: ":id", element: <ConversationPage /> },
         ],
       },

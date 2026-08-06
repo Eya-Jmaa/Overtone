@@ -1,4 +1,6 @@
 import { useEffect } from "react";
+import { NavLink } from "react-router-dom";
+import { BarChart3 } from "lucide-react";
 import { useAuthStore } from "../../stores/authStore.js";
 import { useConvStore } from "../../stores/convStore.js";
 import { useThemeStore } from "../../stores/themeStore.js";
@@ -19,8 +21,9 @@ export default function Sidebar({ onCollapse }) {
     <aside style={{
       width: 260,
       flexShrink: 0,
-      background: "var(--ink)",
-      borderRight: "1px solid var(--whisper-2)",
+      background: "var(--bg-sunken)",
+      borderRight: "1px solid var(--border)",
+      boxShadow: "inset -12px 0 24px -24px rgba(0,0,0,.9)",
       display: "flex",
       flexDirection: "column",
       height: "100vh",
@@ -36,9 +39,8 @@ export default function Sidebar({ onCollapse }) {
         flexDirection: "column",
         height: "100%",
       }}>
-        {/* Wordmark + collapse */}
         <div style={{ padding: "22px 20px 18px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-          <div className="wordmark" style={{ fontSize: 18 }}>coach<span>.</span></div>
+          <div className="wordmark" style={{ fontSize: 18 }}>Solace<span>.</span></div>
           <button
             onClick={onCollapse}
             title="Collapse sidebar"
@@ -71,12 +73,33 @@ export default function Sidebar({ onCollapse }) {
           </button>
         </div>
 
-        {/* New conversation */}
-        <div style={{ padding: "0 14px 14px" }}>
+        <div style={{ padding: "0 14px 10px" }}>
           <NewConvButton />
         </div>
 
-        {/* Recent label + list */}
+        <div style={{ padding: "0 14px 14px" }}>
+          <NavLink
+            to="/app/dashboard"
+            style={({ isActive }) => ({
+              display: "flex",
+              alignItems: "center",
+              gap: 9,
+              width: "100%",
+              padding: "9px 11px",
+              borderRadius: 9,
+              border: "1px solid var(--whisper-2)",
+              background: isActive ? "var(--bg-elevated)" : "transparent",
+              color: isActive ? "var(--text-base)" : "var(--text-muted)",
+              fontSize: 12.5,
+              textDecoration: "none",
+              transition: "background 140ms, color 140ms",
+            })}
+          >
+            <BarChart3 size={15} strokeWidth={1.7} />
+            Your patterns
+          </NavLink>
+        </div>
+
         <div style={{
           flex: 1,
           overflowY: "auto",
@@ -121,7 +144,6 @@ export default function Sidebar({ onCollapse }) {
           {conversations.map((c) => <ConvItem key={c.id} conv={c} />)}
         </div>
 
-        {/* User footer */}
         <div style={{
           padding: "12px 14px",
           borderTop: "1px solid var(--whisper-2)",
@@ -173,7 +195,6 @@ export default function Sidebar({ onCollapse }) {
           </div>
 
           <div style={{ display: "flex", gap: 6, flexShrink: 0 }}>
-            {/* Theme toggle */}
             <button
               onClick={toggle}
               title={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
@@ -205,7 +226,6 @@ export default function Sidebar({ onCollapse }) {
               {theme === "dark" ? "☀" : "☾"}
             </button>
 
-            {/* Logout */}
             <button
               onClick={logout}
               title="Log out"

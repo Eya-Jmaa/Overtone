@@ -1,7 +1,3 @@
-// Inline coaching-mode selector (segmented control — no popup).
-// Chosen before the first message; the conversation is created with this mode
-// and it can't be changed afterwards.
-
 const MODES = [
   { id: "psy", label: "Psychology", color: "#a78bfa" },
   { id: "professional", label: "Professional", color: "#d4a574" },

@@ -1,9 +1,4 @@
-"""
-Verify configured session-source URLs with the same headers as the collector.
-
-Usage:
-    python verify_session_urls.py --first 4
-"""
+"""Verify configured session-source URLs with the same headers as the collector."""
 
 import argparse
 

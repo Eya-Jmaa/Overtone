@@ -4,7 +4,11 @@ from sqlalchemy.orm import Session
 from database import get_db
 from services.db_models import Conversation, Message
 from services.schemas import MessageCreate, MessageItemOut
-from services.turn_service import process_user_turn, generate_title_for_conversation
+from services.turn_service import (
+    analyze_text_emotion_for_message,
+    generate_title_for_conversation,
+    process_user_turn,
+)
 from routers.auth import get_current_user
 
 router = APIRouter(prefix="/conversations", tags=["messages"])
@@ -26,10 +30,6 @@ def get_messages(
     return conv.messages
 
 
-# NOTE: this route is intentionally a sync `def`, not `async def`. It performs
-# a blocking LLM call, so running it on the event loop would freeze the whole
-# server (including the WebSocket path) for the entire round-trip. As a sync
-# route FastAPI runs it in a threadpool instead, keeping the loop responsive.
 @router.post("/{conv_id}/messages", response_model=list[MessageItemOut])
 def send_message(
     conv_id: int,
@@ -38,7 +38,6 @@ def send_message(
     current_user=Depends(get_current_user),
     db: Session = Depends(get_db),
 ):
-    # 1. Verify ownership
     conv = (
         db.query(Conversation)
         .filter(Conversation.id == conv_id, Conversation.user_id == current_user.id)
@@ -47,9 +46,6 @@ def send_message(
     if not conv:
         raise HTTPException(status_code=404, detail="Conversation not found")
 
-    # 2. Process turn using shared service. Defer title generation (a second
-    #    LLM call) to a background task so the first message's response isn't
-    #    blocked waiting on it.
     result = process_user_turn(
         db,
         conv_id,
@@ -66,5 +62,10 @@ def send_message(
             result["user_message"].content,
             result["assistant_message"].content,
         )
+
+    background_tasks.add_task(
+        analyze_text_emotion_for_message,
+        result["user_message"].id,
+    )
 
     return [result["user_message"], result["assistant_message"]]

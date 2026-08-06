@@ -1,5 +1,3 @@
-// frontend/src/services/authApi.js
-// REPLACE ENTIRELY
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8000";
 
@@ -46,7 +44,6 @@ export async function login(email, password) {
 }
 
 export async function refreshToken() {
-  // Now returns { accessToken, user } instead of just { accessToken }
   return request("/auth/refresh", { method: "POST" });
 }
 
@@ -55,7 +52,6 @@ export async function logout() {
 }
 
 export async function getMe(accessToken) {
-  // Fetches the current user profile using the access token
   return request("/auth/me", {
     method: "GET",
     headers: {

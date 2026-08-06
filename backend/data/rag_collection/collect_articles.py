@@ -1,15 +1,4 @@
-"""
-Blog Article Scraper for EchoCoach RAG
-=======================================
-Scrapes free, public articles from known coaching/psychology sources.
-Extracts main body text, strips navigation/ads, saves with metadata.
-
-Usage:
-    python collect_articles.py --out ./data/articles
-
-Requires: requests, beautifulsoup4, newspaper3k
-    pip install requests beautifulsoup4 newspaper3k lxml
-"""
+"""Blog Article Scraper for EchoCoach RAG — Scrapes free, public articles from known coaching/psychology sources."""
 
 import requests
 import json
@@ -30,8 +19,6 @@ except ImportError:
 
 from bs4 import BeautifulSoup
 
-
-# —— Article URLs per mode ————————————————————————————————————————————————
 
 ARTICLES = {
     "psy": [

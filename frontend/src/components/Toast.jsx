@@ -6,11 +6,6 @@ const TYPE_STYLES = {
   info: { borderLeft: "2px solid var(--gold)", color: "var(--bone)" },
 };
 
-/**
- * Global toast notification renderer.
- * Renders all active toasts from the toast store.
- * Place once at the root layout level.
- */
 export default function ToastContainer() {
   const toasts = useToastStore((s) => s.toasts);
   const remove = useToastStore((s) => s.remove);

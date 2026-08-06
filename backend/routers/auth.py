@@ -1,5 +1,6 @@
 import secrets
 from datetime import datetime, timedelta, timezone
+from typing import Optional
 from urllib.parse import urlencode
 
 import httpx
@@ -29,8 +30,6 @@ SIGNUP_TOKEN_TTL_MINUTES = 5
 MAX_CODE_ATTEMPTS = 5
 
 
-# ── helpers ─────────────────────────────────────────
-
 def _set_refresh_cookie(response: Response, token: str):
     response.set_cookie(
         key=REFRESH_COOKIE,
@@ -51,10 +50,24 @@ def _user_to_out(user: User) -> UserOut:
     return UserOut(id=user.id, email=user.email, name=user.name, is_verified=user.is_verified)
 
 
-def _issue_tokens(response: Response, user: User) -> AuthOut:
+def record_login(db: Session, user: User) -> None:
+    """Stamp last_login_at / bump login_count for a genuine sign-in."""
+    try:
+        now = datetime.now(timezone.utc)
+        user.last_login_at = now
+        user.last_seen_at = now
+        user.login_count = (user.login_count or 0) + 1
+        db.commit()
+    except Exception:
+        db.rollback()
+
+
+def _issue_tokens(response: Response, user: User, db: Optional[Session] = None) -> AuthOut:
     access = make_access_token(user.id)
     refresh = make_refresh_token(user.id)
     _set_refresh_cookie(response, refresh)
+    if db is not None:
+        record_login(db, user)
     return AuthOut(user=_user_to_out(user), accessToken=access)
 
 
@@ -87,7 +100,7 @@ def _aware(dt: datetime) -> datetime:
 
 from fastapi import Header
 from typing import Annotated
- 
+
 def get_current_user(
     authorization: Annotated[str, Header()],
     db: Session = Depends(get_db),
@@ -105,22 +118,17 @@ def get_current_user(
     return user
 
 
-# ── Step 1: send code ───────────────────────────────
-
 @router.post("/send-code", response_model=MessageOut)
 def send_code(body: SendCodeIn, db: Session = Depends(get_db)):
     email = body.email.lower()
 
-    # Already a registered user?
     existing = db.query(User).filter(User.email == email).first()
     if existing:
         raise HTTPException(409, "An account with this email already exists. Try signing in.")
 
-    # Generate 6-digit code
     code = f"{secrets.randbelow(1_000_000):06d}"
     code_hash = hash_password(code)
 
-    # Upsert pending verification
     pending = db.query(PendingVerification).filter(PendingVerification.email == email).first()
     if pending:
         pending.code_hash = code_hash
@@ -141,13 +149,17 @@ def send_code(body: SendCodeIn, db: Session = Depends(get_db)):
     try:
         send_code_email(email, code)
     except Exception as e:
-        print(f"[email] Failed to send: {e}")
-        print(f"[email] DEV CODE for {email}: {code}")  # fallback so you can still test
+        print(f"[email] Failed to send to {email}: {type(e).__name__}: {e}")
+        if not settings.email_fail_silently:
+            # Telling the user "Code sent" when it wasn't leaves them staring at
+            # an inbox that will never receive anything.
+            raise HTTPException(
+                502, "Could not send the verification email. Please try again."
+            )
+        print(f"[email] DEV CODE for {email}: {code}")
 
     return MessageOut(message="Code sent. Check your inbox.")
 
-
-# ── Step 2: verify code ─────────────────────────────
 
 @router.post("/verify-code", response_model=VerifyCodeOut)
 def verify_code(body: VerifyCodeIn, db: Session = Depends(get_db)):
@@ -179,15 +191,12 @@ def verify_code(body: VerifyCodeIn, db: Session = Depends(get_db)):
     )
 
 
-# ── Step 3: complete signup ─────────────────────────
-
 @router.post("/complete-signup", response_model=AuthOut)
 def complete_signup(body: CompleteSignupIn, response: Response, db: Session = Depends(get_db)):
     email = _decode_signup_token(body.signup_token)
     if not email:
         raise HTTPException(401, "Verification expired. Please start over.")
 
-    # The pending row must still exist and be marked verified
     pending = db.query(PendingVerification).filter(PendingVerification.email == email).first()
     if not pending or not pending.verified:
         raise HTTPException(401, "Verification not found. Please start over.")
@@ -206,17 +215,15 @@ def complete_signup(body: CompleteSignupIn, response: Response, db: Session = De
     db.commit()
     db.refresh(user)
 
-    return _issue_tokens(response, user)
+    return _issue_tokens(response, user, db)
 
-
-# ── Login / refresh / logout ────────────────────────
 
 @router.post("/login", response_model=AuthOut)
 def login(body: LoginIn, response: Response, db: Session = Depends(get_db)):
     user = db.query(User).filter(User.email == body.email.lower()).first()
     if not user or not verify_password(body.password, user.password_hash):
         raise HTTPException(401, "Invalid email or password.")
-    return _issue_tokens(response, user)
+    return _issue_tokens(response, user, db)
 
 
 @router.post("/refresh", response_model=RefreshOut)
@@ -235,7 +242,6 @@ def refresh(
     if not user:
         _clear_refresh_cookie(response)
         raise HTTPException(401, "User not found.")
-    # Rotate the refresh token for security
     new_refresh = make_refresh_token(user.id)
     _set_refresh_cookie(response, new_refresh)
     return RefreshOut(accessToken=make_access_token(user.id), user=_user_to_out(user))
@@ -251,7 +257,6 @@ def me(user: User = Depends(get_current_user)):
     """Return the current authenticated user's profile."""
     return _user_to_out(user)
 
-# ── Google OAuth ────────────────────────────────────
 
 @router.get("/google/login")
 def google_login():
@@ -325,6 +330,8 @@ async def google_callback(
             db.add(user)
     db.commit()
     db.refresh(user)
+
+    record_login(db, user)
 
     access = make_access_token(user.id)
     refresh = make_refresh_token(user.id)

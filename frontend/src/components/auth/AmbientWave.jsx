@@ -1,10 +1,5 @@
 import { useEffect, useRef } from "react";
 
-/**
- * Ambient breathing waveform.
- * Canvas, 60fps, ~0.3Hz breath cycle, gold-tinted peaks.
- * Brightens near the cursor.
- */
 export default function AmbientWave() {
   const canvasRef = useRef(null);
   const mouseRef = useRef({ x: -9999, y: -9999, active: false });
@@ -46,15 +41,13 @@ export default function AmbientWave() {
       const h = canvas.offsetHeight;
       ctx.clearRect(0, 0, w, h);
 
-      // Soft radial vignette behind
       const grad = ctx.createRadialGradient(w * 0.4, h * 0.5, 0, w * 0.4, h * 0.5, w * 0.7);
       grad.addColorStop(0, "rgba(212, 165, 116, 0.06)");
       grad.addColorStop(1, "rgba(212, 165, 116, 0)");
       ctx.fillStyle = grad;
       ctx.fillRect(0, 0, w, h);
 
-      // Breath modulator: 0..1, slow sinusoid
-      const breath = (Math.sin(t * 0.0008) + 1) / 2; // ~0..1 over ~7s
+      const breath = (Math.sin(t * 0.0008) + 1) / 2; 
       const amp = 18 + breath * 32;
 
       const mx = mouseRef.current.x;
@@ -90,7 +83,6 @@ export default function AmbientWave() {
         ctx.stroke();
       }
 
-      // One brighter "lead" line through the middle
       const midY = h * 0.5;
       ctx.beginPath();
       for (let x = 0; x <= w; x += 3) {

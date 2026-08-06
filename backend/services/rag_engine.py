@@ -1,28 +1,7 @@
-"""
-Retrieval-augmented coaching — retrieval over the knowledge base.
-
-The KB is a ChromaDB collection ("coaching_kb", 603 chunks) at
-backend/data/chroma_db, embedded offline with intfloat/multilingual-e5-base
-(dim 768) by data/rag_collection/embed_and_upsert.py. Each chunk carries
-metadata: mode (psy|professional|sport|all), tier, topic, technique_name, etc.
-
-This module is the ONLY runtime consumer of that KB. It is called from
-llm_service before each coaching reply to ground the coach in evidence-based
-material. It FAILS OPEN: if RAG is disabled, the model/DB can't load, or a query
-errors, retrieve() returns [] and the coaching turn proceeds normally.
-
-The embedding model + Chroma collection are loaded lazily as process-wide
-singletons (guarded by a lock) on first use, and can be warmed off the request
-path via warmup().
-"""
-import os
+"""Retrieval-augmented coaching — retrieval over the knowledge base."""
 import threading
-from pathlib import Path
 
-from config import settings
-
-# rag_engine.py lives in backend/services/, so parent.parent is backend/.
-_BACKEND_DIR = Path(__file__).resolve().parent.parent
+from config import BACKEND_DIR, settings
 
 _model = None
 _collection = None
@@ -32,15 +11,11 @@ _init_failed = False
 
 def _db_path() -> str:
     """Resolve the Chroma store path (default: backend/data/chroma_db)."""
-    p = settings.rag_db_path
-    if not p:
-        return str(_BACKEND_DIR / "data" / "chroma_db")
-    return p if os.path.isabs(p) else str(_BACKEND_DIR / p)
+    return settings.rag_db_path or str(BACKEND_DIR / "data" / "chroma_db")
 
 
 def _ensure_loaded() -> bool:
-    """Load the embedding model + collection once. Returns False (permanently)
-    if loading fails, so we don't retry a broken setup on every turn."""
+    """Load the embedding model + collection once."""
     global _model, _collection, _init_failed
     if _init_failed:
         return False
@@ -52,20 +27,12 @@ def _ensure_loaded() -> bool:
         if _init_failed:
             return False
         try:
-            # Imported lazily so importing rag_engine (and thus llm_service)
-            # stays cheap and never fails on a heavy/missing ML dependency.
             import chromadb
             from sentence_transformers import SentenceTransformer
 
-            # local_files_only: the model is already cached, so never hit the
-            # network. Without this, sentence-transformers does an online HEAD
-            # check on huggingface.co and fails hard when the box is offline /
-            # DNS is flaky ("getaddrinfo failed"), disabling RAG needlessly.
             try:
                 model = SentenceTransformer(settings.rag_embed_model, local_files_only=True)
             except Exception:
-                # Fall back to a normal (possibly online) load if the cache is
-                # incomplete or the kwarg isn't supported by this version.
                 model = SentenceTransformer(settings.rag_embed_model)
             client = chromadb.PersistentClient(path=_db_path())
             collection = client.get_collection(settings.rag_collection)
@@ -83,30 +50,23 @@ def _ensure_loaded() -> bool:
 
 
 def warmup() -> None:
-    """Best-effort preload (e.g. from a startup background thread) so the first
-    coaching turn doesn't pay the model-load cost. Never raises."""
+    """Best-effort preload (e.g."""
     if not settings.rag_enabled:
         return
     try:
         _ensure_loaded()
-    except Exception as e:  # defensive — _ensure_loaded already swallows errors
+    except Exception as e:
         print(f"[rag] warmup error: {e}")
 
 
 def retrieve(query: str, mode: str, k: int | None = None) -> list[dict]:
-    """Return up to k KB chunks relevant to `query`, filtered to the session's
-    mode (plus cross-mode 'all'). Empty list on any failure or if disabled.
-
-    Returns: list of {"text": str, "metadata": dict, "distance": float}.
-    """
+    """Return up to k KB chunks relevant to `query`, filtered to the session's mode (plus cross-mode 'all')."""
     if not settings.rag_enabled or not query or not query.strip():
         return []
     if not _ensure_loaded():
         return []
     k = k or settings.rag_top_k
     try:
-        # e5 is asymmetric: queries take a "query: " prefix (documents were
-        # embedded with "passage: "), embeddings L2-normalized to match indexing.
         emb = _model.encode([f"query: {query}"], normalize_embeddings=True).tolist()
         res = _collection.query(
             query_embeddings=emb,
@@ -126,8 +86,7 @@ def retrieve(query: str, mode: str, k: int | None = None) -> list[dict]:
 
 
 def build_context_block(chunks: list[dict], max_chars: int | None = None) -> str:
-    """Format retrieved chunks into a bounded grounding block for the system
-    instruction. Returns '' when there are no chunks."""
+    """Format retrieved chunks into a bounded grounding block for the system instruction."""
     if not chunks:
         return ""
     max_chars = max_chars if max_chars is not None else settings.rag_max_context_chars
@@ -161,6 +120,5 @@ def build_context_block(chunks: list[dict], max_chars: int | None = None) -> str
 
 
 def context_for(query: str, mode: str) -> str:
-    """Convenience: retrieve + format in one call. Returns '' if nothing (or on
-    any failure)."""
+    """Convenience: retrieve + format in one call."""
     return build_context_block(retrieve(query, mode))

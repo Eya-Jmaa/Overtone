@@ -1,7 +1,3 @@
-/**
- * Format a date/timestamp as a relative time string.
- * Examples: "just now", "2 min ago", "1h ago", "yesterday", "3 days ago"
- */
 export function relativeTime(dateInput) {
   if (!dateInput) return "";
   const now = Date.now();
@@ -28,9 +24,6 @@ export function relativeTime(dateInput) {
   return date.toLocaleDateString();
 }
 
-/**
- * Format a timestamp for chat bubble display.
- */
 export function formatTime(dateInput) {
   if (!dateInput) return "";
   const d = typeof dateInput === "string" ? new Date(dateInput) : dateInput;

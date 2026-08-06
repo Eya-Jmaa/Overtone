@@ -1,23 +1,4 @@
-"""
-Backfill `tier` and `language` metadata on legacy documents in the
-`coaching_kb` ChromaDB collection.
-
-Metadata-only: uses collection.update() to patch metadatas. Never touches
-`documents` or embeddings, never deletes anything.
-
-Classifies each doc into one of four buckets (matches the diagnostic audit):
-  A - legacy technique cards   -> tier=technique
-  B - legacy PubMed abstracts  -> tier=abstract
-  C - legacy web articles      -> tier=article
-  D - already correct (Codex)  -> skip
-
-Anything that doesn't match any bucket is left untouched and reported as
-unclassified for manual review.
-
-Usage:
-    python backfill_legacy_metadata.py --dry-run   # preview only, no writes
-    python backfill_legacy_metadata.py              # apply the backfill
-"""
+"""Backfill `tier` and `language` metadata on legacy documents in the `coaching_kb` ChromaDB collection."""
 import argparse
 import copy
 import json
@@ -128,7 +109,6 @@ def main():
         print("=" * 60)
         return
 
-    # ---- Apply updates for buckets A, B, C only ----
     update_ids = []
     update_metadatas = []
     for key in ["A", "B", "C"]:

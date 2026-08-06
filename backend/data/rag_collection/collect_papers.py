@@ -1,21 +1,4 @@
-"""
-RAG paper collector for EchoCoach.
-
-Usage:
-    python collect_papers.py --email you@example.com --input papers.csv --out ./data
-
-Input CSV columns: doi, mode, topic
-Output structure:
-    ./data/{mode}/{topic}__{safe_doi}.pdf        (when a full PDF is found)
-    ./data/{mode}/{topic}__{safe_doi}.json       (metadata, always written)
-    ./data/collection_log.csv                    (status per DOI: pdf_ok / abstract_only / failed)
-
-Strategy per DOI:
-    1. Try Unpaywall (best legal OA PDF link)
-    2. Fall back to OpenAlex (broader index, sometimes has OA url Unpaywall misses)
-    3. If no PDF found anywhere, save metadata + abstract (from OpenAlex) as a .json
-       so the paper can still be chunked for RAG with a synthesized fallback.
-"""
+"""RAG paper collector for EchoCoach."""
 
 import argparse
 import csv
@@ -80,7 +63,6 @@ def try_openalex(doi: str):
     best_loc = data.get("best_oa_location") or {}
     pdf_url = best_loc.get("pdf_url") or (oa.get("oa_url") if oa.get("is_oa") else None)
 
-    # Reconstruct abstract from OpenAlex's inverted index, if present
     abstract = None
     inv = data.get("abstract_inverted_index")
     if inv:
@@ -131,7 +113,7 @@ def process_row(doi: str, mode: str, topic: str, out_dir: str, email: str, log_r
         meta["oa_status"] = up.get("oa_status")
 
     if pdf_url:
-        time.sleep(1)  # be polite to hosts
+        time.sleep(1)
         ok = download_file(pdf_url, pdf_path)
         if ok:
             status = "pdf_ok"

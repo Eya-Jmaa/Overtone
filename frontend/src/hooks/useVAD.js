@@ -1,15 +1,5 @@
 import { useRef, useCallback, useEffect } from "react";
 
-/**
- * Voice Activity Detection hook using @ricky0123/vad-web.
- * 
- * Detects speech start/end boundaries and notifies via callbacks.
- * Separated from useAudioRecorder - VAD detects boundaries, recorder captures/encodes.
- * 
- * @param {MediaStream} stream - Audio stream from getUserMedia
- * @param {Function} onSpeechStart - Called when speech is detected
- * @param {Function} onSpeechEnd - Called when speech ends (silence past threshold)
- */
 export function useVAD(stream, onSpeechStart, onSpeechEnd) {
   const vadRef = useRef(null);
   const isListeningRef = useRef(false);
@@ -20,10 +10,8 @@ export function useVAD(stream, onSpeechStart, onSpeechEnd) {
     try {
       isListeningRef.current = true;
       
-      // Initialize VAD - try both APIs for compatibility
       let myVad;
       try {
-        // Try new API first (MicVAD class with static new())
         const { MicVAD, getDefaultRealTimeVADOptions } = await import("@ricky0123/vad-web");
         
         const options = {
@@ -40,7 +28,6 @@ export function useVAD(stream, onSpeechStart, onSpeechEnd) {
         myVad = await MicVAD.new(options);
         await myVad.start();
       } catch (e) {
-        // Fallback to old API (vad function)
         console.warn("VAD: trying fallback vad function", e);
         const { vad } = await import("@ricky0123/vad-web");
         myVad = await vad({
@@ -79,14 +66,12 @@ export function useVAD(stream, onSpeechStart, onSpeechEnd) {
     isListeningRef.current = false;
   }, []);
 
-  // Cleanup on unmount or when stream changes
   useEffect(() => {
     return () => {
       stopVAD();
     };
   }, [stopVAD]);
 
-  // Restart VAD when stream changes
   useEffect(() => {
     if (stream && isListeningRef.current) {
       stopVAD();

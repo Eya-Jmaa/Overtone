@@ -1,5 +1,3 @@
-// frontend/src/pages/OAuthSuccess.jsx
-// REPLACE ENTIRELY
 
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
@@ -12,7 +10,6 @@ export default function OAuthSuccess() {
 
   useEffect(() => {
     const run = async () => {
-      // 1. Extract access token from URL hash
       const hash = window.location.hash.slice(1);
       const params = new URLSearchParams(hash);
       const token = params.get("token");
@@ -22,18 +19,13 @@ export default function OAuthSuccess() {
         return;
       }
 
-      // 2. Fetch the actual user profile using the token
-      //    This replaces the old { id: "_pending" } placeholder
       let user;
       try {
         user = await authApi.getMe(token);
       } catch {
-        // If /me fails, still set the session with minimal info
-        // — the bootstrap will fix it on next page load
         user = { id: "_unknown", email: "", name: "" };
       }
 
-      // 3. Set the full session and navigate
       setSession({ user, accessToken: token });
       window.history.replaceState({}, "", "/app");
       navigate("/app", { replace: true });

@@ -1,63 +1,43 @@
-// VoiceOrb.jsx
-// The coach's presence in the room — a canvas orb that morphs per conversation
-// state and reacts to REAL audio amplitude.
-//
-//   state: 'connecting' | 'reconnecting' | 'listening' | 'recording'
-//          | 'thinking'  | 'speaking'    | 'error'
-//   getLevel: () => number   // live 0..1 RMS from the input OR output analyser
-//
-// The parent (VoiceMode) decides which analyser feeds getLevel:
-//   - recording -> mic input analyser (your turn)
-//   - speaking  -> TTS output analyser (coach's turn)
-//   - everything else -> ~0 (no amplitude, calm motion only)
-//
-// Colours come from the app's design tokens (index.css), resolved from CSS
-// variables so the orb stays on-palette AND theme-aware (light/dark). Gold is
-// the coach (speaking); sage is you (recording); rose is an error; muted
-// whisper/bone for the in-between states.
-//
-// Honours prefers-reduced-motion: the wobble/rotation drop to a calm, mostly
-// static orb with a gentle breathe. State is never conveyed by colour alone —
-// motion differs per state and VoiceMode always renders a text label too.
-
 import { useRef, useEffect } from 'react';
 
-const N = 96;
+const N = 128;
+const BANDS = 48;
 
-// Which design token drives each state, plus how reactive/energetic it is.
-// `react` scales how strongly live amplitude deforms the orb.
 const STATE_STYLE = {
-  connecting:   { token: 'whisper',  react: 0,    spin: 0.0 },
-  reconnecting: { token: 'whisper',  react: 0,    spin: 0.0 },
-  listening:    { token: 'boneDim',  react: 0,    spin: 0.4 },
-  recording:    { token: 'sage',     react: 0.45, spin: 0.7 },
-  thinking:     { token: 'whisper',  react: 0,    spin: 1.1 },
-  speaking:     { token: 'gold',     react: 0.45, spin: 0.7 },
-  error:        { token: 'rose',     react: 0,    spin: 0.0 },
+  connecting:   { token: 'whisper',  react: 0,    spin: 0.0, bars: false },
+  reconnecting: { token: 'whisper',  react: 0,    spin: 0.0, bars: false },
+  listening:    { token: 'boneDim',  react: 0,    spin: 0.4, bars: false },
+  recording:    { token: 'sage',     react: 0.45, spin: 0.7, bars: true  },
+  thinking:     { token: 'whisper',  react: 0,    spin: 1.1, bars: false },
+  speaking:     { token: 'gold',     react: 0.45, spin: 0.7, bars: true  },
+  error:        { token: 'rose',     react: 0,    spin: 0.0, bars: false },
 };
 
 function readTokens() {
   const cs = getComputedStyle(document.documentElement);
   const g = (name, fb) => (cs.getPropertyValue(name).trim() || fb);
   return {
-    ink:      g('--ink', '#0a0b10'),
+    ink:      g('--ink', '#07080d'),
     bone:     g('--bone', '#f5f1e8'),
     boneDim:  g('--bone-dim', '#a8a294'),
-    whisper:  g('--whisper', '#3d4458'),
-    gold:     g('--gold', '#d4a574'),
-    sage:     g('--sage', '#8fa896'),
-    rose:     g('--rose', '#c97f6a'),
+    whisper:  g('--whisper', '#4d566f'),
+    gold:     g('--gold', '#e0b183'),
+    sage:     g('--sage', '#9dbba6'),
+    rose:     g('--rose', '#dd8b74'),
+    azure:    g('--azure', '#7fa8d8'),
   };
 }
 
-export default function VoiceOrb({ state = 'listening', getLevel, size = 'lg' }) {
+export default function VoiceOrb({ state = 'listening', getLevel, getSpectrum, size = 'lg' }) {
   const canvasRef = useRef(null);
   const stateRef = useRef(state);
   const levelFnRef = useRef(getLevel);
+  const specFnRef = useRef(getSpectrum);
   const rafRef = useRef(0);
 
   useEffect(() => { stateRef.current = state; }, [state]);
   useEffect(() => { levelFnRef.current = getLevel; }, [getLevel]);
+  useEffect(() => { specFnRef.current = getSpectrum; }, [getSpectrum]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -65,24 +45,22 @@ export default function VoiceOrb({ state = 'listening', getLevel, size = 'lg' })
     let W, H, DPR;
     const seed = Array.from({ length: 5 }, () => Math.random() * 1000);
 
-    // Design tokens, re-read when the theme (root class) flips light/dark.
     let tok = readTokens();
     const themeObserver = new MutationObserver(() => { tok = readTokens(); });
     themeObserver.observe(document.documentElement, {
       attributes: true, attributeFilter: ['class', 'data-theme'],
     });
 
-    // Reduced motion: calm fallback (no wobble/rotation, gentle breathe only).
     const rmq = window.matchMedia('(prefers-reduced-motion: reduce)');
     let reduced = rmq.matches;
     const onRM = (e) => { reduced = e.matches; };
     rmq.addEventListener?.('change', onRM);
 
     function resize() {
-      DPR = window.devicePixelRatio || 1;
+      DPR = Math.min(1.5, window.devicePixelRatio || 1);
       const r = canvas.getBoundingClientRect();
       W = r.width; H = r.height;
-      canvas.width = W * DPR; canvas.height = H * DPR;
+      canvas.width = Math.round(W * DPR); canvas.height = Math.round(H * DPR);
       ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
     }
     resize();
@@ -102,10 +80,27 @@ export default function VoiceOrb({ state = 'listening', getLevel, size = 'lg' })
       Math.sin(a * 5.1 + seed[2]) * 0.15 +
       Math.sin(a * 8.3 + seed[3]) * 0.1;
 
+    const spec = new Float32Array(BANDS);
+    const smoothSpec = new Float32Array(BANDS);
+    const bandAt = (i) => {
+      const half = Math.abs(((i / N) * 2) % 2 - 1);
+      return smoothSpec[Math.min(BANDS - 1, Math.floor(half * BANDS))];
+    };
+
     let t = 0, last = performance.now();
     let smooth = 0;
 
+    let paused = document.hidden;
+    const onVisibility = () => {
+      const nowHidden = document.hidden;
+      if (nowHidden === paused) return;
+      paused = nowHidden;
+      if (!paused) { last = performance.now(); rafRef.current = requestAnimationFrame(frame); }
+    };
+    document.addEventListener('visibilitychange', onVisibility);
+
     function frame(now) {
+      if (paused) { rafRef.current = 0; return; }
       const dt = Math.min(0.05, (now - last) / 1000); last = now;
       t += dt;
 
@@ -113,24 +108,31 @@ export default function VoiceOrb({ state = 'listening', getLevel, size = 'lg' })
       const style = STATE_STYLE[st] || STATE_STYLE.listening;
       const color = tok[style.token] || tok.boneDim;
 
-      // Live level (0..1) — only reactive states listen to the analyser.
       let raw = 0;
       try { raw = style.react ? (levelFnRef.current?.() ?? 0) : 0; } catch (e) {}
       smooth += (raw - smooth) * Math.min(1, dt * 14);
       const level = Math.max(0, Math.min(1, smooth));
 
+      let haveSpec = false;
+      if (style.react && specFnRef.current) {
+        try { specFnRef.current(spec); haveSpec = true; } catch (e) {}
+      }
+      for (let i = 0; i < BANDS; i++) {
+        const target = haveSpec ? spec[i] : 0;
+        const k = target > smoothSpec[i] ? 0.55 : Math.min(1, dt * 7);
+        smoothSpec[i] += (target - smoothSpec[i]) * k;
+      }
+
       ctx.clearRect(0, 0, W, H);
       const cx = W / 2, cy = H / 2;
       const baseR = Math.min(W, H) * (size === 'sm' ? 0.15 : 0.2);
 
-      // Calm breathing baseline; a touch faster while "thinking".
       const breatheSpeed = st === 'thinking' ? 2.2 : 1.4;
       const breatheAmt = reduced ? 0.025 : 0.045;
       const breathe = 1 + breatheAmt * Math.sin(t * breatheSpeed);
       const push = level * style.react;
 
-      // ---- soft glow halo ----------------------------------------------------
-      const glowLayers = reduced ? 2 : 5;
+      const glowLayers = reduced ? 2 : 3;
       for (let gi = glowLayers; gi > 0; gi--) {
         const gr = baseR * breathe * (1 + push * 0.5) * (1 + gi * 0.42);
         const grd = ctx.createRadialGradient(cx, cy, gr * 0.2, cx, cy, gr);
@@ -140,7 +142,27 @@ export default function VoiceOrb({ state = 'listening', getLevel, size = 'lg' })
         ctx.beginPath(); ctx.arc(cx, cy, gr, 0, Math.PI * 2); ctx.fill();
       }
 
-      // ---- rotating rings (skipped in reduced motion) ------------------------
+      if (style.bars && !reduced) {
+        ctx.save(); ctx.translate(cx, cy);
+        ctx.rotate(-Math.PI / 2 + t * 0.06);
+        const inner = baseR * 1.34;
+        const barW = Math.max(1.6, baseR * 0.022);
+        ctx.lineCap = 'round';
+        ctx.lineWidth = barW;
+        for (let i = 0; i < BANDS * 2; i++) {
+          const b = smoothSpec[i < BANDS ? i : BANDS * 2 - 1 - i];
+          const a = (i / (BANDS * 2)) * Math.PI * 2;
+          const len = baseR * (0.06 + Math.pow(b, 1.25) * 0.62);
+          const ca = Math.cos(a), sa = Math.sin(a);
+          ctx.beginPath();
+          ctx.moveTo(ca * inner, sa * inner);
+          ctx.lineTo(ca * (inner + len), sa * (inner + len));
+          ctx.strokeStyle = hexA(color, 0.16 + b * 0.6);
+          ctx.stroke();
+        }
+        ctx.restore();
+      }
+
       if (!reduced && style.spin > 0) {
         ctx.save(); ctx.translate(cx, cy);
         for (let ring = 0; ring < 3; ring++) {
@@ -162,7 +184,6 @@ export default function VoiceOrb({ state = 'listening', getLevel, size = 'lg' })
         ctx.restore();
       }
 
-      // ---- reconnecting: a single sweeping arc so waiting reads as "working" --
       if (st === 'reconnecting' && !reduced) {
         ctx.save(); ctx.translate(cx, cy);
         ctx.rotate(t * 2.4);
@@ -173,15 +194,15 @@ export default function VoiceOrb({ state = 'listening', getLevel, size = 'lg' })
         ctx.restore();
       }
 
-      // ---- main blob ---------------------------------------------------------
       ctx.save(); ctx.translate(cx, cy); ctx.beginPath();
       for (let i = 0; i <= N; i++) {
         const a = (i / N) * Math.PI * 2;
         const organic = reduced ? 0 : noise(a, t * 0.9) * 0.10;
+        const spectral = (!reduced && style.react) ? bandAt(i) * 0.26 * (0.35 + level) : 0;
         const audioWob = reduced
           ? 0
-          : push * (0.35 * Math.sin(a * 5 + t * 6) + 0.25 * Math.sin(a * 9 - t * 4));
-        const r = baseR * breathe * (1 + organic + audioWob + (reduced ? push * 0.12 : 0));
+          : push * (0.22 * Math.sin(a * 5 + t * 6) + 0.16 * Math.sin(a * 9 - t * 4));
+        const r = baseR * breathe * (1 + organic + spectral + audioWob + (reduced ? push * 0.12 : 0));
         const x = Math.cos(a) * r, y = Math.sin(a) * r;
         i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
       }
@@ -193,9 +214,12 @@ export default function VoiceOrb({ state = 'listening', getLevel, size = 'lg' })
       ctx.fillStyle = bg;
       ctx.shadowColor = color; ctx.shadowBlur = (reduced ? 18 : 30) + push * 60;
       ctx.fill();
+      ctx.shadowBlur = 0;
+      ctx.strokeStyle = hexA(tok.bone, 0.10 + push * 0.22);
+      ctx.lineWidth = 1;
+      ctx.stroke();
       ctx.restore();
 
-      // ---- inner highlight ---------------------------------------------------
       ctx.save(); ctx.translate(cx, cy);
       const coreR = baseR * 0.5 * (1 + push * 0.5);
       const cg = ctx.createRadialGradient(0, 0, 0, 0, 0, coreR);
@@ -208,8 +232,6 @@ export default function VoiceOrb({ state = 'listening', getLevel, size = 'lg' })
 
       rafRef.current = requestAnimationFrame(frame);
     }
-    // Paint one frame synchronously so the orb is never blank before the first
-    // rAF (e.g. in a backgrounded/throttled tab); frame() self-schedules the rest.
     frame(performance.now());
 
     return () => {
@@ -217,6 +239,7 @@ export default function VoiceOrb({ state = 'listening', getLevel, size = 'lg' })
       ro.disconnect();
       themeObserver.disconnect();
       rmq.removeEventListener?.('change', onRM);
+      document.removeEventListener('visibilitychange', onVisibility);
     };
   }, [size]);
 

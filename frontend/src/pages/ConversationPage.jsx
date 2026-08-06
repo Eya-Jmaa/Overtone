@@ -60,6 +60,7 @@ function normalizeMessage(msg) {
     audio_duration: msg.audio_duration || null,
     timestamp: msg.created_at,
     inputType: msg.audio_url ? "audio" : "text",
+    pending: !!msg.pending,
   };
 }
 
@@ -69,22 +70,21 @@ export default function ConversationPage() {
   const userName = useAuthStore((s) => s.user?.name || "there");
   const conversations = useConvStore((s) => s.conversations);
   const refreshConversation = useConvStore((s) => s.refreshConversation);
+  const pollConversationTitle = useConvStore((s) => s.pollConversationTitle);
   const { messages, loading, sending, loadMessages, send, clear, currentConvId, addMessages, setSending, replaceOptimisticMessages } = useMessageStore();
   const toast = useToastStore((s) => s.add);
   const [input, setInput] = useState("");
   const [modeLocked, setModeLocked] = useState(false);
   const [videoActive, setVideoActive] = useState(false);
-  const [voiceMode, setVoiceMode] = useState(false); // full-screen immersive mode
-  const [animateId, setAnimateId] = useState(null);  // assistant msg id to write out
+  const [voiceMode, setVoiceMode] = useState(false); 
+  const [voiceAutoVideo, setVoiceAutoVideo] = useState(false); 
+  const [animateId, setAnimateId] = useState(null);  
 
-  // WebSocket live transcription state
   const [wsAiStatus, setWsAiStatus] = useState(null);
   const [streamingAssistantText, setStreamingAssistantText] = useState("");
   
-  // Track if coach is speaking to mute mic
   const coachSpeakingRef = useRef(false);
   
-  // Track if we're waiting for WS turn to complete
   const waitingForTurnRef = useRef(false);
 
   const location = useLocation();
@@ -93,15 +93,12 @@ export default function ConversationPage() {
   const mode = conversation?.mode || "professional";
   const title = conversation?.title || "New conversation";
 
-  // Greeting (shown as first AI message)
   const greeting = conversation && messages.length === 0 && !loading
     ? GREETING_TEMPLATE(userName, mode)
     : null;
 
-  // WebSocket client
   const wsClient = getWebSocketClient();
 
-  // Setup WebSocket connection
   useEffect(() => {
     if (id && token) {
       if (wsClient.getState() !== WS_STATES.CLOSED && wsClient.connectionId !== Number(id)) {
@@ -110,21 +107,18 @@ export default function ConversationPage() {
 
       wsClient.connect(Number(id), token);
 
-      // Named handlers so cleanup can actually remove them: off(event, handler)
-      // filters by identity, so the previous one-arg off() calls removed nothing
-      // and leaked a handler per effect run — which would double-enqueue audio.
       const onPartial = ({ text }) => setInput(text);
 
       const onState = (payload) => {
-        // backend sends { value: 'processing'|'speaking'|'listening' };
-        // connection lifecycle emits a bare string ('OPEN'/'CLOSED') — ignore it.
         const v = typeof payload === "string" ? null : payload?.value;
         if (!v) return;
         setWsAiStatus(v);
         coachSpeakingRef.current = v === "speaking";
       };
 
-      const onAssistantDelta = ({ text }) => setStreamingAssistantText((prev) => prev + text);
+      // Deltas arrive as whitespace-trimmed chunks, so re-join them with a space.
+      const onAssistantDelta = ({ text }) =>
+        setStreamingAssistantText((prev) => (prev ? `${prev} ${text}` : text));
 
       const onAssistantDone = () => {
         setStreamingAssistantText("");
@@ -134,10 +128,8 @@ export default function ConversationPage() {
         loadMessages(token, id);
       };
 
-      // Single audio path: the gapless singleton player (Tier-B). Tier-A
-      // useTTSPlayer is removed so audio plays through exactly one system.
       const onAudioFrame = (buffer) => getOutputPlayer().enqueue(buffer);
-      const onStopAudio = () => getOutputPlayer().stop(); // barge-in hook
+      const onStopAudio = () => getOutputPlayer().stop(); 
 
       const onError = ({ message }) => {
         toast(message, "error");
@@ -165,7 +157,6 @@ export default function ConversationPage() {
     }
   }, [id, token, toast]);
 
-  // Audio recorder with WebSocket streaming
   const { start, stop, recording, transcribing, audioBlob, duration, stream } = useAudioRecorder(
     token,
     (transcript) => setInput((prev) => (prev ? `${prev} ${transcript}` : transcript).trim()),
@@ -175,21 +166,15 @@ export default function ConversationPage() {
       }
     },
     (blob, elapsed) => {
-      // Store blob for upload after WS turn completes
-      // This allows us to upload the audio for playback later
     },
   );
 
-  // VAD for speech detection - VAD triggers WS turn processing
   const { startVAD, stopVAD } = useVAD(
     stream,
     () => {
-      // On speech start, just show UI state
       wsClient.sendControlMessage("start_turn");
     },
     async () => {
-      // On speech end, process turn via WebSocket with TTS
-      // Show optimistic user message immediately using the partial transcript
       const partialText = input.trim() || "Voice message";
       const tempAudioUrl = audioBlob ? URL.createObjectURL(audioBlob) : null;
       
@@ -208,12 +193,10 @@ export default function ConversationPage() {
       setInput("");
       waitingForTurnRef.current = true;
       
-      // Trigger the server to process this turn (transcribe full audio, get LLM response, TTS)
       wsClient.sendControlMessage("end_turn");
     },
   );
 
-  // Start VAD when recording starts and stream is available
   useEffect(() => {
     if (recording && stream) {
       startVAD();
@@ -222,8 +205,8 @@ export default function ConversationPage() {
     }
   }, [recording, stream, startVAD, stopVAD]);
 
-  // Webcam
-  const webcam = useWebcam();
+  const sendFrame = useCallback((frame) => wsClient.sendVideoFrame(frame), [wsClient]);
+  const webcam = useWebcam({ onFrame: sendFrame });
 
   const prevIdRef = useRef(null);
   const pendingHandledForRef = useRef(null);
@@ -242,7 +225,7 @@ export default function ConversationPage() {
         const msgs = useMessageStore.getState().messages;
         const last = msgs[msgs.length - 1];
         if (last?.role === "assistant" && last.id != null) setAnimateId(last.id);
-        refreshConversation(Number(id), token);
+        pollConversationTitle(Number(id), token);
       };
       if (pendingMessage) {
         send(token, id, pendingMessage).then(afterSend);
@@ -254,6 +237,7 @@ export default function ConversationPage() {
     }
 
     if (prevId !== id) {
+      setAnimateId(null);
       clear();
       loadMessages(token, id);
     }
@@ -263,26 +247,32 @@ export default function ConversationPage() {
     setModeLocked(messages.length > 1);
   }, [messages.length]);
 
+  const startLiveHandledForRef = useRef(null);
+  useEffect(() => {
+    const startLive = location.state?.startLive;
+    if (!startLive || !id || startLiveHandledForRef.current === id) return;
+    startLiveHandledForRef.current = id;
+    setVoiceAutoVideo(!!startLive.video);
+    setVoiceMode(true);
+    navigate(`/app/${id}`, { replace: true });
+  }, [id, location.state, navigate]);
+
   const handleSend = useCallback(async (text, inputType = "text") => {
     if (!text.trim() || !id) return;
     setInput("");
 
     try {
       await send(token, id, text.trim());
-      // Write-out animation for the just-arrived assistant reply.
       const msgs = useMessageStore.getState().messages;
       const last = msgs[msgs.length - 1];
       if (last?.role === "assistant" && last.id != null) setAnimateId(last.id);
       const isFirst = messages.length === 0;
-      if (isFirst) refreshConversation(Number(id), token);
+      if (isFirst) pollConversationTitle(Number(id), token);
     } catch (e) {
       toast(e.message || "Failed to send message", "error");
     }
-  }, [id, token, send, messages.length, refreshConversation, toast]);
+  }, [id, token, send, messages.length, pollConversationTitle, toast]);
 
-  // Voice message in normal chat: on stop, persist the recording (audio_url) +
-  // its transcription as the message content, so it appears as a playable
-  // AudioBubble with the transcript. `result` = { blob, transcript, duration }.
   const handleAudioSend = useCallback(async (result) => {
     const blob = result?.blob;
     if (!blob || !id) return;
@@ -312,24 +302,29 @@ export default function ConversationPage() {
       replaceOptimisticMessages([userMsg, assistantMsg]);
       if (assistantMsg?.id != null) setAnimateId(assistantMsg.id);
       URL.revokeObjectURL(tempAudioUrl);
-      if (wasFirst) refreshConversation(Number(id), token);
+      if (wasFirst) pollConversationTitle(Number(id), token);
     } catch (e) {
       loadMessages(token, id);
       setSending(false);
       toast(e.message || "Failed to send audio message", "error");
     }
-  }, [id, token, messages.length, addMessages, replaceOptimisticMessages, loadMessages, refreshConversation, toast]);
+  }, [id, token, messages.length, addMessages, replaceOptimisticMessages, loadMessages, pollConversationTitle, toast]);
 
   const handleMicToggle = async () => {
     if (recording) {
-      // stop() resolves with the finalized recording + clean transcript.
       const result = await stop();
       if (result?.blob) handleAudioSend(result);
     } else {
-      getAudioContext(); // unlock audio output for TTS within this user gesture
+      getAudioContext(); 
       start();
     }
   };
+
+  const handleEndSession = useCallback(() => {
+    getOutputPlayer().stop();   
+    setVoiceMode(false);
+    navigate(`/report/${id}`, { state: { generate: true } });
+  }, [id, navigate]);
 
   const handleVideoToggle = () => {
     if (videoActive) {
@@ -364,7 +359,8 @@ export default function ConversationPage() {
       <ConvTopbar
         scenario={conversation ? { title, description: "", persona: "AI coach", turns: "8–12" } : null}
         mode={mode}
-        onEndSession={() => console.log("end session")}
+        canEnd={messages.some((m) => m.role === "user")}
+        onEndSession={handleEndSession}
       />
 
       <div style={{ flex: 1, display: "flex", overflow: "hidden", minHeight: 0 }}>
@@ -378,7 +374,6 @@ export default function ConversationPage() {
             overflow: "hidden",
           }}
         >
-          {/* Loading skeletons */}
           {loading && (
             <div style={{ flex: 1, overflow: "hidden", padding: "20px 20px 8px", maxWidth: 820, margin: "0 auto", width: "100%" }}>
               <SkeletonMessage align="left" />
@@ -391,7 +386,6 @@ export default function ConversationPage() {
             </div>
           )}
 
-          {/* Empty state — centered "hero" composer (starts in the middle) */}
           {isEmpty && (
             <div
               style={{
@@ -464,7 +458,6 @@ export default function ConversationPage() {
             </div>
           )}
 
-          {/* Active conversation — docked composer */}
           {!loading && !isEmpty && (
             <>
               {aiStatus && (
@@ -481,7 +474,6 @@ export default function ConversationPage() {
                 animateId={animateId}
               />
 
-              {/* Webcam connection error */}
               {webcam.error && (
                 <div
                   style={{
@@ -498,6 +490,8 @@ export default function ConversationPage() {
 
               <InputBar
                 variant="docked"
+                autoFocus
+                focusKey={id}
                 mode={mode}
                 onModeChange={() => {}}
                 modeLocked={true}
@@ -515,10 +509,9 @@ export default function ConversationPage() {
         </div>
       </div>
 
-      {/* Launch full-screen immersive voice mode */}
       <button
         onClick={() => {
-          getAudioContext(); // resume AudioContext within the user gesture
+          getAudioContext(); 
           setVoiceMode(true);
         }}
         title="Voice mode"
@@ -546,17 +539,17 @@ export default function ConversationPage() {
         </svg>
       </button>
 
-      {/* Webcam self-view (PiP) */}
       {videoActive && webcam.active && (
         <SelfVideo videoRef={webcam.videoRef} onClose={handleVideoClose} />
       )}
 
-      {/* Full-screen immersive voice/video takeover (position:fixed z-index:50) */}
       {voiceMode && (
         <VoiceMode
           conversationId={id}
           wsClient={wsClient}
-          onEnd={() => setVoiceMode(false)}
+          autoVideo={voiceAutoVideo}
+          onEnd={() => { setVoiceMode(false); setVoiceAutoVideo(false); }}
+          onEndSession={handleEndSession}
         />
       )}
     </div>

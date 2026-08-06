@@ -1,6 +1,7 @@
+import json
 from datetime import datetime
 from typing import Optional
-from pydantic import BaseModel, EmailStr, Field
+from pydantic import BaseModel, EmailStr, Field, field_validator
 
 
 class SendCodeIn(BaseModel):
@@ -49,8 +50,6 @@ class VerifyCodeOut(BaseModel):
     message: str
 
 
-# ── Conversation / Message schemas ──────────────────
-
 class ConversationCreate(BaseModel):
     mode: str
     title: Optional[str] = None
@@ -77,6 +76,12 @@ class MessageItemOut(BaseModel):
     audio_url: Optional[str] = None
     audio_duration: Optional[int] = None
     created_at: datetime
+
+    emotion: Optional[str] = None
+    filler_count: Optional[int] = None
+    text_emotion: Optional[str] = None
+    text_emotion_confidence: Optional[float] = None
+    text_emotion_evidence: Optional[str] = None
 
     class Config:
         from_attributes = True
@@ -111,13 +116,34 @@ class MessageOutLabeled(MessageItemOut):
 
 
 class CoachingReportOut(BaseModel):
+    """Coaching report, with the JSON-blob columns decoded for the client."""
     id: int
     conversation_id: int
     summary: str
-    strengths: Optional[str] = None
-    areas_for_growth: Optional[str] = None
-    metrics: Optional[str] = None
+    strengths: list[dict] = []
+    areas_for_growth: list[dict] = []
+    metrics: dict = {}
     created_at: datetime
+
+    @field_validator("strengths", "areas_for_growth", mode="before")
+    @classmethod
+    def _parse_list(cls, v):
+        if isinstance(v, str):
+            try:
+                v = json.loads(v)
+            except json.JSONDecodeError:
+                return []
+        return v if isinstance(v, list) else []
+
+    @field_validator("metrics", mode="before")
+    @classmethod
+    def _parse_dict(cls, v):
+        if isinstance(v, str):
+            try:
+                v = json.loads(v)
+            except json.JSONDecodeError:
+                return {}
+        return v if isinstance(v, dict) else {}
 
     class Config:
         from_attributes = True

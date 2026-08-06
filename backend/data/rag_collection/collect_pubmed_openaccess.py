@@ -1,18 +1,4 @@
-"""
-collect_pubmed_openaccess.py
-------------------------------
-Pulls open-access abstracts from PubMed Central via NCBI E-utilities,
-tagged by mode/tier the same way your existing 93 PubMed abstracts were.
-
-No API key required for light usage, but add one (free from NCBI) if you
-hit rate limits — set NCBI_API_KEY below.
-
-Requirements: requests tqdm
-
-Usage:
-    python collect_pubmed_openaccess.py
-    # writes ./staged_chunks/pubmed_abstracts.jsonl
-"""
+"""collect_pubmed_openaccess.py — Pulls open-access abstracts from PubMed Central via NCBI E-utilities, tagged by mode/tier the same way your existing 93 PubMed abstracts were."""
 
 import json
 import time
@@ -28,11 +14,11 @@ BASE_DIR = Path(__file__).resolve().parent
 STAGE_DIR = BASE_DIR / "staged_chunks"
 STAGE_DIR.mkdir(exist_ok=True)
 
-NCBI_API_KEY = None  # optional, set if you have one
+NCBI_API_KEY = None
 ESEARCH_URL = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi"
 EFETCH_URL = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi"
 
-REQUEST_DELAY = 0.4  # be polite to NCBI's rate limits
+REQUEST_DELAY = 0.4
 
 
 def esearch_pmc(query: str, max_results: int) -> list[str]:
@@ -57,7 +43,6 @@ def efetch_abstract(pmcid: str) -> dict | None:
     resp.raise_for_status()
     xml_text = resp.text
 
-    # Lightweight extraction without a full XML parser dependency.
     import re
     title_match = re.search(r"<article-title>(.*?)</article-title>", xml_text, re.DOTALL)
     abstract_match = re.search(r"<abstract.*?>(.*?)</abstract>", xml_text, re.DOTALL)

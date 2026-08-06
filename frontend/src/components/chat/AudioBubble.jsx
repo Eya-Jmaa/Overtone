@@ -1,4 +1,6 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useMemo } from "react";
+
+const BARS = 32;
 
 function formatDuration(seconds) {
   if (!seconds || seconds <= 0) return "0:00";
@@ -7,21 +9,33 @@ function formatDuration(seconds) {
   return `${m}:${s.toString().padStart(2, "0")}`;
 }
 
-/**
- * Playable audio voice message bubble.
- * - Shows waveform (simulated bars) + play/pause button + duration
- * - Click to expand/collapse transcription underneath
- */
+function barProfile(seed) {
+  let h = 2166136261;
+  for (let i = 0; i < seed.length; i++) {
+    h ^= seed.charCodeAt(i);
+    h = Math.imul(h, 16777619);
+  }
+  const out = [];
+  for (let i = 0; i < BARS; i++) {
+    h = Math.imul(h ^ (h >>> 15), 2246822507);
+    const r = ((h >>> 8) & 0xffff) / 0xffff;
+    const env = Math.sin((i / (BARS - 1)) * Math.PI) * 0.55 + 0.45;
+    out.push(0.22 + r * 0.78 * env);
+  }
+  return out;
+}
+
 export default function AudioBubble({ audioUrl, duration, transcription }) {
   const [playing, setPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [showTranscript, setShowTranscript] = useState(false);
   const audioRef = useRef(null);
-  const intervalRef = useRef(null);
+  const rafRef = useRef(0);
+  const bars = useMemo(() => barProfile(audioUrl || "clip"), [audioUrl]);
 
   useEffect(() => {
     return () => {
-      if (intervalRef.current) clearInterval(intervalRef.current);
+      cancelAnimationFrame(rafRef.current);
       if (audioRef.current) {
         audioRef.current.pause();
         audioRef.current.src = "";
@@ -29,176 +43,216 @@ export default function AudioBubble({ audioUrl, duration, transcription }) {
     };
   }, []);
 
-  const togglePlay = () => {
-    if (!audioRef.current) {
-      const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8000";
-      audioRef.current = new Audio(`${API_URL}${audioUrl}`);
-      audioRef.current.onended = () => {
-        setPlaying(false);
-        setCurrentTime(0);
-        if (intervalRef.current) clearInterval(intervalRef.current);
-      };
-      audioRef.current.onerror = () => {
-        setPlaying(false);
-        setCurrentTime(0);
-      };
-    }
+  const tick = () => {
+    if (audioRef.current) setCurrentTime(audioRef.current.currentTime);
+    rafRef.current = requestAnimationFrame(tick);
+  };
 
+  const ensureAudio = () => {
+    if (audioRef.current) return audioRef.current;
+    const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8000";
+    const el = new Audio(`${API_URL}${audioUrl}`);
+    el.onended = () => {
+      setPlaying(false);
+      setCurrentTime(0);
+      cancelAnimationFrame(rafRef.current);
+    };
+    el.onerror = () => {
+      setPlaying(false);
+      setCurrentTime(0);
+      cancelAnimationFrame(rafRef.current);
+    };
+    audioRef.current = el;
+    return el;
+  };
+
+  const togglePlay = () => {
+    const el = ensureAudio();
     if (playing) {
-      audioRef.current.pause();
-      if (intervalRef.current) clearInterval(intervalRef.current);
+      el.pause();
+      cancelAnimationFrame(rafRef.current);
       setPlaying(false);
     } else {
-      audioRef.current.play();
+      el.play();
       setPlaying(true);
-      intervalRef.current = setInterval(() => {
-        if (audioRef.current) {
-          setCurrentTime(audioRef.current.currentTime);
-        }
-      }, 250);
+      cancelAnimationFrame(rafRef.current);
+      rafRef.current = requestAnimationFrame(tick);
     }
   };
 
-  const progress = duration && duration > 0
-    ? Math.min((currentTime / duration) * 100, 100)
+  const seekTo = (e) => {
+    if (!duration || duration <= 0) return;
+    const rect = e.currentTarget.getBoundingClientRect();
+    const frac = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+    const el = ensureAudio();
+    el.currentTime = frac * duration;
+    setCurrentTime(el.currentTime);
+  };
+
+  const progressFrac = duration && duration > 0
+    ? Math.min(currentTime / duration, 1)
     : 0;
 
-  const displayTime = playing ? currentTime : 0;
+  const displayTime = currentTime > 0 ? currentTime : 0;
 
   return (
-    <div style={{ minWidth: 200 }}>
-      {/* Audio player bar */}
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          gap: 10,
-          background: "rgba(0,0,0,0.08)",
-          borderRadius: 10,
-          padding: "8px 12px",
-        }}
-      >
-        {/* Play/pause button */}
+    <div style={{ minWidth: 220 }}>
+      <style>{AUDIO_CSS}</style>
+
+      <div className="ab-shell">
         <button
           onClick={togglePlay}
+          className={`ab-play${playing ? " is-playing" : ""}`}
           aria-label={playing ? "Pause audio" : "Play audio"}
-          style={{
-            width: 32,
-            height: 32,
-            borderRadius: "50%",
-            border: "none",
-            background: "var(--gold)",
-            color: "var(--ink)",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            cursor: "pointer",
-            fontSize: 14,
-            flexShrink: 0,
-            transition: "transform 150ms, box-shadow 200ms",
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.transform = "scale(1.05)";
-            e.currentTarget.style.boxShadow = "0 0 12px var(--gold-glow)";
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.transform = "scale(1)";
-            e.currentTarget.style.boxShadow = "none";
-          }}
         >
-          {playing ? "⏸" : "▶"}
+          {playing && <span className="ab-play-ring" aria-hidden="true" />}
+          {playing ? (
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <rect x="6" y="4" width="4.5" height="16" rx="1.4" />
+              <rect x="13.5" y="4" width="4.5" height="16" rx="1.4" />
+            </svg>
+          ) : (
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M7 4.5l13 7.5-13 7.5z" />
+            </svg>
+          )}
         </button>
 
-        {/* Waveform visualization */}
         <div
-          style={{
-            flex: 1,
-            height: 28,
-            display: "flex",
-            alignItems: "center",
-            gap: 2,
+          className="ab-wave"
+          onClick={seekTo}
+          role="slider"
+          tabIndex={0}
+          aria-label="Seek audio"
+          aria-valuemin={0}
+          aria-valuemax={Math.round(duration || 0)}
+          aria-valuenow={Math.round(displayTime)}
+          aria-valuetext={formatDuration(displayTime)}
+          onKeyDown={(e) => {
+            if (e.key !== "ArrowLeft" && e.key !== "ArrowRight") return;
+            e.preventDefault();
+            const el = ensureAudio();
+            const delta = e.key === "ArrowRight" ? 5 : -5;
+            el.currentTime = Math.max(0, Math.min(duration || 0, el.currentTime + delta));
+            setCurrentTime(el.currentTime);
           }}
         >
-          {Array.from({ length: 20 }).map((_, i) => {
-            const barHeight = 6 + Math.sin(i * 0.8) * 8 + Math.random() * 4;
-            const isPlayed = duration && (i / 20) * duration <= currentTime;
+          {bars.map((amp, i) => {
+            const played = (i + 1) / BARS <= progressFrac;
             return (
-              <div
+              <span
                 key={i}
+                className={`ab-bar${played ? " is-played" : ""}${playing ? " is-live" : ""}`}
                 style={{
-                  flex: 1,
-                  height: playing ? barHeight : 8 + Math.sin(i * 0.8) * 6,
-                  borderRadius: 3,
-                  background: isPlayed
-                    ? "var(--gold)"
-                    : playing
-                      ? "rgba(212,165,116,0.5)"
-                      : "var(--whisper)",
-                  transition: "height 200ms, background 200ms",
-                  minWidth: 3,
+                  height: `${Math.round(amp * 100)}%`,
+                  animationDelay: `${(i % 8) * 90}ms`,
                 }}
               />
             );
           })}
         </div>
 
-        {/* Duration */}
-        <span
-          style={{
-            fontSize: 11,
-            fontFamily: "'JetBrains Mono', monospace",
-            color: "var(--bone-dim)",
-            flexShrink: 0,
-            minWidth: 32,
-            textAlign: "right",
-          }}
-        >
-          {playing ? formatDuration(displayTime) : formatDuration(duration)}
+        <span className="ab-time">
+          {playing || currentTime > 0 ? formatDuration(displayTime) : formatDuration(duration)}
         </span>
       </div>
 
-      {/* Expandable transcription */}
       {transcription && (
         <div style={{ marginTop: 6 }}>
           <button
             onClick={() => setShowTranscript(!showTranscript)}
+            className="ab-toggle"
+            aria-expanded={showTranscript}
             aria-label={showTranscript ? "Hide transcription" : "Show transcription"}
-            style={{
-              background: "none",
-              border: "none",
-              padding: 0,
-              fontSize: 11,
-              fontFamily: "'JetBrains Mono', monospace",
-              color: "var(--bone-faint)",
-              cursor: "pointer",
-              display: "flex",
-              alignItems: "center",
-              gap: 4,
-              transition: "color 200ms",
-            }}
-            onMouseEnter={(e) => { e.currentTarget.style.color = "var(--gold)"; }}
-            onMouseLeave={(e) => { e.currentTarget.style.color = "var(--bone-faint)"; }}
           >
-            {showTranscript ? "▲" : "▼"} {showTranscript ? "Hide" : "Show"} transcription
+            <span className="ab-caret" style={{ transform: showTranscript ? "rotate(90deg)" : "none" }}>›</span>
+            {showTranscript ? "Hide" : "Show"} transcription
           </button>
           {showTranscript && (
-            <div
-              style={{
-                marginTop: 6,
-                padding: "8px 12px",
-                background: "rgba(0,0,0,0.06)",
-                borderRadius: 8,
-                fontSize: 13,
-                color: "var(--bone-dim)",
-                lineHeight: 1.5,
-                animation: "fadeUp 200ms ease both",
-              }}
-            >
-              {transcription}
-            </div>
+            <div className="ab-transcript">{transcription}</div>
           )}
         </div>
       )}
     </div>
   );
 }
+
+const AUDIO_CSS = `
+.ab-shell {
+  display: flex; align-items: center; gap: 11px;
+  background: color-mix(in srgb, var(--ink) 28%, transparent);
+  border: 1px solid var(--border-soft);
+  border-radius: 12px; padding: 8px 12px;
+}
+
+.ab-play {
+  position: relative; flex-shrink: 0;
+  width: 32px; height: 32px; border-radius: 50%;
+  border: none; padding: 0;
+  background: linear-gradient(135deg, color-mix(in srgb, var(--gold) 75%, #fff), var(--gold));
+  color: var(--ink);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  transition: transform 160ms var(--ease-back), box-shadow 200ms;
+}
+.ab-play:hover { transform: scale(1.08); box-shadow: 0 0 14px var(--gold-glow); }
+.ab-play:active { transform: scale(.94); }
+.ab-play svg { position: relative; z-index: 1; }
+.ab-play-ring {
+  position: absolute; inset: -3px; border-radius: 50%;
+  border: 2px solid var(--gold);
+  animation: pulseRing 1.8s var(--ease-out) infinite;
+}
+
+.ab-wave {
+  flex: 1; height: 30px; min-width: 90px;
+  display: flex; align-items: center; gap: 2px;
+  cursor: pointer; border-radius: 4px;
+}
+.ab-wave:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+.ab-bar {
+  flex: 1; min-width: 2px; border-radius: 2px;
+  background: var(--whisper);
+  transform-origin: center;
+  transition: background 220ms ease, transform 220ms ease;
+}
+.ab-bar.is-played { background: var(--gold); }
+/* Only the un-played bars idle-animate, so the played run reads as a solid,
+   stationary progress mark rather than more moving noise. */
+.ab-bar.is-live:not(.is-played) {
+  background: color-mix(in srgb, var(--gold) 45%, transparent);
+  animation: abPulse 1.1s ease-in-out infinite alternate;
+}
+@keyframes abPulse { from { transform: scaleY(.72); } to { transform: scaleY(1); } }
+
+.ab-time {
+  font-size: 11px; font-family: 'JetBrains Mono', monospace;
+  color: var(--text-muted); flex-shrink: 0; min-width: 34px; text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.ab-toggle {
+  background: none; border: none; padding: 0;
+  font-size: 11px; font-family: 'JetBrains Mono', monospace;
+  color: var(--text-faint); cursor: pointer;
+  display: flex; align-items: center; gap: 5px;
+  transition: color 200ms;
+}
+.ab-toggle:hover { color: var(--accent); }
+.ab-caret { display: inline-block; transition: transform 220ms var(--ease); }
+
+.ab-transcript {
+  margin-top: 7px; padding: 9px 12px;
+  background: color-mix(in srgb, var(--ink) 22%, transparent);
+  border-left: 2px solid var(--accent);
+  border-radius: 0 8px 8px 0;
+  font-size: 13px; color: var(--text-muted); line-height: 1.55;
+  animation: riseIn 260ms var(--ease-out) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ab-play-ring, .ab-bar.is-live:not(.is-played) { animation: none; }
+  .ab-play:hover { transform: none; }
+}
+`;
