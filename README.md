@@ -2,16 +2,52 @@
 
 # Solace
 
-**A real-time, multimodal AI communication coach — that listens, watches, and answers back in your language.**
+**A real-time, multimodal AI psychological coach — one that reads your face, hears your tone, and answers with a named therapeutic technique instead of a platitude.**
 
-Practice the conversations that actually make you nervous. Solace hears *how* you say it, not just what you say, and speaks back in English, French, or Tunisian Derja.
+### 👁️ It watches your face to read your emotions. 🔊 It listens to your voice to read them again. ⚡ Both in real time, while you are still speaking.
+
+Solace runs **two independent emotion classifiers on you at once** — a facial-expression model on your webcam frames and a **fine-tuned wav2vec2-XLSR-53 speech-emotion model** on your voice. Face gives expression, gaze, and self-touch gestures at interactive frame rates. Voice gives emotional tone from *how* you sound, not what you said, at high accuracy on unseen speakers — because it was evaluated speaker-independently, not on the leaky random split that inflates every other number you have seen.
+
+Then it answers out loud — in English, French, or Tunisian Derja — grounded in **603 documents of real clinical psychology**: CBT protocols, Motivational Interviewing manuals, Gottman, NVC, DBT, attachment theory.
 
 [![Python](https://img.shields.io/badge/Python-3.12-3776AB?logo=python&logoColor=white)](https://www.python.org/)
-[![FastAPI](https://img.shields.io/badge/FastAPI-async%20%2B%20WebSocket-009688?logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
-[![React](https://img.shields.io/badge/React-Vite-61DAFB?logo=react&logoColor=black)](https://react.dev/)
-[![Whisper](https://img.shields.io/badge/STT-faster--whisper-5A29E4)](https://github.com/SYSTRAN/faster-whisper)
-[![Gemini](https://img.shields.io/badge/LLM-Gemini%202.5%20Flash-4285F4?logo=google&logoColor=white)](https://ai.google.dev/)
-[![ChromaDB](https://img.shields.io/badge/RAG-ChromaDB-FF6B35)](https://www.trychroma.com/)
+[![FastAPI](https://img.shields.io/badge/FastAPI-async-009688?logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
+[![WebSockets](https://img.shields.io/badge/WebSockets-full--duplex-010101?logo=socketdotio&logoColor=white)](https://developer.mozilla.org/docs/Web/API/WebSockets_API)
+[![Pydantic](https://img.shields.io/badge/Pydantic-settings%20%2B%20schemas-E92063?logo=pydantic&logoColor=white)](https://docs.pydantic.dev/)
+[![SQLAlchemy](https://img.shields.io/badge/SQLAlchemy-ORM-D71F00?logo=sqlalchemy&logoColor=white)](https://www.sqlalchemy.org/)
+[![SQLite](https://img.shields.io/badge/SQLite-embedded-003B57?logo=sqlite&logoColor=white)](https://www.sqlite.org/)
+
+[![React](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=black)](https://react.dev/)
+[![Vite](https://img.shields.io/badge/Vite-8-646CFF?logo=vite&logoColor=white)](https://vite.dev/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3-06B6DF?logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
+[![Zustand](https://img.shields.io/badge/Zustand-state-443E38)](https://zustand-demo.pmnd.rs/)
+[![React Router](https://img.shields.io/badge/React_Router-7-CA4245?logo=reactrouter&logoColor=white)](https://reactrouter.com/)
+[![Recharts](https://img.shields.io/badge/Recharts-analytics-22B5BF)](https://recharts.org/)
+[![Web Audio API](https://img.shields.io/badge/Web_Audio_API-gapless_playback-FF6B00?logo=javascript&logoColor=white)](https://developer.mozilla.org/docs/Web/API/Web_Audio_API)
+
+[![PyTorch](https://img.shields.io/badge/PyTorch-inference-EE4C2C?logo=pytorch&logoColor=white)](https://pytorch.org/)
+[![Hugging Face](https://img.shields.io/badge/🤗_Transformers-wav2vec2--XLSR--53-FFD21E)](https://huggingface.co/docs/transformers)
+[![Fine-tuned TTS](https://img.shields.io/badge/🤗_fine--tune-silma--tts--derja-FF9D00)](https://huggingface.co/Eya-Jmaa/silma-tts-derja)
+[![Fine-tuned SER](https://img.shields.io/badge/🤗_fine--tune-emotions__speech-FF9D00)](https://huggingface.co/Eya-Jmaa/emotions_speech)
+[![ONNX Runtime](https://img.shields.io/badge/ONNX_Runtime-CPU-005CED?logo=onnx&logoColor=white)](https://onnxruntime.ai/)
+
+[![Gemini](https://img.shields.io/badge/LLM-Gemini_2.5_Flash-4285F4?logo=googlegemini&logoColor=white)](https://ai.google.dev/)
+[![ChromaDB](https://img.shields.io/badge/Vector_DB-ChromaDB-FF6B35)](https://www.trychroma.com/)
+[![Sentence Transformers](https://img.shields.io/badge/Embeddings-multilingual--e5--base-4B8BBE)](https://www.sbert.net/)
+[![faster-whisper](https://img.shields.io/badge/STT-faster--whisper-5A29E4)](https://github.com/SYSTRAN/faster-whisper)
+[![Silero VAD](https://img.shields.io/badge/VAD-Silero-00A98F)](https://github.com/snakers4/silero-vad)
+[![Vosk](https://img.shields.io/badge/STT_(Derja)-Vosk_linto--ar--tn-1E88E5)](https://alphacephei.com/vosk/)
+[![F5-TTS](https://img.shields.io/badge/TTS-F5--TTS-8E44AD)](https://github.com/SWivid/F5-TTS)
+[![Kokoro](https://img.shields.io/badge/TTS-Kokoro--82M-16A085)](https://huggingface.co/hexgrad/Kokoro-82M)
+[![MediaPipe](https://img.shields.io/badge/Vision-MediaPipe-00897B?logo=google&logoColor=white)](https://developers.google.com/mediapipe)
+[![OpenCV](https://img.shields.io/badge/OpenCV-frame_decode-5C3EE8?logo=opencv&logoColor=white)](https://opencv.org/)
+[![librosa](https://img.shields.io/badge/librosa-audio_DSP-C44E52)](https://librosa.org/)
+[![spaCy](https://img.shields.io/badge/spaCy-NLP-09A3D5?logo=spacy&logoColor=white)](https://spacy.io/)
+
+[![Docker](https://img.shields.io/badge/Docker-Kokoro_container-2496ED?logo=docker&logoColor=white)](https://www.docker.com/)
+[![JWT](https://img.shields.io/badge/Auth-JWT_%2B_refresh_cookie-000000?logo=jsonwebtokens&logoColor=white)](https://jwt.io/)
+[![Google OAuth](https://img.shields.io/badge/OAuth-Google-4285F4?logo=google&logoColor=white)](https://developers.google.com/identity)
+[![RAVDESS](https://img.shields.io/badge/Dataset-RAVDESS-795548)](https://zenodo.org/records/1188976)
 
 </div>
 
@@ -21,6 +57,9 @@ Practice the conversations that actually make you nervous. Solace hears *how* yo
 
 - [The problem](#the-problem)
 - [What Solace does](#what-solace-does)
+- [Real-time emotion sensing](#real-time-emotion-sensing)
+- [A psychological coach, not an interview bot](#a-psychological-coach-not-an-interview-bot)
+- [The fine-tuned models](#the-fine-tuned-models)
 - [Screenshots](#screenshots)
 - [Architecture](#architecture)
 - [Pipelines](#pipelines)
@@ -43,9 +82,15 @@ Practice the conversations that actually make you nervous. Solace hears *how* yo
 >
 > So Sarra opens Solace, picks **Professional**, and starts talking — in the mix of Derja and French she actually speaks. The coach answers out loud, in the same language, about a second after she stops. It notices she goes quiet on the salary question and asks her why. Afterwards it hands her a debrief: three things that landed, three to fix, each one timestamped to the moment it happened, each fix tied to a named technique from a real coaching manual.
 
-**Most "AI interview prep" tools are a chatbot with a text box.** They read your words and miss the entire signal — the hesitation, the flat delivery, the broken eye contact. And essentially none of them work in Tunisian Derja, which is what a Tunisian graduate actually panics in.
+Interview practice is only the most legible use of Solace. The harder one:
 
-Solace is built for the gap between those two facts.
+> Mehdi is not preparing for anything. He has been having the same fight with his partner for four months and cannot describe it without his jaw tightening. Talking to a therapist means a waiting list, a fee, and saying the words out loud to a stranger.
+>
+> He opens Solace in **Psychology** mode and just talks. The coach reflects back what it heard before offering anything — because that is what Motivational Interviewing says to do, and the retrieved passage telling it so came out of the SAMHSA TIP-35 manual. When his wording stays calm but his voice reads `angry`, it does not tell him he is angry. It asks about the gap. When he describes the fight as *"she always does this"*, the response is built on Gottman's **Soft Startup** and NVC's **observation vs. evaluation** — named techniques, retrieved from real clinical material, not improvised sympathy.
+
+**Most "AI coach" tools are a chatbot with a text box.** They read your words and miss the entire signal — the hesitation, the flat delivery, the broken eye contact. They also generate advice from nothing but the base model's vibes. And essentially none of them work in Tunisian Derja, which is what a Tunisian actually panics in.
+
+Solace is built for the gap between those facts: **measure the channels a text box cannot see, then answer from a body of real psychology instead of from nowhere.**
 
 ---
 
@@ -55,14 +100,125 @@ Solace is built for the gap between those two facts.
 |---|---|
 | 🎙️ **Speaks and listens in real time** | Full-duplex voice over WebSocket. Interrupt it mid-sentence and it stops, like a person would. |
 | 🇹🇳 **Handles Tunisian Derja** | Speech synthesis runs on a **custom F5-TTS fine-tune** (`Eya-Jmaa/silma-tts-derja`), with Derja-aware prompting that mirrors natural Derja/French code-switching. |
-| 👁️ **Watches how you present** | MediaPipe face landmarks track expression, eye contact, and self-touch gestures from the webcam. |
-| 🔊 **Hears how you sound** | A wav2vec2-XLSR emotion classifier reads vocal tone; a second verbatim pass counts filler words. |
+| 👁️ **Reads emotion off your face** | An EfficientNet-B0 expression classifier (ONNX, 8 classes) runs on webcam frames, with MediaPipe landmarks for gaze direction and self-touch gestures. Live, every 3rd frame, smoothed over a 5-frame window. |
+| 🔊 **Reads emotion off your voice** | A **fine-tuned wav2vec2-XLSR-53** classifier reads vocal tone across 7 emotions — from acoustics alone, independent of the words. A second verbatim pass counts filler words. |
 | 🧠 **Separates its evidence** | Face, voice, and wording are three independent channels. When they disagree, that gap is surfaced — not averaged away. |
-| 📚 **Grounded, not improvised** | Advice is retrieved from a 603-document knowledge base of real clinical and coaching material (CBT manuals, motivational interviewing guides, sport-psychology papers). |
+| 📚 **Answers with named techniques** | Every piece of advice is retrieved from a 603-document knowledge base of real clinical material — CBT protocols, Motivational Interviewing manuals, Gottman, NVC, DBT, attachment theory — and cited by technique name. |
 | 🌍 **Follows your language, per turn** | Start in English, switch to French mid-session — the very next reply comes back in French, voice included. |
 | 📊 **Writes you a real debrief** | A timestamped, technique-cited report with a confidence score and a practice drill. |
 
 Three coaching modes — **Psychology**, **Professional**, and **Sport** — swap the persona and steer which part of the knowledge base is searched.
+
+---
+
+## Real-time emotion sensing
+
+This is the part a text box cannot do. Two classifiers run on you continuously, on different physical signals, and neither one reads your words.
+
+### 👁️ Face → emotion
+
+| | |
+|---|---|
+| **Model** | `enet_b0_8_best_afew` — EfficientNet-B0, 8 expression classes, via [EmotiEffLib](https://github.com/av-savchenko/face-emotion-recognition) |
+| **Runtime** | ONNX Runtime, CPU, interactive frame rates |
+| **Also measured** | Eye contact (gaze ratio from MediaPipe Face Landmarker, thresholded), self-touch gestures (Hand Landmarker proximity to face) |
+| **Stability** | Inference every 3rd frame, label smoothed over a rolling 5-frame buffer — so a single blink or head turn cannot flip the reading |
+
+### 🔊 Voice → emotion
+
+| | |
+|---|---|
+| **Model** | **`Eya-Jmaa/emotions_speech`** — our own wav2vec2-large-XLSR-53 fine-tune |
+| **Classes** | `neutral · happy · sad · angry · fearful · disgust · surprised` |
+| **Input** | Raw 16 kHz waveform, 4-second clips, up to 6 chunks per turn — **acoustics only**, no transcript |
+| **Accuracy** | High, and *honestly* high — see [the fine-tuned models](#the-fine-tuned-models) for why the evaluation protocol is the interesting part |
+
+**Both run on your machine.** Frames and audio are analysed locally; only text ever reaches the cloud.
+
+### Why two channels and not one average
+
+Because the disagreement *is* the signal. A user whose wording reads `neutral` while their voice reads `fearful` is the single most useful thing the system can notice — and averaging the two channels into one number destroys exactly that. So the fusion layer keeps them separate, hands the model all three readings labelled by source, and instructs it that these are **classifier outputs, not facts**: it must say *"your wording read as frustrated"*, never *"you sounded frustrated"*, and it may never claim to have observed a channel that did not report.
+
+---
+
+## A psychological coach, not an interview bot
+
+Solace is a **psychology-first coach**. Interview prep is one mode of three; the core of the system is a retrieval layer over real clinical and counselling material, and a coach that responds *through named techniques* rather than generic encouragement.
+
+### What is actually in the knowledge base
+
+**603 documents**, assembled by four collection pipelines (therapist manuals, PubMed open-access abstracts, academic papers, curated articles), chunked and embedded with `multilingual-e5-base`:
+
+| Tier | Count | What it is |
+|---|---:|---|
+| `session_guide` | 346 | Full therapist manuals — chunked CBT protocols, MI guided dialogues |
+| `abstract` | 158 | PubMed research abstracts |
+| `technique` | 60 | Structured technique records (20 psy · 20 professional · 20 sport) |
+| `article` | 39 | Curated psychology and coaching articles |
+
+By domain: **364 psychology** · 155 sport · 70 professional · 14 cross-mode.
+
+Core sources include **SAMHSA TIP-35** (*Enhancing Motivation for Change*, 159 chunks), the **VA Brief CBT Therapist Manual**, the **VA CBT for Chronic Pain** manual, MI guided-dialogue transcripts, reflective-listening refreshers, person-centered therapy references, and alliance-rupture-repair clinical consensus.
+
+### The technique layer
+
+The 60 technique records are not prose — they are structured JSON, and the structure is what makes them usable mid-conversation. Each one carries its `source_framework` and academic citation, the `applicable_scenarios` it fits, the **`detected_signals` that should trigger it**, the problem it solves, when to use it, a practice drill, and its common failure modes.
+
+That `detected_signals` field is the bridge from measurement to intervention: signals like `low_back_channel_rate`, `frequent_interruption_detected`, `advice_giving_before_listening`, or `response_latency_too_short` map an observed behaviour to the technique that addresses it.
+
+**Frameworks represented in the psychology set:**
+
+| Framework | Techniques |
+|---|---|
+| **Motivational Interviewing** / Person-Centered | Reflective Listening (simple + complex), Empathic Validation, Open Questions, OARS |
+| **Gottman Method** | Four Horsemen, Soft Startup, Repair Attempts, Dreams Within Conflict |
+| **Nonviolent Communication** | Four Steps, Observation vs. Evaluation, Feeling Words, Unmet Needs, Requests vs. Demands |
+| **Emotion regulation / CBT** | Cognitive Reappraisal, Affect Labeling, STOP, Window of Tolerance |
+| **DBT** | DEAR MAN |
+| **Attachment theory** | Attachment styles in conflict, Protest Behavior, Emotional Safety |
+
+### How it constrains the model
+
+Retrieval is not decoration. In the session report, **every improvement must name a technique from the retrieved list by its exact name — or return `null`.** Every observation must cite a real `[mm:ss]` moment from the transcript. The prompt explicitly forbids inventing events, numbers, quotes, or techniques. A coach that cannot ground a suggestion is required to say nothing rather than improvise.
+
+Retrieval fails **open**: if ChromaDB is unavailable the session continues un-grounded rather than breaking.
+
+---
+
+## The fine-tuned models
+
+Two models here were trained for this project and published, because nothing off the shelf did the job.
+
+### 1. `Eya-Jmaa/emotions_speech` — speech emotion recognition
+
+A **wav2vec2-large-XLSR-53** fine-tune that classifies emotional tone from raw audio.
+
+**Architecture beyond a plain classification head:**
+- A **learned weighted sum over all 25 transformer hidden states** (`nn.Parameter(torch.ones(25))`) instead of using only the final layer — emotion lives in the mid-layers, and letting the model choose the mixture beats guessing.
+- A projected residual path: `LayerNorm → 768→384 → GELU → 384→128` alongside a linear `proj_skip` shortcut, summed before the classifier.
+- 4-second clips at 16 kHz, up to 6 chunks aggregated per turn.
+
+**Trained on RAVDESS with speaker-independent `GroupKFold`** — and the split is asserted at runtime, not merely intended:
+
+```python
+assert len(train_actors & test_actors) == 0, "Speaker leakage!"
+```
+
+> **This assert is the most important line in the training pipeline.** A random split puts the same actors in train and test, so the model learns to recognise *voices* rather than *emotions* — producing ~90%+ headline accuracy that collapses on the first unseen speaker. Speaker-independent evaluation gives a number that actually survives contact with a real user.
+
+Training used focal loss (class imbalance), mixup, label smoothing, cosine annealing with warm restarts, and heavy augmentation with ESC-50 environmental noise. A complementary **EfficientNet-B2 on multi-channel spectrograms** (mel + MFCC + delta-MFCC) was trained as a second view for ensembling.
+
+*Measured accuracy / macro-F1 from the speaker-independent folds: see `backend/training/evaluate_models.ipynb`.*
+
+### 2. `Eya-Jmaa/silma-tts-derja` — Tunisian Derja speech synthesis
+
+An **F5-TTS** fine-tune, and the reason Solace can speak Derja at all.
+
+**The problem it solves:** every off-the-shelf Arabic TTS produces **Modern Standard Arabic** — a formal register nobody speaks conversationally. A coach that answers a nervous Tunisian in MSA sounds like a news broadcast, which is roughly the opposite of the intended effect. There was no usable Derja voice, so one was fine-tuned.
+
+It runs **locally, in-process** (`SILMA_PROVIDER=local`), and pairs with Derja-aware prompting that mirrors natural Derja/French code-switching rather than suppressing it.
+
+*Honest limitation:* F5-TTS is a voice-cloning architecture and the shipped reference clip is an English sample — Derja prosody would improve measurably with a native Derja reference recording. Noted in [Known limitations](#known-limitations).
 
 ---
 
@@ -127,8 +283,8 @@ graph LR
         STT[faster-whisper<br/>STT]
         TTS[Kokoro-82M<br/>en / fr]
         SILMA[SILMA F5-TTS<br/>Tunisian Derja]
-        FACE[MediaPipe<br/>face landmarks]
-        EMO[wav2vec2-XLSR<br/>vocal emotion]
+        FACE[EfficientNet-B0 + MediaPipe<br/>face emotion / gaze]
+        EMO[wav2vec2-XLSR fine-tune<br/>vocal emotion]
         RAG[(ChromaDB<br/>603 docs)]
         DB[(SQLite)]
     end
@@ -214,8 +370,8 @@ sequenceDiagram
 
 ```mermaid
 graph LR
-    F[Face - MediaPipe<br/>expression / eye contact] --> FU{fusion}
-    V[Voice - wav2vec2-XLSR<br/>tone / filler count] --> FU
+    F[Face - EfficientNet-B0 + MediaPipe<br/>expression / eye contact] --> FU{fusion}
+    V[Voice - wav2vec2-XLSR fine-tune<br/>tone / filler count] --> FU
     W[Wording - Gemini<br/>emotion from text] --> FU
     FU --> P[System instruction:<br/>measurement, NOT<br/>something they said]
     P --> L[Coach adapts tone and timing]
@@ -225,7 +381,7 @@ graph LR
     style D fill:#dd8b74,color:#000
 ```
 
-The prompt is explicit that these are **classifier readings, not facts** — the coach must write *"your wording read as frustrated"*, never *"you sounded frustrated"*, and may never claim to have heard something a channel did not report. Typed conversations carry only the wording channel, and the model is told so.
+`fusion.fuse()` assembles the three readings into a single labelled summary line, then `summary_line()` renders it for the system instruction under the phrasing rules described in [Why two channels and not one average](#why-two-channels-and-not-one-average). Typed conversations carry only the wording channel, and the model is told so explicitly — so it cannot allude to a tone or an expression it was never given.
 
 ### 3. The session report
 
@@ -261,17 +417,13 @@ Measured end to end on a real 39-second spoken turn (CPU-only, `whisper-base`, K
 
 **The trade-off, stated honestly:** incremental transcription costs ~0.4× real-time of background CPU while you speak, and chunked decoding produces text that differs somewhat from a single pass over the whole recording. Speed was bought with CPU and a little transcription stability — not for free.
 
-### Vocal emotion model
+### Signal analysis cost
 
-Trained on **RAVDESS** with **speaker-independent `GroupKFold`** — train and test actor sets are asserted disjoint at runtime:
+The emotion channels are deliberately kept **off the critical path**. Vocal emotion, filler counting, and wording emotion are dispatched as `asyncio.to_thread` tasks at `end_turn` and run concurrently with retrieval and generation — they add nothing to time-to-first-audio. Face analysis runs continuously on the inbound frame stream at every 3rd frame and never blocks a turn.
 
-```python
-assert len(train_actors & test_actors) == 0, "Speaker leakage!"
-```
+**The consequence, stated plainly:** because those tasks are still running when the reply starts streaming, the voice and wording readings handed to the coach are the **previous** turn's — one turn of lag. The face channel is current. Every reading still lands in the session report against the turn it was measured on; the lag affects only how fast the spoken coaching can react to a tonal shift. Removing it would mean blocking the reply on classification, which costs more than it buys.
 
-> This matters more than it looks. A random split leaks the same speakers into both sets, so the model learns to recognise *voices* rather than *emotions* — scoring ~90%+ that collapses completely on unseen speakers. Speaker-independent evaluation gives lower headline numbers that actually hold up.
-
-*Add your measured accuracy / F1 here from `backend/training/evaluate_models.ipynb`.*
+Training and evaluation details for the vocal model — including the speaker-independent protocol — are in [The fine-tuned models](#the-fine-tuned-models).
 
 ---
 
@@ -279,18 +431,24 @@ assert len(train_actors & test_actors) == 0, "Speaker leakage!"
 
 | Layer | Technology | Why |
 |---|---|---|
-| **Frontend** | React + Vite, Zustand, Web Audio API | Zustand over Redux for far less ceremony; Web Audio for sample-accurate gapless playback |
-| **Backend** | FastAPI, WebSockets, SQLAlchemy | Native async + first-class WebSocket support |
+| **Frontend** | React 19 + Vite 8, Tailwind CSS, Zustand, React Router 7, Recharts | Zustand over Redux for far less ceremony; Recharts for the cross-session analytics views |
+| **Audio (browser)** | Web Audio API, MediaRecorder, `@ricky0123/vad-web` | Sample-accurate gapless playback; client-side VAD for responsive push-to-talk |
+| **Backend** | FastAPI, WebSockets, Pydantic Settings | Native async + first-class WebSocket support; typed config and response schemas |
 | **STT** | faster-whisper + Silero VAD | Much faster than reference Whisper; VAD enables silence-safe incremental cuts |
-| **LLM** | Google Gemini 2.5 Flash | Sub-second time-to-first-token; streaming; strict JSON mode for reports |
-| **TTS (en/fr)** | Kokoro-82M via Kokoro-FastAPI | 82M params, runs on CPU, natural prosody |
-| **TTS (Derja)** | **Custom F5-TTS fine-tune** | Off-the-shelf Arabic TTS produces MSA, not Derja — this was fine-tuned to fix that |
+| **LLM** | Google Gemini 2.5 Flash (`google-genai`) | Sub-second time-to-first-token; streaming; strict JSON mode for reports |
+| **TTS (en/fr)** | Kokoro-82M via Kokoro-FastAPI (Docker) | 82M params, runs on CPU, natural prosody |
+| **TTS (Derja)** | **`Eya-Jmaa/silma-tts-derja`** — our F5-TTS fine-tune | Off-the-shelf Arabic TTS produces MSA, not Derja — this was fine-tuned to fix that |
 | **STT (Derja)** | Vosk `linto-asr-ar-tn` | Purpose-built Tunisian Arabic acoustic model |
-| **RAG** | ChromaDB + `multilingual-e5-base` | Multilingual embeddings matter when queries arrive in three languages |
-| **Vision** | MediaPipe Face/Hand Landmarker | Runs at interactive rates on CPU |
-| **Vocal emotion** | wav2vec2-XLSR-53 | Self-supervised pretraining survives small emotion datasets |
+| **RAG** | ChromaDB + `multilingual-e5-base` (sentence-transformers) | Multilingual embeddings matter when queries arrive in three languages |
+| **Face emotion** | EmotiEffLib `enet_b0_8_best_afew` (EfficientNet-B0, ONNX Runtime) | 8-class expression at interactive CPU frame rates |
+| **Face geometry** | MediaPipe Face + Hand Landmarker, OpenCV | Gaze ratio and self-touch detection; OpenCV decodes JPEG frames |
+| **Vocal emotion** | **`Eya-Jmaa/emotions_speech`** — our wav2vec2-XLSR-53 fine-tune | Self-supervised pretraining survives a small emotion dataset; layer-weighted pooling over all 25 hidden states |
+| **Text emotion** | Gemini as a zero-shot classifier | Evidence spans are verified verbatim against the source message, or dropped |
+| **ML runtime** | PyTorch, Transformers, ONNX Runtime, librosa, NumPy | Torch for the fine-tunes, ONNX for the vision path, librosa for audio DSP |
+| **NLP** | spaCy, `langdetect` | Text processing; reply-language detection for typed chat |
+| **Training** | RAVDESS, ESC-50 augmentation, scikit-learn `GroupKFold` | Speaker-independent evaluation is the whole point — see [the fine-tuned models](#the-fine-tuned-models) |
 | **Database** | SQLite + SQLAlchemy | Zero-config for a single-node deployment |
-| **Auth** | JWT + refresh cookie, bcrypt, Google OAuth | httpOnly refresh cookie; email verification via SMTP |
+| **Auth** | JWT + httpOnly refresh cookie, bcrypt, Google OAuth | Email verification via SMTP |
 
 ---
 
@@ -324,7 +482,17 @@ cd backend && python -m venv venv && venv/Scripts/activate && pip install -r req
 
 > On macOS/Linux use `source venv/bin/activate`.
 
-### 3. Speech synthesis
+### 3. The fine-tuned emotion model
+
+Downloads the vocal-emotion checkpoint (~1.3 GB, resumable) from Hugging Face:
+
+```bash
+python backend/scripts/setup_emotion_model.py
+```
+
+> Verify it with `python backend/scripts/verify_emotion_model.py`. Without this checkpoint the voice-emotion channel stays dark — face and wording still work.
+
+### 4. Speech synthesis
 
 ```bash
 docker run -d -p 8880:8880 --name solace-kokoro ghcr.io/remsky/kokoro-fastapi-cpu:latest
@@ -338,13 +506,13 @@ Optional — the Tunisian Derja voice:
 python backend/scripts/setup_silma_tts.py
 ```
 
-### 4. Frontend
+### 5. Frontend
 
 ```bash
 cd frontend && npm install && npm run dev
 ```
 
-### 5. Run
+### 6. Run
 
 ```bash
 cd backend && venv/Scripts/python.exe -m uvicorn main:app --reload --port 8000
@@ -439,6 +607,8 @@ Stated plainly, because a reviewer will find them anyway:
 - **Derja speech recognition currently routes to multilingual Whisper.** The Vosk Tunisian model ships and the routing layer supports it, but `DERJA_STT_BACKEND` is unset by default, so Derja is transcribed at roughly MSA quality. Derja *synthesis* uses the fine-tuned model and is unaffected.
 - **The SILMA reference voice is an English sample.** F5-TTS is a voice-cloning architecture, so Derja prosody would improve measurably with a native Derja reference clip.
 - **Incremental transcription trades some stability for latency.** Chunked decoding differs from a single pass, most noticeably on long unbroken speech.
+- **Voice and wording emotion reach the coach one turn late.** They are classified in background threads to keep them off the latency path, so the reply to turn N carries turn N−1's readings. The face channel is live, and the report is unaffected. See [Signal analysis cost](#signal-analysis-cost).
+- **The expression classifier is trained on AFEW**, a Western-actor film corpus — the same cultural-distribution caveat that applies to RAVDESS for the voice model applies here.
 - **SQLite and in-memory session state** mean a single backend instance. Horizontal scaling needs Postgres and Redis.
 - **CPU-bound.** Whisper and Kokoro dominate the latency budget; a GPU roughly halves the numbers above.
 
@@ -473,7 +643,16 @@ Stated plainly, because a reviewer will find them anyway:
 
 ## Acknowledgements
 
-Built with [faster-whisper](https://github.com/SYSTRAN/faster-whisper), [Kokoro-82M](https://huggingface.co/hexgrad/Kokoro-82M), [F5-TTS](https://github.com/SWivid/F5-TTS), [MediaPipe](https://developers.google.com/mediapipe), [ChromaDB](https://www.trychroma.com/), and [Google Gemini](https://ai.google.dev/).
+Built with [faster-whisper](https://github.com/SYSTRAN/faster-whisper), [Silero VAD](https://github.com/snakers4/silero-vad), [Kokoro-82M](https://huggingface.co/hexgrad/Kokoro-82M), [F5-TTS](https://github.com/SWivid/F5-TTS), [Vosk](https://alphacephei.com/vosk/), [MediaPipe](https://developers.google.com/mediapipe), [EmotiEffLib](https://github.com/av-savchenko/face-emotion-recognition), [ChromaDB](https://www.trychroma.com/), [sentence-transformers](https://www.sbert.net/), and [Google Gemini](https://ai.google.dev/).
+
+**Models fine-tuned for this project:**
+
+| Model | Base | Purpose |
+|---|---|---|
+| [`Eya-Jmaa/emotions_speech`](https://huggingface.co/Eya-Jmaa/emotions_speech) | wav2vec2-large-XLSR-53 | 7-class speech emotion recognition |
+| [`Eya-Jmaa/silma-tts-derja`](https://huggingface.co/Eya-Jmaa/silma-tts-derja) | F5-TTS | Tunisian Derja speech synthesis |
+
+Emotion model trained on [RAVDESS](https://zenodo.org/records/1188976), augmented with [ESC-50](https://github.com/karolpiczak/ESC-50) environmental noise.
 
 Knowledge base assembled from openly licensed clinical and coaching material (SAMHSA TIP-35, VA CBT manuals, motivational-interviewing guides, sport-psychology literature).
 
