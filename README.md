@@ -27,8 +27,8 @@ Then it answers out loud — in English, French, or Tunisian Derja — grounded 
 
 [![PyTorch](https://img.shields.io/badge/PyTorch-inference-EE4C2C?logo=pytorch&logoColor=white)](https://pytorch.org/)
 [![Hugging Face](https://img.shields.io/badge/🤗_Transformers-wav2vec2--XLSR--53-FFD21E)](https://huggingface.co/docs/transformers)
-[![Fine-tuned TTS](https://img.shields.io/badge/🤗_fine--tune-silma--tts--derja-FF9D00)](https://huggingface.co/Eya-Jmaa/silma-tts-derja)
-[![Fine-tuned SER](https://img.shields.io/badge/🤗_fine--tune-emotions__speech-FF9D00)](https://huggingface.co/Eya-Jmaa/emotions_speech)
+[![Fine-tuned TTS](https://img.shields.io/badge/🤗_fine--tune-silma--tts--derja-FF9D00)](https://huggingface.co/Ghazouaniwala/silma-tts-derja)
+[![Fine-tuned SER](https://img.shields.io/badge/🤗_fine--tune-emotions__speech-FF9D00)](https://huggingface.co/Ghazouaniwala/emotions_speech)
 [![ONNX Runtime](https://img.shields.io/badge/ONNX_Runtime-CPU-005CED?logo=onnx&logoColor=white)](https://onnxruntime.ai/)
 
 [![Gemini](https://img.shields.io/badge/LLM-Gemini_2.5_Flash-4285F4?logo=googlegemini&logoColor=white)](https://ai.google.dev/)
@@ -99,7 +99,7 @@ Solace is built for the gap between those facts: **measure the channels a text b
 | | |
 |---|---|
 | 🎙️ **Speaks and listens in real time** | Full-duplex voice over WebSocket. Interrupt it mid-sentence and it stops, like a person would. |
-| 🇹🇳 **Handles Tunisian Derja** | Speech synthesis runs on a **custom F5-TTS fine-tune** (`Eya-Jmaa/silma-tts-derja`), with Derja-aware prompting that mirrors natural Derja/French code-switching. |
+| 🇹🇳 **Handles Tunisian Derja** | Speech synthesis runs on a **custom F5-TTS fine-tune** (`Ghazouaniwala/silma-tts-derja`), with Derja-aware prompting that mirrors natural Derja/French code-switching. |
 | 👁️ **Reads emotion off your face** | An EfficientNet-B0 expression classifier (ONNX, 8 classes) runs on webcam frames, with MediaPipe landmarks for gaze direction and self-touch gestures. Live, every 3rd frame, smoothed over a 5-frame window. |
 | 🔊 **Reads emotion off your voice** | A **fine-tuned wav2vec2-XLSR-53** classifier reads vocal tone across 7 emotions — from acoustics alone, independent of the words. A second verbatim pass counts filler words. |
 | 🧠 **Separates its evidence** | Face, voice, and wording are three independent channels. When they disagree, that gap is surfaced — not averaged away. |
@@ -128,7 +128,7 @@ This is the part a text box cannot do. Two classifiers run on you continuously, 
 
 | | |
 |---|---|
-| **Model** | **`Eya-Jmaa/emotions_speech`** — our own wav2vec2-large-XLSR-53 fine-tune |
+| **Model** | **`Ghazouaniwala/emotions_speech`** — our own wav2vec2-large-XLSR-53 fine-tune |
 | **Classes** | `neutral · happy · sad · angry · fearful · disgust · surprised` |
 | **Input** | Raw 16 kHz waveform, 4-second clips, up to 6 chunks per turn — **acoustics only**, no transcript |
 | **Accuracy** | High, and *honestly* high — see [the fine-tuned models](#the-fine-tuned-models) for why the evaluation protocol is the interesting part |
@@ -189,7 +189,7 @@ Retrieval fails **open**: if ChromaDB is unavailable the session continues un-gr
 
 Two models here were trained for this project and published, because nothing off the shelf did the job.
 
-### 1. `Eya-Jmaa/emotions_speech` — speech emotion recognition
+### 1. `Ghazouaniwala/emotions_speech` — speech emotion recognition
 
 A **wav2vec2-large-XLSR-53** fine-tune that classifies emotional tone from raw audio.
 
@@ -210,7 +210,7 @@ Training used focal loss (class imbalance), mixup, label smoothing, cosine annea
 
 *Measured accuracy / macro-F1 from the speaker-independent folds: see `backend/training/evaluate_models.ipynb`.*
 
-### 2. `Eya-Jmaa/silma-tts-derja` — Tunisian Derja speech synthesis
+### 2. `Ghazouaniwala/silma-tts-derja` — Tunisian Derja speech synthesis
 
 An **F5-TTS** fine-tune, and the reason Solace can speak Derja at all.
 
@@ -437,12 +437,12 @@ Training and evaluation details for the vocal model — including the speaker-in
 | **STT** | faster-whisper + Silero VAD | Much faster than reference Whisper; VAD enables silence-safe incremental cuts |
 | **LLM** | Google Gemini 2.5 Flash (`google-genai`) | Sub-second time-to-first-token; streaming; strict JSON mode for reports |
 | **TTS (en/fr)** | Kokoro-82M via Kokoro-FastAPI (Docker) | 82M params, runs on CPU, natural prosody |
-| **TTS (Derja)** | **`Eya-Jmaa/silma-tts-derja`** — our F5-TTS fine-tune | Off-the-shelf Arabic TTS produces MSA, not Derja — this was fine-tuned to fix that |
+| **TTS (Derja)** | **`Ghazouaniwala/silma-tts-derja`** — our F5-TTS fine-tune | Off-the-shelf Arabic TTS produces MSA, not Derja — this was fine-tuned to fix that |
 | **STT (Derja)** | Vosk `linto-asr-ar-tn` | Purpose-built Tunisian Arabic acoustic model |
 | **RAG** | ChromaDB + `multilingual-e5-base` (sentence-transformers) | Multilingual embeddings matter when queries arrive in three languages |
 | **Face emotion** | EmotiEffLib `enet_b0_8_best_afew` (EfficientNet-B0, ONNX Runtime) | 8-class expression at interactive CPU frame rates |
 | **Face geometry** | MediaPipe Face + Hand Landmarker, OpenCV | Gaze ratio and self-touch detection; OpenCV decodes JPEG frames |
-| **Vocal emotion** | **`Eya-Jmaa/emotions_speech`** — our wav2vec2-XLSR-53 fine-tune | Self-supervised pretraining survives a small emotion dataset; layer-weighted pooling over all 25 hidden states |
+| **Vocal emotion** | **`Ghazouaniwala/emotions_speech`** — our wav2vec2-XLSR-53 fine-tune | Self-supervised pretraining survives a small emotion dataset; layer-weighted pooling over all 25 hidden states |
 | **Text emotion** | Gemini as a zero-shot classifier | Evidence spans are verified verbatim against the source message, or dropped |
 | **ML runtime** | PyTorch, Transformers, ONNX Runtime, librosa, NumPy | Torch for the fine-tunes, ONNX for the vision path, librosa for audio DSP |
 | **NLP** | spaCy, `langdetect` | Text processing; reply-language detection for typed chat |
@@ -649,8 +649,8 @@ Built with [faster-whisper](https://github.com/SYSTRAN/faster-whisper), [Silero 
 
 | Model | Base | Purpose |
 |---|---|---|
-| [`Eya-Jmaa/emotions_speech`](https://huggingface.co/Eya-Jmaa/emotions_speech) | wav2vec2-large-XLSR-53 | 7-class speech emotion recognition |
-| [`Eya-Jmaa/silma-tts-derja`](https://huggingface.co/Eya-Jmaa/silma-tts-derja) | F5-TTS | Tunisian Derja speech synthesis |
+| [`Ghazouaniwala/emotions_speech`](https://huggingface.co/Ghazouaniwala/emotions_speech) | wav2vec2-large-XLSR-53 | 7-class speech emotion recognition |
+| [`Ghazouaniwala/silma-tts-derja`](https://huggingface.co/Ghazouaniwala/silma-tts-derja) | F5-TTS | Tunisian Derja speech synthesis |
 
 Emotion model trained on [RAVDESS](https://zenodo.org/records/1188976), augmented with [ESC-50](https://github.com/karolpiczak/ESC-50) environmental noise.
 
