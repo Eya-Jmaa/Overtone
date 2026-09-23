@@ -1,4 +1,4 @@
-# Solace — Detailed Project Description
+# Overtone — Detailed Project Description
 
 > **Status:** Live snapshot of the codebase as of 2026-08-03.
 > This document replaces the older, stale project docs (`PROJECT_ARCHITECTURE_REPORT.md`, `PROJECT_HANDOFF.md`, `PIPELINE.md`) which predate the Gemini LLM migration, the RAG wiring, the live WebSocket voice loop, the webcam emotion pipeline, and the Tunisian Derja STT integration.
@@ -7,7 +7,7 @@
 
 ## 1. What This Project Is
 
-**Solace** is a full-stack, real-time, multimodal communication-coaching web application. Users practice difficult conversations (negotiations, interviews, boundary-setting, emotional regulation, sport-performance mindset) with an AI coach that **listens, watches, answers, and speaks back**.
+**Overtone** is a full-stack, real-time, multimodal communication-coaching web application. Users practice difficult conversations (negotiations, interviews, boundary-setting, emotional regulation, sport-performance mindset) with an AI coach that **listens, watches, answers, and speaks back**.
 
 The product supports three immersion modes:
 

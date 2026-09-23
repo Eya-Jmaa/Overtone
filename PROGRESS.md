@@ -1,4 +1,4 @@
-# Solace: Progress & Outstanding Work
+# Overtone: Progress & Outstanding Work
 
 Status snapshot as of 2026-07-16. Complements [PIPELINE.md](PIPELINE.md) and [ARCHITECTURE.html](ARCHITECTURE.html) (architecture overviews) — this file tracks what's actually done vs. still stubbed/broken.
 

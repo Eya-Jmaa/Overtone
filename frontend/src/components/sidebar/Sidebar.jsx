@@ -40,7 +40,7 @@ export default function Sidebar({ onCollapse }) {
         height: "100%",
       }}>
         <div style={{ padding: "22px 20px 18px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-          <div className="wordmark" style={{ fontSize: 18 }}>Solace<span>.</span></div>
+          <div className="wordmark" style={{ fontSize: 18 }}>Overtone<span>.</span></div>
           <button
             onClick={onCollapse}
             title="Collapse sidebar"

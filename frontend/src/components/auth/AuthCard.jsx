@@ -52,7 +52,7 @@ export default function AuthCard({ variant = "login", title, eyebrow, children, 
         <AmbientWave />
 
         <div style={{ position: "relative", zIndex: 2 }}>
-          <div className="wordmark">Solace<span>.</span></div>
+          <div className="wordmark">Overtone<span>.</span></div>
         </div>
 
         <div style={{

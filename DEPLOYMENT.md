@@ -1,4 +1,4 @@
-# Deploying Solace (AI-Coach) — production + hardening guide
+# Deploying Overtone (AI-Coach) — production + hardening guide
 
 Target shape: **one container** holding the whole FastAPI backend and all in-process
 models, on a host with real RAM. Frontend static on Vercel. Public signup.
@@ -92,7 +92,7 @@ route surface to anyone. In production:
 ```python
 _is_prod = settings.environment == "production"
 app = FastAPI(
-    title="Solace",
+    title="Overtone",
     lifespan=lifespan,
     docs_url=None if _is_prod else "/docs",
     redoc_url=None if _is_prod else "/redoc",
@@ -289,7 +289,7 @@ Railway and Render both work but get expensive at 8 GB.
 `fly.toml`:
 
 ```toml
-app = "solace-api"
+app = "overtone-api"
 primary_region = "cdg"
 
 [build]

@@ -1,12 +1,12 @@
 <div align="center">
 
-# Solace
+# Overtone
 
 **A real-time, multimodal AI psychological coach — one that reads your face, hears your tone, and answers with a named therapeutic technique instead of a platitude.**
 
 ### 👁️ It watches your face to read your emotions. 🔊 It listens to your voice to read them again. ⚡ Both in real time, while you are still speaking.
 
-Solace runs **two independent emotion classifiers on you at once** — a facial-expression model on your webcam frames and a **fine-tuned wav2vec2-XLSR-53 speech-emotion model** on your voice. Face gives expression, gaze, and self-touch gestures at interactive frame rates. Voice gives emotional tone from *how* you sound, not what you said, at high accuracy on unseen speakers — because it was evaluated speaker-independently, not on the leaky random split that inflates every other number you have seen.
+Overtone runs **two independent emotion classifiers on you at once** — a facial-expression model on your webcam frames and a **fine-tuned wav2vec2-XLSR-53 speech-emotion model** on your voice. Face gives expression, gaze, and self-touch gestures at interactive frame rates. Voice gives emotional tone from *how* you sound, not what you said, at high accuracy on unseen speakers — because it was evaluated speaker-independently, not on the leaky random split that inflates every other number you have seen.
 
 Then it answers out loud — in English, French, or Tunisian Derja — grounded in **603 documents of real clinical psychology**: CBT protocols, Motivational Interviewing manuals, Gottman, NVC, DBT, attachment theory.
 
@@ -56,7 +56,7 @@ Then it answers out loud — in English, French, or Tunisian Derja — grounded 
 ## Table of contents
 
 - [The problem](#the-problem)
-- [What Solace does](#what-solace-does)
+- [What Overtone does](#what-overtone-does)
 - [Real-time emotion sensing](#real-time-emotion-sensing)
 - [A psychological coach, not an interview bot](#a-psychological-coach-not-an-interview-bot)
 - [The fine-tuned models](#the-fine-tuned-models)
@@ -80,21 +80,21 @@ Then it answers out loud — in English, French, or Tunisian Derja — grounded 
 >
 > A human coach would catch all of that in ten minutes. A human coach also costs 80 DT an hour and books out two weeks ahead.
 >
-> So Sarra opens Solace, picks **Professional**, and starts talking — in the mix of Derja and French she actually speaks. The coach answers out loud, in the same language, about a second after she stops. It notices she goes quiet on the salary question and asks her why. Afterwards it hands her a debrief: three things that landed, three to fix, each one timestamped to the moment it happened, each fix tied to a named technique from a real coaching manual.
+> So Sarra opens Overtone, picks **Professional**, and starts talking — in the mix of Derja and French she actually speaks. The coach answers out loud, in the same language, about a second after she stops. It notices she goes quiet on the salary question and asks her why. Afterwards it hands her a debrief: three things that landed, three to fix, each one timestamped to the moment it happened, each fix tied to a named technique from a real coaching manual.
 
-Interview practice is only the most legible use of Solace. The harder one:
+Interview practice is only the most legible use of Overtone. The harder one:
 
 > Mehdi is not preparing for anything. He has been having the same fight with his partner for four months and cannot describe it without his jaw tightening. Talking to a therapist means a waiting list, a fee, and saying the words out loud to a stranger.
 >
-> He opens Solace in **Psychology** mode and just talks. The coach reflects back what it heard before offering anything — because that is what Motivational Interviewing says to do, and the retrieved passage telling it so came out of the SAMHSA TIP-35 manual. When his wording stays calm but his voice reads `angry`, it does not tell him he is angry. It asks about the gap. When he describes the fight as *"she always does this"*, the response is built on Gottman's **Soft Startup** and NVC's **observation vs. evaluation** — named techniques, retrieved from real clinical material, not improvised sympathy.
+> He opens Overtone in **Psychology** mode and just talks. The coach reflects back what it heard before offering anything — because that is what Motivational Interviewing says to do, and the retrieved passage telling it so came out of the SAMHSA TIP-35 manual. When his wording stays calm but his voice reads `angry`, it does not tell him he is angry. It asks about the gap. When he describes the fight as *"she always does this"*, the response is built on Gottman's **Soft Startup** and NVC's **observation vs. evaluation** — named techniques, retrieved from real clinical material, not improvised sympathy.
 
 **Most "AI coach" tools are a chatbot with a text box.** They read your words and miss the entire signal — the hesitation, the flat delivery, the broken eye contact. They also generate advice from nothing but the base model's vibes. And essentially none of them work in Tunisian Derja, which is what a Tunisian actually panics in.
 
-Solace is built for the gap between those facts: **measure the channels a text box cannot see, then answer from a body of real psychology instead of from nowhere.**
+Overtone is built for the gap between those facts: **measure the channels a text box cannot see, then answer from a body of real psychology instead of from nowhere.**
 
 ---
 
-## What Solace does
+## What Overtone does
 
 | | |
 |---|---|
@@ -143,7 +143,7 @@ Because the disagreement *is* the signal. A user whose wording reads `neutral` w
 
 ## A psychological coach, not an interview bot
 
-Solace is a **psychology-first coach**. Interview prep is one mode of three; the core of the system is a retrieval layer over real clinical and counselling material, and a coach that responds *through named techniques* rather than generic encouragement.
+Overtone is a **psychology-first coach**. Interview prep is one mode of three; the core of the system is a retrieval layer over real clinical and counselling material, and a coach that responds *through named techniques* rather than generic encouragement.
 
 ### What is actually in the knowledge base
 
@@ -212,7 +212,7 @@ Training used focal loss (class imbalance), mixup, label smoothing, cosine annea
 
 ### 2. `Ghazouaniwala/silma-tts-derja` — Tunisian Derja speech synthesis
 
-An **F5-TTS** fine-tune, and the reason Solace can speak Derja at all.
+An **F5-TTS** fine-tune, and the reason Overtone can speak Derja at all.
 
 **The problem it solves:** every off-the-shelf Arabic TTS produces **Modern Standard Arabic** — a formal register nobody speaks conversationally. A coach that answers a nervous Tunisian in MSA sounds like a news broadcast, which is roughly the opposite of the intended effect. There was no usable Derja voice, so one was fine-tuned.
 
@@ -465,7 +465,7 @@ Training and evaluation details for the vocal model — including the speaker-in
 ### 1. Clone and configure
 
 ```bash
-git clone https://github.com/<your-username>/solace.git && cd solace
+git clone https://github.com/<your-username>/overtone.git && cd overtone
 ```
 
 ```bash
@@ -495,7 +495,7 @@ python backend/scripts/setup_emotion_model.py
 ### 4. Speech synthesis
 
 ```bash
-docker run -d -p 8880:8880 --name solace-kokoro ghcr.io/remsky/kokoro-fastapi-cpu:latest
+docker run -d -p 8880:8880 --name overtone-kokoro ghcr.io/remsky/kokoro-fastapi-cpu:latest
 ```
 
 > Set `KOKORO_AUTOSTART=true` in `.env` to have the backend manage this container itself.
@@ -575,7 +575,7 @@ All settings live in `backend/.env` (see `.env.example`). The ones worth knowing
 ## Project structure
 
 ```
-solace/
+overtone/
 ├── backend/
 │   ├── routers/          # ws.py (voice loop) · auth · conversations · messages · analytics
 │   ├── services/
@@ -660,6 +660,6 @@ Knowledge base assembled from openly licensed clinical and coaching material (SA
 
 <div align="center">
 
-**Solace** — *comfort, and psychological ease.*
+**Overtone** — *the feeling in the voice, above the words.*
 
 </div>

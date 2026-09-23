@@ -61,7 +61,7 @@ function EmptyState() {
           letterSpacing: -0.3,
         }}
       >
-        Solace.
+        Overtone.
       </span>
       <span style={{ fontSize: 13 }}>
         Select a conversation or start a new one
