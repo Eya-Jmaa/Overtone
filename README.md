@@ -465,7 +465,7 @@ Training and evaluation details for the vocal model — including the speaker-in
 ### 1. Clone and configure
 
 ```bash
-git clone https://github.com/Eya-Jmaa/Solace.git && cd Solace
+git clone https://github.com/Eya-Jmaa/Overtone.git && cd Overtone
 ```
 
 ```bash
