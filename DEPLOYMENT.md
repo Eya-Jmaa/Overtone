@@ -1,5 +1,7 @@
 # Deploying Overtone (AI-Coach) — production + hardening guide
 
+Repository: https://github.com/Eya-Jmaa/Overtone
+
 Target shape: **one container** holding the whole FastAPI backend and all in-process
 models, on a host with real RAM. Frontend static on Vercel. Public signup.
 
